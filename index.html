@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Voice Inside Galaxy — Онлайн школа музыкального продакшна</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo"><a href="index.html">VOICE INSIDE <span>GALAXY</span></a></div>
+  <div class="right-group">
+    <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
+    <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
+    <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">НАВИГАЦИЯ</div>
+  <ul class="menu-list">
+    <li><a href="index.html">ГЛАВНАЯ</a></li>
+    <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
+    <li><a href="#" id="menuInfoLink">ИНФОРМАЦИЯ</a></li>
+    <li><a href="#" id="menuSocialsLink">СОЦ СЕТИ</a></li>
+    <li><a href="#" id="menuDocsLink">ДОКУМЕНТЫ</a></li>
+  </ul>
+  <div style="margin-top: 40px; font-size: 11px; color: #444;">© 2025</div>
+</div>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-title"><span>КОРЗИНА</span><button class="close-cart" id="closeCartBtn">✕</button></div>
+  <div class="cart-items" id="cartItemsList"><div class="empty-cart">Корзина пуста</div></div>
+  <div class="cart-total" id="cartTotal">ИТОГО: 0 ₽</div>
+  <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
+</div>
+
+<div class="modal" id="regModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h3>РЕГИСТРАЦИЯ</h3>
+    <input type="text" id="regName" placeholder="Имя">
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="password" id="regPassword" placeholder="Пароль">
+    <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
+  </div>
+</div>
+
+<main>
+<div class="container">
+  <div class="hero">
+    <h1>Онлайн школа <span>музыкального продакшна</span></h1>
+    <p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу. Курсы от новичка до профи.</p>
+    <button class="btn-primary" id="heroCoursesBtn">СМОТРЕТЬ КУРСЫ</button>
+  </div>
+
+  <div class="section-title">О школе</div>
+  <div class="info-block">
+    <p>Voice Inside Galaxy — онлайн школа музыкального продакшна. Обучаем работе в Ableton Live, FL Studio, Logic Pro, вокалу, звукорежиссуре и сведению.</p>
+    <p style="margin-top: 12px">Доступ к материалам — 6 месяцев. Поддержка в Telegram. Рассрочка до 6 месяцев без переплат.</p>
+  </div>
+
+  <div class="section-title">Популярные курсы</div>
+  <div class="cards-grid" id="popularContainer"></div>
+</div>
+
+<div class="social-links" id="socialsSection" style="display: none; max-width: 1280px; margin: 0 auto; padding: 0 16px;">
+  <a href="#">TELEGRAM</a>
+  <a href="#">YOUTUBE</a>
+</div>
+
+<div class="docs-block" id="docsSection" style="display: none; max-width: 1280px; margin: 40px auto 0; padding: 20px;">
+  <p>Лицензия на образовательную деятельность № Л035-01298-77/00765432</p>
+  <p>Политика обработки персональных данных</p>
+  <p>Договор оферты на оказание услуг</p>
+</div>
+
+<footer>
+  <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
+  <p style="margin-top: 6px;">hello@voicegalaxy.ru</p>
+</footer>
+</main>
+
+<script src="script.js"></script>
+<script src="cart.js"></script>
+<script>
+  const courses = [
+    {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:4900,desc:"Полный курс по Ableton Live: интерфейс, запись, аранжировка",cover:"AL.png",popular:true,duration:"8 часов"},
+    {id:2,name:"Сведение и мастеринг",level:"intermediate",levelName:"ОПЫТНЫЙ",price:6900,desc:"Профессиональное сведение треков",cover:null,popular:true,duration:"12 часов"},
+    {id:3,name:"Продакшн Techno",level:"intermediate",levelName:"ОПЫТНЫЙ",price:5900,desc:"Создание техно-треков",cover:null,popular:false,duration:"10 часов"},
+    {id:4,name:"Вокал в электронике",level:"beginner",levelName:"НОВИЧОК",price:4500,desc:"Техники вокала для электронной музыки",cover:null,popular:false,duration:"6 часов"},
+    {id:5,name:"Звуковой дизайн",level:"pro",levelName:"ПРОФИ",price:8900,desc:"Создание уникальных звуков",cover:null,popular:false,duration:"14 часов"},
+    {id:6,name:"FL Studio с нуля",level:"beginner",levelName:"НОВИЧОК",price:4900,desc:"Полный курс по FL Studio",cover:null,popular:false,duration:"7 часов"}
+  ];
+
+  function renderCard(c) {
+    const lvlClass = c.level === 'beginner' ? 'level-beginner' : (c.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
+    const coverStyle = c.cover ? `background-image: url('${c.cover}')` : 'background-color:#1a1a1a';
+    return `
+      <a href="course-detail.html?id=${c.id}" class="course-card">
+        <div class="course-cover" style="${coverStyle};background-size:cover;background-position:center"></div>
+        <div class="course-info">
+          <div class="course-header">
+            <span class="course-name">${c.name}</span>
+            <span class="level-badge ${lvlClass}">${c.levelName}</span>
+          </div>
+          <div class="course-description">${c.desc}</div>
+          <div class="course-meta">
+            <span class="course-duration">🕒 ${c.duration}</span>
+            <span class="course-price">${c.price.toLocaleString()} ₽</span>
+          </div>
+          <button class="add-to-cart-btn" data-id="${c.id}" data-name="${c.name}" data-price="${c.price}">В КОРЗИНУ</button>
+        </div>
+      </a>
+    `;
+  }
+
+  function renderPopular() {
+    const popular = courses.filter(c => c.popular);
+    document.getElementById('popularContainer').innerHTML = popular.map(c => renderCard(c)).join('');
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.id);
+        const name = btn.dataset.name;
+        const price = parseInt(btn.dataset.price);
+        addToCart({ id, name, price });
+      };
+    });
+  }
+
+  // Навигация по секциям на главной
+  function scrollToSection(sectionId) {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    closeSideMenu();
+  }
+
+  // Обработчики
+  document.getElementById('burgerBtn').onclick = toggleSideMenu;
+  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
+  document.getElementById('closeCartBtn').onclick = closeCart;
+  document.getElementById('regBtn').onclick = openRegModal;
+  document.getElementById('closeModalBtn').onclick = closeRegModal;
+  document.getElementById('heroCoursesBtn').onclick = () => { window.location.href = 'courses.html'; };
+  document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  document.getElementById('doRegisterBtn').onclick = () => {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    if (!name || !email || !password) alert('Заполните все поля');
+    else if (password.length < 4) alert('Пароль минимум 4 символа');
+    else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
+  };
+
+  // Показать/скрыть секции
+  document.getElementById('menuInfoLink').onclick = (e) => {
+    e.preventDefault();
+    document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+    closeSideMenu();
+  };
+  document.getElementById('menuSocialsLink').onclick = (e) => {
+    e.preventDefault();
+    document.getElementById('socialsSection').style.display = 'flex';
+    document.getElementById('socialsSection').scrollIntoView({ behavior: 'smooth' });
+    closeSideMenu();
+  };
+  document.getElementById('menuDocsLink').onclick = (e) => {
+    e.preventDefault();
+    document.getElementById('docsSection').style.display = 'block';
+    document.getElementById('docsSection').scrollIntoView({ behavior: 'smooth' });
+    closeSideMenu();
+  };
+
+  renderPopular();
+</script>
+</body>
+</html>
