@@ -8,89 +8,36 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .hero {
+      background-image: url('back.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: var(--radius);
+      margin-bottom: 50px;
+      padding: 80px 20px;
       text-align: center;
-      margin-bottom: 20px;
-      padding-top: 70px;
+      position: relative;
     }
-    @media (min-width: 768px) {
-      .hero { padding-top: 90px; }
-    }
-    .hero h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    @media (min-width: 768px) {
-      .hero h1 { font-size: 3.2rem; }
-    }
+    @media (min-width: 768px) { .hero { padding: 120px 40px; } }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); border-radius: var(--radius); }
+    .hero h1, .hero p { position: relative; z-index: 1; color: #fff; }
+    .hero h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+    @media (min-width: 768px) { .hero h1 { font-size: 3.2rem; } }
     .hero h1 span { color: var(--accent); }
-    .hero p {
-      font-size: 0.8rem;
-      color: #a0a0a0;
-    }
-    @media (min-width: 768px) {
-      .hero p { font-size: 1.1rem; }
-    }
-    .profile-badge {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 4px 12px 4px 16px;
-      border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      cursor: pointer;
-    }
+    .hero p { font-size: 0.9rem; color: #e0e0e0; }
+    @media (min-width: 768px) { .hero p { font-size: 1.1rem; } }
+    .profile-badge { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 4px 12px 4px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; }
     .profile-badge.show { display: flex; }
-    .profile-name {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--accent);
-      max-width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .profile-avatar {
-      width: 28px;
-      height: 28px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      font-weight: 700;
-      font-size: 0.75rem;
-    }
+    .profile-name { font-size: 0.8rem; font-weight: 500; color: var(--accent); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .profile-avatar { width: 28px; height: 28px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; font-size: 0.75rem; }
     .profile-modal .modal-content { max-width: 500px; }
-    .profile-stats {
-      background: #1a1a1a;
-      border-radius: 12px;
-      padding: 16px;
-      margin: 16px 0;
-      text-align: left;
-    }
+    .profile-stats { background: #1a1a1a; border-radius: 12px; padding: 16px; margin: 16px 0; text-align: left; }
     .profile-stats p { margin: 8px 0; font-size: 0.9rem; }
-    .profile-courses { max-height: 200px; overflow-y: auto; text-align: left; }
-    .profile-course-item {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .profile-course-name { font-size: 0.85rem; }
-    .profile-course-status { font-size: 0.7rem; color: var(--accent); }
-    .logout-btn {
-      background: transparent;
-      border: 1px solid var(--red);
-      color: var(--red);
-      padding: 8px 20px;
-      border-radius: 40px;
-      cursor: pointer;
-      margin-top: 16px;
-    }
+    .profile-courses { max-height: 250px; overflow-y: auto; text-align: left; }
+    .profile-course-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .profile-course-name { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .profile-course-link { background: var(--accent); color: #000; padding: 6px 12px; border-radius: 40px; text-decoration: none; font-size: 0.7rem; font-weight: 600; display: inline-block; }
+    .logout-btn { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 8px 20px; border-radius: 40px; cursor: pointer; margin-top: 16px; }
     .logout-btn:hover { background: var(--red); color: #fff; }
     .footer-offer { color: #6a6a6a; text-decoration: none; }
     .footer-offer:hover { color: var(--accent); text-decoration: underline; }
@@ -176,7 +123,7 @@
       <p><strong>Имя:</strong> <span id="profileModalName"></span></p>
       <p><strong>Email:</strong> <span id="profileModalEmail"></span></p>
       <p><strong>Куплено курсов:</strong> <span id="profileCoursesCount">0</span></p>
-      <p><strong>Прогресс обучения:</strong> <span id="profileProgress">0</span>%</p>
+      <p><strong>Общий прогресс:</strong> <span id="profileProgress">0</span>%</p>
     </div>
     <div class="profile-courses" id="profileCoursesList">
       <p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>
@@ -194,7 +141,7 @@
   <div class="cards-grid" id="allCoursesContainer"></div>
 </div>
 <footer>
-  <p><a href="oferta.docx" class="footer-offer" target="_blank" rel="noopener noreferrer">Публичная оферта</a></p>
+  <p><a href="oferta.docx" class="footer-offer" target="_blank">Публичная оферта</a></p>
   <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
 </footer>
 </main>
@@ -242,7 +189,8 @@
     document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
     let totalProgress = 0;
     if (purchasedCourses.length > 0) {
-      totalProgress = Math.floor((currentUser.completedLessons || 0) / (purchasedCourses.length * 10) * 100);
+      const courseProgressValues = Object.values(currentUser.courseProgress || {});
+      if (courseProgressValues.length > 0) totalProgress = Math.floor(courseProgressValues.reduce((a,b) => a + b, 0) / purchasedCourses.length);
       if (totalProgress > 100) totalProgress = 100;
     }
     document.getElementById('profileProgress').innerText = totalProgress;
@@ -254,46 +202,69 @@
       purchasedCourses.forEach(courseId => {
         const course = courses.find(c => c.id === courseId);
         if (course) {
-          html += `<div class="profile-course-item"><span class="profile-course-name">${course.name}</span><span class="profile-course-status">✅ Куплен</span></div>`;
+          const courseProgress = currentUser.courseProgress?.[courseId] || 0;
+          html += `<div class="profile-course-item"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span class="profile-course-name">${course.name}</span><a href="course-detail.html?id=${course.id}" class="profile-course-link">${courseProgress === 100 ? 'ПРОЙДЕН' : 'ПРОДОЛЖИТЬ'}</a></div><div style="font-size:0.7rem; color:#666;"><span style="color:var(--accent);">Прогресс: ${courseProgress}%</span></div><div style="width:100%; height:4px; background:#333; border-radius:4px; margin-top:6px;"><div style="width:${courseProgress}%; height:4px; background:var(--accent); border-radius:4px;"></div></div></div>`;
         }
       });
       coursesListDiv.innerHTML = html;
     }
   }
 
+  function registerUser(name, email, password) {
+    const users = loadUsers();
+    if (users.find(u => u.email === email)) { alert('Пользователь с таким email уже существует'); return false; }
+    const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], courseProgress: {}, completedLessons: 0 };
+    users.push(newUser); saveUsers(users); saveCurrentUser(newUser);
+    alert(`Добро пожаловать, ${name}!`); closeRegModal(); updateProfileUI();
+    return true;
+  }
+
+  function loginUser(email, password) {
+    const users = loadUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) { saveCurrentUser(user); alert(`С возвращением, ${user.name}!`); closeLoginModal(); updateProfileUI(); return true; }
+    else { alert('Неверный email или пароль'); return false; }
+  }
+
+  function logoutUser() { localStorage.removeItem('voiceGalaxyCurrentUser'); currentUser = null; updateProfileUI(); closeProfileModal(); alert('Вы вышли из аккаунта'); }
+
+  function addPurchaseToUser(courseId) {
+    if (!currentUser) { alert('Войдите в аккаунт для покупки курса'); return false; }
+    const users = loadUsers();
+    const userIndex = users.findIndex(u => u.id === currentUser.id);
+    if (userIndex !== -1) {
+      if (!users[userIndex].purchasedCourses) users[userIndex].purchasedCourses = [];
+      if (!users[userIndex].courseProgress) users[userIndex].courseProgress = {};
+      if (!users[userIndex].purchasedCourses.includes(courseId)) {
+        users[userIndex].purchasedCourses.push(courseId);
+        users[userIndex].courseProgress[courseId] = 0;
+        saveUsers(users);
+        currentUser.purchasedCourses = users[userIndex].purchasedCourses;
+        currentUser.courseProgress = users[userIndex].courseProgress;
+        saveCurrentUser(currentUser);
+      }
+    }
+    return true;
+  }
+
+  function checkout() {
+    if (!currentUser) { alert('Войдите в аккаунт для оформления заказа'); openRegModal(); return; }
+    if (cart.length === 0) { alert('Корзина пуста'); return; }
+    cart.forEach(item => { addPurchaseToUser(item.id); });
+    cart = []; saveCart(cart); updateCartUI();
+    alert('Спасибо за заказ! Курсы добавлены в ваш личный кабинет.');
+  }
+
   function renderCard(c) {
     const lvlClass = c.level === 'beginner' ? 'level-beginner' : 'level-pro';
     const coverStyle = c.cover ? `background-image: url('${c.cover}')` : 'background-color:#1a1a1a';
-    return `
-      <a href="course-detail.html?id=${c.id}" class="course-card">
-        <div class="course-cover" style="${coverStyle};background-size:cover;background-position:center"></div>
-        <div class="course-info">
-          <div class="course-header">
-            <span class="course-name">${c.name}</span>
-            <span class="level-badge ${lvlClass}">${c.levelName}</span>
-          </div>
-          <div class="course-description">${c.desc}</div>
-          <div class="course-meta">
-            <span class="course-duration">${c.duration}</span>
-            <span class="course-price">${c.price.toLocaleString()} ₽</span>
-          </div>
-          <button class="add-to-cart-btn" data-id="${c.id}" data-name="${c.name}" data-price="${c.price}">В КОРЗИНУ</button>
-        </div>
-      </a>
-    `;
+    return `<a href="course-detail.html?id=${c.id}" class="course-card"><div class="course-cover" style="${coverStyle};background-size:cover;background-position:center"></div><div class="course-info"><div class="course-header"><span class="course-name">${c.name}</span><span class="level-badge ${lvlClass}">${c.levelName}</span></div><div class="course-description">${c.desc}</div><div class="course-meta"><span class="course-duration">${c.duration}</span><span class="course-price">${c.price.toLocaleString()} ₽</span></div><button class="add-to-cart-btn" data-id="${c.id}" data-name="${c.name}" data-price="${c.price}">В КОРЗИНУ</button></div></a>`;
   }
 
   function renderAllCourses() {
     document.getElementById('allCoursesContainer').innerHTML = courses.map(c => renderCard(c)).join('');
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-      btn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const id = parseInt(btn.dataset.id);
-        const name = btn.dataset.name;
-        const price = parseInt(btn.dataset.price);
-        addToCart({ id, name, price });
-      };
+      btn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); const id = parseInt(btn.dataset.id); const name = btn.dataset.name; const price = parseInt(btn.dataset.price); addToCart({ id, name, price }); };
     });
   }
 
@@ -313,60 +284,20 @@
   document.getElementById('closeCartBtn').onclick = () => { if (typeof closeCart === 'function') closeCart(); };
   document.getElementById('regBtn').onclick = openRegModal;
   document.getElementById('closeModalBtn').onclick = closeRegModal;
-  document.getElementById('checkoutBtn').onclick = () => { if (cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  document.getElementById('checkoutBtn').onclick = checkout;
   document.getElementById('profileBadge').onclick = openProfileModal;
   document.getElementById('closeProfileModalBtn').onclick = closeProfileModal;
-  document.getElementById('logoutBtn').onclick = () => {
-    localStorage.removeItem('voiceGalaxyCurrentUser');
-    currentUser = null;
-    updateProfileUI();
-    closeProfileModal();
-    alert('Вы вышли из аккаунта');
-  };
+  document.getElementById('logoutBtn').onclick = logoutUser;
 
-  document.getElementById('doRegisterBtn').onclick = () => {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const password = document.getElementById('regPassword').value;
-    if (!name || !email || !password) alert('Заполните все поля');
-    else if (password.length < 4) alert('Пароль минимум 4 символа');
-    else {
-      const users = loadUsers();
-      if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
-      else {
-        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
-        users.push(newUser);
-        saveUsers(users);
-        saveCurrentUser(newUser);
-        alert(`Добро пожаловать, ${name}!`);
-        closeRegModal();
-        updateProfileUI();
-      }
-    }
-  };
-
-  document.getElementById('doLoginBtn').onclick = () => {
-    const email = document.getElementById('loginEmail').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    const users = loadUsers();
-    const user = users.find(u => u.email === email && u.password === password);
-    if (user) { saveCurrentUser(user); alert(`С возвращением, ${user.name}!`); closeLoginModal(); updateProfileUI(); }
-    else alert('Неверный email или пароль');
-  };
-
+  document.getElementById('doRegisterBtn').onclick = () => { const name = document.getElementById('regName').value.trim(); const email = document.getElementById('regEmail').value.trim(); const password = document.getElementById('regPassword').value; if (!name || !email || !password) alert('Заполните все поля'); else if (password.length < 4) alert('Пароль минимум 4 символа'); else registerUser(name, email, password); };
+  document.getElementById('doLoginBtn').onclick = () => { const email = document.getElementById('loginEmail').value.trim(); const password = document.getElementById('loginPassword').value; loginUser(email, password); };
   document.getElementById('showLoginBtn').onclick = (e) => { e.preventDefault(); closeRegModal(); openLoginModal(); };
   document.getElementById('showRegFromLoginBtn').onclick = (e) => { e.preventDefault(); closeLoginModal(); openRegModal(); };
   document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
 
-  window.onclick = (e) => {
-    if (e.target === regModal) closeRegModal();
-    if (e.target === loginModal) closeLoginModal();
-    if (e.target === profileModal) closeProfileModal();
-  };
+  window.onclick = (e) => { if (e.target === regModal) closeRegModal(); if (e.target === loginModal) closeLoginModal(); if (e.target === profileModal) closeProfileModal(); };
 
-  renderAllCourses();
-  loadCurrentUser();
-  if (typeof updateCartUI === 'function') updateCartUI();
+  renderAllCourses(); loadCurrentUser(); if (typeof updateCartUI === 'function') updateCartUI();
 </script>
 </body>
 </html>
