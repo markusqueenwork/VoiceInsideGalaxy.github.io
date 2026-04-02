@@ -84,8 +84,7 @@
   <ul class="menu-list">
     <li><a href="index.html">ГЛАВНАЯ</a></li>
     <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
-    <li><a href="socials.html">СОЦ СЕТИ</a></li>
-    <li><a href="docs.html">ДОКУМЕНТЫ</a></li>
+    <li><a href="about.html">О НАС</a></li>
   </ul>
   <div style="margin-top: 40px; font-size: 11px; color: #444;">© 2025</div>
 </div>
@@ -214,17 +213,13 @@
     document.getElementById('profileModalEmail').innerText = currentUser.email;
     const purchasedCourses = currentUser.purchasedCourses || [];
     document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
-    
     let totalProgress = 0;
     if (purchasedCourses.length > 0) {
       const courseProgressValues = Object.values(currentUser.courseProgress || {});
-      if (courseProgressValues.length > 0) {
-        totalProgress = Math.floor(courseProgressValues.reduce((a,b) => a + b, 0) / purchasedCourses.length);
-      }
+      if (courseProgressValues.length > 0) totalProgress = Math.floor(courseProgressValues.reduce((a,b) => a + b, 0) / purchasedCourses.length);
       if (totalProgress > 100) totalProgress = 100;
     }
     document.getElementById('profileProgress').innerText = totalProgress;
-    
     const coursesListDiv = document.getElementById('profileCoursesList');
     if (purchasedCourses.length === 0) {
       coursesListDiv.innerHTML = '<p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>';
