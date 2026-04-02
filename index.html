@@ -1,705 +1,130 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voice Inside Galaxy — Онлайн школа музыкального продакшна</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #000000;
-      color: #e8e8e8;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-
-    :root {
-      --bg: #000000;
-      --bg-card: #111111;
-      --bg-dark: #0a0a0a;
-      --text: #ffffff;
-      --text-secondary: #a0a0a0;
-      --accent: #FFCC00;
-      --accent-hover: #ffdd44;
-      --border: #222222;
-      --radius: 20px;
-      --radius-sm: 12px;
-      --transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      --green: #2ecc71;
-      --orange: #e67e22;
-      --red: #e74c3c;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .page {
-      display: none;
-      padding-top: 110px;
-      animation: fadeInUp 0.5s ease forwards;
-    }
-    .page.active-page {
-      display: block;
-    }
-
-    /* HEADER */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 72px;
-      background: rgba(0, 0, 0, 0.96);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      z-index: 1100;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo a {
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .logo a span {
-      color: var(--accent);
-    }
-
-    .right-group {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: #e0e0e0;
-      border-radius: 40px;
-      padding: 8px 20px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: 'Inter', sans-serif;
-    }
-
-    .header-btn:hover {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #000;
-      transform: translateY(-2px);
-    }
-
-    .cart-badge {
-      background: var(--accent);
-      color: #000;
-      border-radius: 30px;
-      padding: 2px 8px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      margin-left: 8px;
-    }
-
-    .burger-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .burger-btn span {
-      width: 20px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: 0.2s;
-    }
-    .burger-btn:hover {
-      border-color: var(--accent);
-    }
-    .burger-btn:hover span {
-      background: var(--accent);
-    }
-
-    /* SIDE MENU */
-    .side-menu {
-      position: fixed;
-      top: 72px;
-      right: -340px;
-      width: 320px;
-      height: calc(100% - 72px);
-      background: #0a0a0a;
-      border-left: 1px solid var(--border);
-      z-index: 1050;
-      transition: right 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      padding: 40px 28px;
-    }
-    .side-menu.open {
-      right: 0;
-    }
-    .menu-header {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 14px;
-    }
-    .menu-list {
-      list-style: none;
-    }
-    .menu-list li {
-      margin-bottom: 24px;
-    }
-    .menu-list a {
-      font-size: 1.1rem;
-      font-weight: 500;
-      transition: 0.2s;
-      display: block;
-      padding: 8px 0;
-      cursor: pointer;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .menu-list a:hover {
-      color: var(--accent);
-      padding-left: 8px;
-    }
-    .menu-list a.active {
-      color: var(--accent);
-      border-left: 3px solid var(--accent);
-      padding-left: 16px;
-    }
-
-    /* CART PANEL */
-    .cart-panel {
-      position: fixed;
-      top: 85px;
-      right: 24px;
-      width: 360px;
-      background: #0c0c0c;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      z-index: 1150;
-      padding: 24px;
-      display: none;
-      flex-direction: column;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-    .cart-panel.show {
-      display: flex;
-    }
-    .cart-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 16px;
-      margin-bottom: 16px;
-    }
-    .cart-items {
-      max-height: 340px;
-      overflow-y: auto;
-    }
-    .cart-item {
-      padding: 14px 0;
-      border-bottom: 1px solid #1e1e1e;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .cart-item-info {
-      flex: 1;
-    }
-    .cart-item-title {
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-    .cart-item-price {
-      color: var(--accent);
-      font-size: 0.8rem;
-    }
-    .remove-cart-item {
-      background: transparent;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: 0.2s;
-    }
-    .remove-cart-item:hover {
-      color: var(--red);
-    }
-    .cart-total {
-      margin-top: 20px;
-      text-align: right;
-      font-weight: 700;
-      color: var(--accent);
-      border-top: 1px solid #2a2a2a;
-      padding-top: 16px;
-      font-size: 1.1rem;
-    }
-    .empty-cart {
-      text-align: center;
-      color: var(--text-secondary);
-      padding: 30px 0;
-    }
-    .close-cart {
-      background: none;
-      border: none;
-      color: #aaa;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-    .close-cart:hover {
-      color: var(--accent);
-    }
-    .cart-btn-yellow {
-      background: var(--accent);
-      border: none;
-      color: #000;
-      padding: 14px;
-      margin-top: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      font-family: 'Inter', sans-serif;
-      border-radius: 40px;
-      transition: 0.2s;
-    }
-    .cart-btn-yellow:hover {
-      background: var(--accent-hover);
-    }
-
-    /* MODAL REGISTRATION */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.96);
-      backdrop-filter: blur(8px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal.active {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-    .modal-content {
-      background: #111111;
-      max-width: 400px;
-      width: 90%;
-      padding: 36px 32px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      text-align: center;
-    }
-    .modal-content h3 {
-      margin-bottom: 24px;
-      font-weight: 600;
-    }
-    .modal-content input {
-      width: 100%;
-      padding: 14px 18px;
-      margin: 12px 0;
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 40px;
-      color: white;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-    }
-    .modal-content input:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-    .modal-btn {
-      background: var(--accent);
-      border: none;
-      padding: 12px 32px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 16px;
-      font-family: 'Inter', sans-serif;
-    }
-    .close-modal {
-      float: right;
-      cursor: pointer;
-      font-size: 1.4rem;
-      color: #aaa;
-    }
-    .close-modal:hover {
-      color: var(--accent);
-    }
-
-    /* COURSE DETAIL MODAL */
-    .course-detail-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.95);
-      backdrop-filter: blur(8px);
-      z-index: 2100;
-      justify-content: center;
-      align-items: center;
-      overflow-y: auto;
-      padding: 40px 20px;
-    }
-    .course-detail-modal.active {
-      display: flex;
-    }
-    .course-detail-content {
-      background: #111111;
-      max-width: 800px;
-      width: 100%;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      animation: fadeInUp 0.3s ease;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    .course-detail-header {
-      padding: 32px;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    .close-detail {
-      position: absolute;
-      top: 24px;
-      right: 28px;
-      background: none;
-      border: none;
-      color: #aaa;
-      font-size: 1.8rem;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .close-detail:hover {
-      color: var(--accent);
-    }
-    .course-detail-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      padding-right: 40px;
-    }
-    .course-detail-meta {
-      display: flex;
-      gap: 24px;
-      margin: 16px 0;
-      flex-wrap: wrap;
-    }
-    .course-detail-time {
-      color: var(--accent);
-      font-weight: 600;
-    }
-    .course-detail-price {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 20px 0 16px;
-    }
-    .course-detail-description {
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-    .modules-section {
-      padding: 0 32px 32px 32px;
-    }
-    .modules-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-    .module-item {
-      margin-bottom: 24px;
-    }
-    .module-name {
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-    .lesson-list {
-      list-style: none;
-      padding-left: 20px;
-    }
-    .lesson-list li {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      padding: 4px 0;
-      position: relative;
-    }
-    .lesson-list li:before {
-      content: "•";
-      color: var(--accent);
-      position: absolute;
-      left: -16px;
-    }
-    .detail-add-to-cart {
-      background: var(--accent);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      margin-top: 16px;
-      width: 100%;
-      font-size: 1rem;
-    }
-    .detail-add-to-cart:hover {
-      background: var(--accent-hover);
-    }
-
-    /* MAIN CONTENT */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 70px;
-    }
-    .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-    .hero h1 span {
-      color: var(--accent);
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 680px;
-      margin: 0 auto 32px;
-    }
-    .btn-primary {
-      background: var(--accent);
-      border: none;
-      padding: 14px 40px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #000;
-      font-family: 'Inter', sans-serif;
-    }
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 36px;
-      letter-spacing: -0.3px;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 32px;
-    }
-    .course-card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-    .course-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
-    }
-    .course-cover {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background-color: #1a1a1a;
-      background-size: cover;
-      background-position: center;
-    }
-    .course-info {
-      padding: 24px;
-    }
-    .course-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .course-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-    .level-badge {
-      font-size: 0.7rem;
-      padding: 4px 12px;
-      border-radius: 40px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .level-beginner { background: var(--green); color: #000; }
-    .level-intermediate { background: var(--orange); color: #000; }
-    .level-pro { background: var(--red); color: #fff; }
-    .course-description {
-      color: var(--text-secondary);
-      margin: 12px 0;
-      font-size: 0.9rem;
-    }
-    .course-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 16px 0;
-    }
-    .course-duration {
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-    .course-price {
-      color: var(--accent);
-      font-size: 1.3rem;
-      font-weight: 700;
-    }
-    .add-to-cart-btn {
-      background: transparent;
-      border: 1px solid var(--accent);
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s;
-      color: var(--accent);
-      font-family: 'Inter', sans-serif;
-      width: 100%;
-    }
-    .add-to-cart-btn:hover {
-      background: var(--accent);
-      color: #000;
-    }
-
-    .info-block {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 36px;
-      border: 1px solid var(--border);
-    }
-    .info-block p {
-      margin-bottom: 16px;
-    }
-    .social-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .social-links a {
-      background: var(--bg-card);
-      padding: 12px 28px;
-      border-radius: 40px;
-      border: 1px solid var(--border);
-      font-weight: 500;
-      text-decoration: none;
-      color: var(--text);
-      transition: 0.2s;
-    }
-    .social-links a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .docs-block {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 36px;
-    }
-    .docs-block p {
-      margin-bottom: 14px;
-    }
-    footer {
-      text-align: center;
-      padding: 48px 0 40px;
-      border-top: 1px solid var(--border);
-      margin-top: 80px;
-      color: #6a6a6a;
-      font-size: 0.8rem;
-    }
-
-    @media (max-width: 700px) {
-      .site-header { padding: 0 20px; }
-      .container { padding: 0 20px; }
-      .hero h1 { font-size: 2rem; }
-      .header-btn span:not(.badge-text) { display: none; }
-      .header-btn { padding: 6px 12px; }
-      .cart-panel { width: 320px; right: 10px; }
-      .course-detail-title { font-size: 1.4rem; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:#000;color:#e8e8e8;font-family:'Inter',sans-serif;line-height:1.5;}
+    :root{--accent:#FFCC00;--border:#222;--radius:20px;--green:#2ecc71;--orange:#e67e22;--red:#e74c3c;}
+    
+    /* header */
+    .site-header{position:fixed;top:0;left:0;right:0;height:72px;background:rgba(0,0,0,0.96);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:1100;border-bottom:1px solid var(--border);}
+    .logo a{font-size:1.3rem;font-weight:700;color:#fff;text-decoration:none;}
+    .logo span{color:var(--accent);}
+    .right-group{display:flex;gap:16px;align-items:center;}
+    .header-btn{background:transparent;border:1px solid var(--border);color:#e0e0e0;border-radius:40px;padding:8px 20px;font-size:0.85rem;font-weight:500;cursor:pointer;transition:0.2s;}
+    .header-btn:hover{background:var(--accent);border-color:var(--accent);color:#000;}
+    .cart-badge{background:var(--accent);color:#000;border-radius:30px;padding:2px 8px;font-size:0.7rem;font-weight:700;margin-left:8px;}
+    .burger-btn{background:transparent;border:1px solid var(--border);width:44px;height:44px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;}
+    .burger-btn span{width:20px;height:2px;background:#fff;border-radius:2px;}
+    .burger-btn:hover{border-color:var(--accent);}
+    .burger-btn:hover span{background:var(--accent);}
+    
+    /* side menu */
+    .side-menu{position:fixed;top:72px;right:-340px;width:320px;height:calc(100% - 72px);background:#0a0a0a;border-left:1px solid var(--border);z-index:1050;transition:right 0.35s;padding:40px 28px;}
+    .side-menu.open{right:0;}
+    .menu-header{font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;color:#a0a0a0;margin-bottom:32px;border-bottom:1px solid var(--border);padding-bottom:14px;}
+    .menu-list{list-style:none;}
+    .menu-list li{margin-bottom:24px;}
+    .menu-list a{font-size:1.1rem;font-weight:500;cursor:pointer;color:#fff;text-decoration:none;display:block;padding:8px 0;}
+    .menu-list a:hover{color:var(--accent);padding-left:8px;}
+    .menu-list a.active{color:var(--accent);border-left:3px solid var(--accent);padding-left:16px;}
+    
+    /* cart */
+    .cart-panel{position:fixed;top:85px;right:24px;width:360px;background:#0c0c0c;border:1px solid var(--border);border-radius:var(--radius);z-index:1150;padding:24px;display:none;flex-direction:column;}
+    .cart-panel.show{display:flex;}
+    .cart-title{display:flex;justify-content:space-between;align-items:center;font-weight:600;border-bottom:1px solid #2a2a2a;padding-bottom:16px;margin-bottom:16px;}
+    .cart-items{max-height:340px;overflow-y:auto;}
+    .cart-item{padding:14px 0;border-bottom:1px solid #1e1e1e;display:flex;justify-content:space-between;align-items:center;}
+    .cart-item-info{flex:1;}
+    .remove-cart-item{background:transparent;border:none;color:#888;cursor:pointer;font-size:1.2rem;}
+    .remove-cart-item:hover{color:var(--red);}
+    .cart-total{margin-top:20px;text-align:right;font-weight:700;color:var(--accent);border-top:1px solid #2a2a2a;padding-top:16px;}
+    .empty-cart{text-align:center;color:#a0a0a0;padding:30px 0;}
+    .close-cart{background:none;border:none;color:#aaa;cursor:pointer;font-size:1.2rem;}
+    .cart-btn-yellow{background:var(--accent);border:none;color:#000;padding:14px;margin-top:18px;font-weight:600;cursor:pointer;border-radius:40px;}
+    
+    /* modal registration */
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.96);z-index:2000;justify-content:center;align-items:center;}
+    .modal.active{display:flex;}
+    .modal-content{background:#111;max-width:400px;width:90%;padding:36px 32px;border-radius:var(--radius);border:1px solid var(--border);text-align:center;}
+    .modal-content input{width:100%;padding:14px 18px;margin:12px 0;background:#1a1a1a;border:1px solid #333;border-radius:40px;color:#fff;font-family:inherit;}
+    .modal-btn{background:var(--accent);border:none;padding:12px 32px;border-radius:40px;font-weight:600;cursor:pointer;}
+    .close-modal{float:right;cursor:pointer;font-size:1.4rem;color:#aaa;}
+    
+    /* course detail modal */
+    .course-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:2100;justify-content:center;align-items:center;overflow-y:auto;padding:40px 20px;}
+    .course-modal.active{display:flex;}
+    .course-modal-content{background:#111;max-width:800px;width:100%;border-radius:var(--radius);border:1px solid var(--border);max-height:90vh;overflow-y:auto;}
+    .course-modal-header{padding:32px;border-bottom:1px solid var(--border);position:relative;}
+    .close-modal-course{position:absolute;top:20px;right:24px;background:none;border:none;color:#aaa;font-size:1.8rem;cursor:pointer;}
+    .close-modal-course:hover{color:var(--accent);}
+    .modal-course-title{font-size:1.8rem;font-weight:700;margin-bottom:12px;padding-right:40px;}
+    .modal-course-meta{display:flex;gap:24px;margin:16px 0;flex-wrap:wrap;}
+    .modal-course-duration{color:var(--accent);font-weight:600;}
+    .modal-course-price{font-size:1.5rem;font-weight:700;color:var(--accent);margin:20px 0 16px;}
+    .modal-course-desc{color:#a0a0a0;margin-bottom:24px;}
+    .modules-section{padding:0 32px 32px 32px;}
+    .modules-title{font-size:1.2rem;font-weight:600;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:8px;}
+    .module-item{margin-bottom:24px;}
+    .module-name{font-weight:600;color:var(--accent);margin-bottom:8px;}
+    .lesson-list{list-style:none;padding-left:20px;}
+    .lesson-list li{color:#a0a0a0;font-size:0.9rem;padding:4px 0;position:relative;}
+    .lesson-list li:before{content:"•";color:var(--accent);position:absolute;left:-16px;}
+    .detail-add-btn{background:var(--accent);border:none;padding:14px 32px;border-radius:40px;font-weight:600;cursor:pointer;width:100%;font-size:1rem;margin-top:16px;}
+    
+    /* main */
+    .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+    .page{display:none;padding-top:110px;animation:fadeInUp 0.5s;}
+    .page.active-page{display:block;}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    .hero{text-align:center;margin-bottom:70px;}
+    .hero h1{font-size:3.2rem;font-weight:700;margin-bottom:20px;}
+    .hero h1 span{color:var(--accent);}
+    .hero p{font-size:1.1rem;color:#a0a0a0;max-width:680px;margin:0 auto 32px;}
+    .btn-primary{background:var(--accent);border:none;padding:14px 40px;border-radius:40px;font-weight:600;cursor:pointer;font-family:inherit;}
+    .section-title{font-size:1.8rem;font-weight:700;margin-bottom:36px;}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:32px;}
+    .course-card{background:#111;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:0.25s;cursor:pointer;}
+    .course-card:hover{transform:translateY(-6px);border-color:var(--accent);}
+    .course-cover{width:100%;aspect-ratio:16/9;background-color:#1a1a1a;background-size:cover;background-position:center;}
+    .course-info{padding:24px;}
+    .course-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+    .course-name{font-size:1.2rem;font-weight:700;}
+    .level-badge{font-size:0.7rem;padding:4px 12px;border-radius:40px;font-weight:700;text-transform:uppercase;}
+    .level-beginner{background:#2ecc71;color:#000;}
+    .level-intermediate{background:#e67e22;color:#000;}
+    .level-pro{background:#e74c3c;color:#fff;}
+    .course-description{color:#a0a0a0;margin:12px 0;font-size:0.9rem;}
+    .course-meta{display:flex;justify-content:space-between;align-items:center;margin:16px 0;}
+    .course-duration{color:var(--accent);font-size:0.85rem;font-weight:500;}
+    .course-price{color:var(--accent);font-size:1.3rem;font-weight:700;}
+    .add-to-cart-btn{background:transparent;border:1px solid var(--accent);padding:10px 24px;border-radius:40px;font-weight:500;cursor:pointer;color:var(--accent);width:100%;font-family:inherit;}
+    .add-to-cart-btn:hover{background:var(--accent);color:#000;}
+    .info-block{background:#111;border-radius:var(--radius);padding:36px;border:1px solid var(--border);}
+    .social-links{display:flex;gap:24px;flex-wrap:wrap;}
+    .social-links a{background:#111;padding:12px 28px;border-radius:40px;border:1px solid var(--border);text-decoration:none;color:#fff;}
+    .social-links a:hover{border-color:var(--accent);color:var(--accent);}
+    .docs-block{background:#111;border-radius:var(--radius);padding:36px;}
+    .docs-block p{margin-bottom:14px;}
+    footer{text-align:center;padding:48px 0 40px;border-top:1px solid var(--border);margin-top:80px;color:#6a6a6a;}
+    @media (max-width:700px){.site-header{padding:0 20px;}.hero h1{font-size:2rem;}.header-btn span:not(.badge-text){display:none;}.header-btn{padding:6px 12px;}}
   </style>
 </head>
 <body>
 
 <div class="site-header">
-  <div class="logo">
-    <a href="#">VOICE INSIDE <span>GALAXY</span></a>
-  </div>
+  <div class="logo"><a href="#">VOICE INSIDE <span>GALAXY</span></a></div>
   <div class="right-group">
     <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
     <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
-    <div class="burger-btn" id="burgerBtn">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
   </div>
 </div>
 
-<!-- SIDE MENU -->
 <div class="side-menu" id="sideMenu">
   <div class="menu-header">НАВИГАЦИЯ</div>
   <ul class="menu-list">
@@ -709,193 +134,96 @@
     <li><a data-page="socials">СОЦ СЕТИ</a></li>
     <li><a data-page="docs">ДОКУМЕНТЫ</a></li>
   </ul>
-  <div style="margin-top: 48px; font-size: 11px; color: #444;">© 2025</div>
+  <div style="margin-top:48px;font-size:11px;color:#444;">© 2025</div>
 </div>
 
-<!-- CART PANEL -->
 <div class="cart-panel" id="cartPanel">
-  <div class="cart-title">
-    <span>КОРЗИНА</span>
-    <button class="close-cart" id="closeCartBtn">✕</button>
-  </div>
-  <div class="cart-items" id="cartItemsList">
-    <div class="empty-cart">Корзина пуста</div>
-  </div>
+  <div class="cart-title"><span>КОРЗИНА</span><button class="close-cart" id="closeCartBtn">✕</button></div>
+  <div class="cart-items" id="cartItemsList"><div class="empty-cart">Корзина пуста</div></div>
   <div class="cart-total" id="cartTotal">ИТОГО: 0 ₽</div>
   <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
 </div>
 
-<!-- REGISTRATION MODAL -->
 <div class="modal" id="regModal">
-  <div class="modal-content">
-    <span class="close-modal" id="closeModalBtn">&times;</span>
-    <h3>РЕГИСТРАЦИЯ</h3>
-    <input type="text" id="regName" placeholder="Имя">
-    <input type="email" id="regEmail" placeholder="Email">
-    <input type="password" id="regPassword" placeholder="Пароль">
+  <div class="modal-content"><span class="close-modal" id="closeModalBtn">&times;</span><h3>РЕГИСТРАЦИЯ</h3>
+    <input type="text" id="regName" placeholder="Имя"><input type="email" id="regEmail" placeholder="Email"><input type="password" id="regPassword" placeholder="Пароль">
     <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
   </div>
 </div>
 
-<!-- COURSE DETAIL MODAL -->
-<div class="course-detail-modal" id="courseDetailModal">
-  <div class="course-detail-content">
-    <div class="course-detail-header">
-      <button class="close-detail" id="closeDetailBtn">&times;</button>
-      <div class="course-detail-title" id="detailTitle"></div>
-      <div class="course-detail-meta">
-        <span class="course-detail-time" id="detailDuration"></span>
-        <span class="level-badge" id="detailLevel"></span>
-      </div>
-      <div class="course-detail-description" id="detailDescription"></div>
-      <div class="course-detail-price" id="detailPrice"></div>
-      <button class="detail-add-to-cart" id="detailAddToCartBtn">ДОБАВИТЬ В КОРЗИНУ</button>
+<div class="course-modal" id="courseModal">
+  <div class="course-modal-content">
+    <div class="course-modal-header"><button class="close-modal-course" id="closeModalCourseBtn">&times;</button>
+      <div class="modal-course-title" id="modalTitle"></div>
+      <div class="modal-course-meta"><span class="modal-course-duration" id="modalDuration"></span><span class="level-badge" id="modalLevel"></span></div>
+      <div class="modal-course-desc" id="modalDesc"></div>
+      <div class="modal-course-price" id="modalPrice"></div>
+      <button class="detail-add-btn" id="modalAddToCart">ДОБАВИТЬ В КОРЗИНУ</button>
     </div>
-    <div class="modules-section">
-      <div class="modules-title">ПРОГРАММА КУРСА</div>
-      <div id="modulesList"></div>
-    </div>
+    <div class="modules-section"><div class="modules-title">ПРОГРАММА КУРСА</div><div id="modalModules"></div></div>
   </div>
 </div>
 
 <main>
-  <div class="container">
-    <!-- HOME PAGE -->
-    <div id="home-page" class="page active-page">
-      <div class="hero">
-        <h1>Онлайн школа <span>музыкального продакшна</span></h1>
-        <p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу. Курсы от новичка до профи.</p>
-        <button class="btn-primary" id="heroCoursesBtn">СМОТРЕТЬ КУРСЫ</button>
-      </div>
-      <div class="section-title">О школе</div>
-      <div class="info-block" style="margin-bottom: 60px;">
-        <p>Voice Inside Galaxy — онлайн школа музыкального продакшна. Мы обучаем работе в Ableton Live, FL Studio, Logic Pro, вокалу, звукорежиссуре и сведению.</p>
-        <p>Доступ к материалам — 6 месяцев. Поддержка в Telegram. Рассрочка до 6 месяцев без переплат.</p>
-      </div>
-      <div class="section-title">Популярные курсы</div>
-      <div class="cards-grid" id="popularCoursesContainer"></div>
-    </div>
-
-    <!-- COURSES PAGE -->
-    <div id="courses-page" class="page">
-      <div class="hero" style="padding-top: 30px;">
-        <h1>Все <span>курсы</span></h1>
-        <p>Выбери направление и уровень подготовки</p>
-      </div>
-      <div class="cards-grid" id="allCoursesContainer"></div>
-    </div>
-
-    <!-- INFO PAGE -->
-    <div id="info-page" class="page">
-      <div class="hero" style="padding-top: 30px;">
-        <h1>Информация <span>о школе</span></h1>
-      </div>
-      <div class="info-block">
-        <p><strong>Кому подходит:</strong> музыкантам, битмейкерам, вокалистам, звукорежиссёрам — от новичков до опытных продюсеров.</p>
-        <p><strong>Формат обучения:</strong> видеокурсы с домашними заданиями, чек-листами, шаблонами и обратной связью.</p>
-        <p><strong>Поддержка:</strong> Telegram-чат с кураторами, ответы на вопросы в течение 24 часов.</p>
-        <p><strong>Документ:</strong> сертификат о прохождении курса после сдачи итоговой работы.</p>
-      </div>
-    </div>
-
-    <!-- SOCIALS PAGE -->
-    <div id="socials-page" class="page">
-      <div class="hero" style="padding-top: 30px;">
-        <h1>Социальные <span>сети</span></h1>
-      </div>
-      <div class="social-links">
-        <a href="#">TELEGRAM</a>
-        <a href="#">YOUTUBE</a>
-      </div>
-    </div>
-
-    <!-- DOCS PAGE -->
-    <div id="docs-page" class="page">
-      <div class="hero" style="padding-top: 30px;">
-        <h1>Документы <span>и лицензии</span></h1>
-      </div>
-      <div class="docs-block">
-        <p>Лицензия на образовательную деятельность № Л035-01298-77/00765432</p>
-        <p>Политика обработки персональных данных</p>
-        <p>Договор оферты на оказание услуг</p>
-        <p>Свидетельство СМИ: ЭЛ № ФС 77 — 88777</p>
-      </div>
-    </div>
+<div class="container">
+  <div id="home-page" class="page active-page">
+    <div class="hero"><h1>Онлайн школа <span>музыкального продакшна</span></h1><p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу.</p><button class="btn-primary" id="heroCoursesBtn">СМОТРЕТЬ КУРСЫ</button></div>
+    <div class="section-title">О школе</div><div class="info-block" style="margin-bottom:60px;"><p>Voice Inside Galaxy — онлайн школа музыкального продакшна. Обучаем работе в Ableton Live, FL Studio, Logic Pro, вокалу, звукорежиссуре.</p><p>Доступ к материалам — 6 месяцев. Рассрочка до 6 месяцев.</p></div>
+    <div class="section-title">Популярные курсы</div><div class="cards-grid" id="popularContainer"></div>
   </div>
-  <footer>
-    <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
-    <p style="margin-top: 6px;">hello@voicegalaxy.ru</p>
-  </footer>
+  <div id="courses-page" class="page"><div class="hero" style="padding-top:30px;"><h1>Все <span>курсы</span></h1><p>Выбери направление и уровень</p></div><div class="cards-grid" id="allCoursesContainer"></div></div>
+  <div id="info-page" class="page"><div class="hero" style="padding-top:30px;"><h1>Информация <span>о школе</span></h1></div><div class="info-block"><p><strong>Кому подходит:</strong> музыкантам, битмейкерам, вокалистам.</p><p><strong>Формат:</strong> видеокурсы с заданиями и обратной связью.</p><p><strong>Поддержка:</strong> Telegram-чат с кураторами.</p><p><strong>Документ:</strong> сертификат о прохождении.</p></div></div>
+  <div id="socials-page" class="page"><div class="hero" style="padding-top:30px;"><h1>Социальные <span>сети</span></h1></div><div class="social-links"><a href="#">TELEGRAM</a><a href="#">YOUTUBE</a></div></div>
+  <div id="docs-page" class="page"><div class="hero" style="padding-top:30px;"><h1>Документы <span>и лицензии</span></h1></div><div class="docs-block"><p>Лицензия № Л035-01298-77/00765432</p><p>Политика обработки данных</p><p>Договор оферты</p></div></div>
+</div>
+<footer><p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p><p>hello@voicegalaxy.ru</p></footer>
 </main>
 
 <script>
-  // ДАННЫЕ КУРСОВ С МОДУЛЯМИ И ВРЕМЕНЕМ
-  const allCourses = [
-    { 
-      id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, 
-      description: "Полный курс по Ableton Live: интерфейс, запись, аранжировка, эффекты", 
-      cover: "AL.png", popular: true, duration: "8 часов",
-      modules: [
-        { name: "Модуль 1: Интерфейс и настройка", lessons: ["Обзор окна Arrangement и Session", "Настройка аудио и MIDI", "Браузер и поиск звуков"] },
-        { name: "Модуль 2: Запись и редактирование", lessons: ["Запись аудио и MIDI", "Редактирование нот и автоматизация", "Работа с лупами и сэмплами"] },
-        { name: "Модуль 3: Эффекты и обработка", lessons: ["EQ, компрессор, реверберация", "Создание эффектовых цепочек", "Return-треки и параллельная обработка"] }
-      ]
-    },
-    { 
-      id: 2, name: "Сведение и мастеринг", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 6900, 
-      description: "Профессиональное сведение треков, работа с динамикой и частотным балансом", 
-      cover: null, popular: true, duration: "12 часов",
-      modules: [
-        { name: "Модуль 1: Баланс и панорама", lessons: ["Громкостной баланс", "Панорамирование и стерео-образ", "Проверка моно-совместимости"] },
-        { name: "Модуль 2: Частотная обработка", lessons: ["Эквалайзинг каждого элемента", "Убираем резонансы", "Создание пространства"] },
-        { name: "Модуль 3: Динамическая обработка", lessons: ["Компрессия многодорожечная", "Параллельная компрессия", "Мастеринг-цепочка"] }
-      ]
-    },
-    { 
-      id: 3, name: "Продакшн Techno", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 5900, 
-      description: "Создание драйвовых техно-треков, работа с драм-машинами и синтезаторами", 
-      cover: null, popular: false, duration: "10 часов",
-      modules: [
-        { name: "Модуль 1: Барабаны и ритм", lessons: ["Создание кick и bass", "Паттерны для техно", "Работа с драм-машинами"] },
-        { name: "Модуль 2: Синтез и текстуры", lessons: ["Создание bassline", "Эволюция синтезатора", "Шумы и атмосфера"] },
-        { name: "Модуль 3: Аранжировка", lessons: ["Структура трека", "Автоматизации и переходы", "Финальная полировка"] }
-      ]
-    },
-    { 
-      id: 4, name: "Вокал в электронике", level: "beginner", levelName: "НОВИЧОК", price: 4500, 
-      description: "Техники вокала для house, techno, synthwave", 
-      cover: null, popular: false, duration: "6 часов",
-      modules: [
-        { name: "Модуль 1: Подготовка голоса", lessons: ["Распевки и дыхание", "Микрофонная техника", "Защита голоса"] },
-        { name: "Модуль 2: Обработка вокала", lessons: ["Pitch-коррекция", "Эффекты для электронного вокала", "Вокальные chops"] },
-        { name: "Модуль 3: Работа в треке", lessons: ["Запись для клубного трека", "Вокальные сэмплы и зацикливание"] }
-      ]
-    },
-    { 
-      id: 5, name: "Звуковой дизайн", level: "pro", levelName: "ПРОФИ", price: 8900, 
-      description: "Создание уникальных звуков с нуля, синтез, сэмплирование", 
-      cover: null, popular: false, duration: "14 часов",
-      modules: [
-        { name: "Модуль 1: Основы синтеза", lessons: ["Субтрактивный синтез", "FM-синтез", "Wavetable и гранулярный синтез"] },
-        { name: "Модуль 2: Создание патчей", lessons: ["Бас-дизайн", "Лид-синтезаторы", "Пэды и текстуры"] },
-        { name: "Модуль 3: Эффекты и постобработка", lessons: ["Ревёрс и глитч", "Создание переходов", "Уникальные звуковые эффекты"] }
-      ]
-    },
-    { 
-      id: 6, name: "FL Studio с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, 
-      description: "Полное руководство по FL Studio для начинающих продюсеров", 
-      cover: null, popular: false, duration: "7 часов",
-      modules: [
-        { name: "Модуль 1: Интерфейс", lessons: ["Step Sequencer и Piano Roll", "Playlist и микшер", "Браузер и управление"] },
-        { name: "Модуль 2: Создание бита", lessons: ["Драм-паттерны", "Базовая мелодия", "Аранжировка"] },
-        { name: "Модуль 3: Микширование", lessons: ["Эффекты и автоматизация", "Отправка на эффекты", "Экспорт трека"] }
-      ]
-    }
-  ];
+const courses = [
+  {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:4900,desc:"Полный курс по Ableton Live: интерфейс, запись, аранжировка",cover:"AL.png",popular:true,duration:"8 часов",
+   modules:[{name:"Модуль 1: Интерфейс",lessons:["Обзор окон","Настройка аудио","Браузер звуков"]},{name:"Модуль 2: Запись",lessons:["Запись MIDI","Редактирование","Автоматизация"]},{name:"Модуль 3: Эффекты",lessons:["EQ и компрессор","Реверберация","Return-треки"]}]},
+  {id:2,name:"Сведение и мастеринг",level:"intermediate",levelName:"ОПЫТНЫЙ",price:6900,desc:"Профессиональное сведение треков",cover:null,popular:true,duration:"12 часов",
+   modules:[{name:"Модуль 1: Баланс",lessons:["Громкостной баланс","Панорамирование","Моно-совместимость"]},{name:"Модуль 2: Частоты",lessons:["Эквалайзинг","Убираем резонансы"]},{name:"Модуль 3: Динамика",lessons:["Компрессия","Параллельная компрессия","Мастеринг"]}]},
+  {id:3,name:"Продакшн Techno",level:"intermediate",levelName:"ОПЫТНЫЙ",price:5900,desc:"Создание техно-треков",cover:null,popular:false,duration:"10 часов",
+   modules:[{name:"Модуль 1: Барабаны",lessons:["Кик и бас","Паттерны","Драм-машины"]},{name:"Модуль 2: Синтез",lessons:["Bassline","Текстуры"]},{name:"Модуль 3: Аранжировка",lessons:["Структура","Автоматизации"]}]},
+  {id:4,name:"Вокал в электронике",level:"beginner",levelName:"НОВИЧОК",price:4500,desc:"Техники вокала для электронной музыки",cover:null,popular:false,duration:"6 часов",
+   modules:[{name:"Модуль 1: Голос",lessons:["Распевки","Микрофон"]},{name:"Модуль 2: Обработка",lessons:["Pitch-коррекция","Эффекты"]},{name:"Модуль 3: В треке",lessons:["Запись","Сэмплы"]}]},
+  {id:5,name:"Звуковой дизайн",level:"pro",levelName:"ПРОФИ",price:8900,desc:"Создание уникальных звуков",cover:null,popular:false,duration:"14 часов",
+   modules:[{name:"Модуль 1: Синтез",lessons:["Субтрактивный","FM","Wavetable"]},{name:"Модуль 2: Патчи",lessons:["Басы","Лиды","Пэды"]},{name:"Модуль 3: Эффекты",lessons:["Ревёрс","Глитч"]}]},
+  {id:6,name:"FL Studio с нуля",level:"beginner",levelName:"НОВИЧОК",price:4900,desc:"Полный курс по FL Studio",cover:null,popular:false,duration:"7 часов",
+   modules:[{name:"Модуль 1: Интерфейс",lessons:["Step Sequencer","Piano Roll"]},{name:"Модуль 2: Бит",lessons:["Драм-паттерны","Мелодии"]},{name:"Модуль 3: Микширование",lessons:["Эффекты","Экспорт"]}]}
+];
+let cart = [];
+let currentCourse = null;
 
-  let cart = [];
-  let currentDetailCourse = null;
-
-  // Функция отрисовки карточки
-  function renderCourseCard(course) {
-    const levelClass = course.level === 'beginner' ? 'level-beginner' : (course.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
+function renderCard(c){let lvlClass=c.level==='beginner'?'level-beginner':c.level==='intermediate'?'level-intermediate':'level-pro';let coverStyle=c.cover?`background-image:url('${c.cover}')`:'background-color:#1a1a1a';return `<div class="course-card" data-id="${c.id}"><div class="course-cover" style="${coverStyle};background-size:cover;background-position:center"></div><div class="course-info"><div class="course-header"><span class="course-name">${c.name}</span><span class="level-badge ${lvlClass}">${c.levelName}</span></div><div class="course-description">${c.desc}</div><div class="course-meta"><span class="course-duration">🕒 ${c.duration}</span><span class="course-price">${c.price.toLocaleString()} ₽</span></div><button class="add-to-cart-btn" data-id="${c.id}" data-name="${c.name}" data-price="${c.price}">В КОРЗИНУ</button></div></div>`;}
+function renderAll(){let popular=courses.filter(c=>c.popular);document.getElementById('popularContainer').innerHTML=popular.map(c=>renderCard(c)).join('');document.getElementById('allCoursesContainer').innerHTML=courses.map(c=>renderCard(c)).join('');attachEvents();}
+function attachEvents(){document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{btn.onclick=(e)=>{e.stopPropagation();let id=parseInt(btn.dataset.id),name=btn.dataset.name,price=parseInt(btn.dataset.price);addToCart({id,name,price});};});document.querySelectorAll('.course-card').forEach(card=>{card.onclick=(e)=>{if(e.target.classList.contains('add-to-cart-btn'))return;let id=parseInt(card.dataset.id);openCourseDetail(id);};});}
+function addToCart(item){let ex=cart.find(i=>i.id===item.id);if(ex)ex.quantity+=1;else cart.push({...item,quantity:1});updateCartUI();toast("Добавлено в корзину");}
+function removeFromCart(id){cart=cart.filter(i=>i.id!==id);updateCartUI();toast("Товар удалён");}
+function updateCartUI(){let totalItems=cart.reduce((s,i)=>s+i.quantity,0);document.getElementById('cartCountBadge').innerText=totalItems;let container=document.getElementById('cartItemsList');if(cart.length===0){container.innerHTML='<div class="empty-cart">Корзина пуста</div>';document.getElementById('cartTotal').innerText="ИТОГО: 0 ₽";return;}let html='',totalSum=0;cart.forEach(i=>{let sum=i.price*i.quantity;totalSum+=sum;html+=`<div class="cart-item"><div class="cart-item-info"><div>${i.name}</div><div style="color:#FFCC00;font-size:0.8rem">${i.price.toLocaleString()} ₽ × ${i.quantity}</div></div><div><span style="color:#FFCC00;font-weight:600;">${sum.toLocaleString()} ₽</span> <button class="remove-cart-item" data-id="${i.id}">✕</button></div></div>`;});container.innerHTML=html;document.getElementById('cartTotal').innerText=`ИТОГО: ${totalSum.toLocaleString()} ₽`;document.querySelectorAll('.remove-cart-item').forEach(btn=>{btn.onclick=()=>removeFromCart(parseInt(btn.dataset.id));});}
+function toast(msg){let t=document.createElement('div');t.innerText=msg;t.style.position='fixed';t.style.bottom='24px';t.style.left='24px';t.style.background='#FFCC00';t.style.color='#000';t.style.padding='12px 24px';t.style.borderRadius='40px';t.style.fontWeight='600';t.style.zIndex='9999';document.body.appendChild(t);setTimeout(()=>t.remove(),2000);}
+function openCourseDetail(id){currentCourse=courses.find(c=>c.id===id);if(!currentCourse)return;document.getElementById('modalTitle').innerText=currentCourse.name;document.getElementById('modalDuration').innerHTML=`🕒 ${currentCourse.duration}`;let lvlClass=currentCourse.level==='beginner'?'level-beginner':currentCourse.level==='intermediate'?'level-intermediate':'level-pro';document.getElementById('modalLevel').className=`level-badge ${lvlClass}`;document.getElementById('modalLevel').innerText=currentCourse.levelName;document.getElementById('modalDesc').innerText=currentCourse.desc;document.getElementById('modalPrice').innerHTML=`${currentCourse.price.toLocaleString()} ₽`;let modulesHtml='';currentCourse.modules.forEach(m=>{let lessonsHtml='<ul class="lesson-list">'+m.lessons.map(l=>`<li>${l}</li>`).join('')+'</ul>';modulesHtml+=`<div class="module-item"><div class="module-name">${m.name}</div>${lessonsHtml}</div>`;});document.getElementById('modalModules').innerHTML=modulesHtml;document.getElementById('courseModal').classList.add('active');}
+function navigateTo(pageId){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active-page'));document.getElementById(`${pageId}-page`).classList.add('active-page');document.querySelectorAll('.menu-list a').forEach(link=>{link.classList.remove('active');if(link.getAttribute('data-page')===pageId)link.classList.add('active');});closeSideMenu();window.scrollTo({top:0,behavior:'smooth'});}
+function toggleSideMenu(){document.getElementById('sideMenu').classList.toggle('open');}
+function closeSideMenu(){document.getElementById('sideMenu').classList.remove('open');}
+function toggleCart(){document.getElementById('cartPanel').classList.toggle('show');updateCartUI();}
+function openReg(){document.getElementById('regModal').classList.add('active');}
+function closeReg(){document.getElementById('regModal').classList.remove('active');}
+document.getElementById('burgerBtn').onclick=toggleSideMenu;
+document.getElementById('cartIconBtn').onclick=(e)=>{e.stopPropagation();toggleCart();};
+document.getElementById('closeCartBtn').onclick=()=>document.getElementById('cartPanel').classList.remove('show');
+document.getElementById('regBtn').onclick=openReg;
+document.getElementById('closeModalBtn').onclick=closeReg;
+document.getElementById('closeModalCourseBtn').onclick=()=>document.getElementById('courseModal').classList.remove('active');
+document.getElementById('heroCoursesBtn').onclick=()=>navigateTo('courses');
+document.getElementById('doRegisterBtn').onclick=()=>{let n=document.getElementById('regName').value.trim(),e=document.getElementById('regEmail').value.trim(),p=document.getElementById('regPassword').value;if(!n||!e||!p)alert('Заполните все поля');else if(p.length<4)alert('Пароль минимум 4 символа');else{alert(`Добро пожаловать, ${n}!`);closeReg();}};
+document.getElementById('checkoutBtn').onclick=()=>{if(cart.length===0)alert('Корзина пуста');else alert('Спасибо за заказ! Менеджер свяжется с вами.');};
+document.getElementById('modalAddToCart').onclick=()=>{if(currentCourse){addToCart({id:currentCourse.id,name:currentCourse.name,price:currentCourse.price});document.getElementById('courseModal').classList.remove('active');}};
+document.querySelectorAll('.menu-list a').forEach(link=>{link.onclick=(e)=>{e.preventDefault();let page=link.getAttribute('data-page');if(page)navigateTo(page);};});
+document.addEventListener('click',(e)=>{let sm=document.getElementById('sideMenu'),b=document.getElementById('burgerBtn'),cp=document.getElementById('cartPanel'),ci=document.getElementById('cartIconBtn');if(sm.classList.contains('open')&&!sm.contains(e.target)&&!b.contains(e.target))closeSideMenu();if(cp.classList.contains('show')&&!cp.contains(e.target)&&e.target!==ci&&!ci.contains(e.target))cp.classList.remove('show');});
+renderAll();updateCartUI();
+</script>
+</body>
+</html>
