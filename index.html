@@ -11,8 +11,8 @@
             --color-panel: #202020;
             --color-accent: #FFCC00;
             --color-gray: #666666;
-            --shadow: 0 4px 12px rgba(0,0,0,0.4);
-            --transition: all 0.25s ease;
+            --shadow: 0 8px 24px rgba(0,0,0,0.5);
+            --transition: all 0.3s ease;
         }
         * {
             margin: 0;
@@ -26,15 +26,15 @@
             min-height: 100vh;
         }
         .container {
-            max-width: 1080px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 32px;
         }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 24px 32px;
             background: #202020;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             position: sticky;
@@ -44,122 +44,139 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 15px;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 18px;
         }
         .logo img {
-            width: 40px;
+            width: 48px;
         }
         .cart-badge {
             position: relative;
             display: inline-block;
-            font-size: 16px;
+            font-size: 20px;
         }
         .cart-badge::after {
             content: attr(data-count);
             position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 18px;
-            height: 18px;
+            top: -10px;
+            right: -10px;
+            width: 22px;
+            height: 22px;
             background: var(--color-accent);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 11px;
+            font-size: 12px;
+            font-weight: 600;
         }
         .cart-icon {
             cursor: pointer;
         }
         main {
-            padding: 40px 0;
+            padding: 60px 0;
         }
         .section-title {
-            font-size: 24px;
-            margin-bottom: 24px;
+            font-size: 32px;
+            margin-bottom: 36px;
             color: var(--color-accent);
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s 0.2s both;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s 0.2s both;
         }
         .hero {
             text-align: center;
-            max-width: 800px;
-            margin: 0 auto 48px;
+            max-width: 1000px;
+            margin: 0 auto 72px;
         }
         .hero h1 {
-            font-size: 34px;
-            margin-bottom: 16px;
+            font-size: 48px;
+            margin-bottom: 24px;
             color: var(--color-accent);
+            line-height: 1.2;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s 0.1s both;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s 0.1s both;
         }
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 32px;
-            margin-bottom: 32px;
-            font-size: 14px;
+            gap: 48px;
+            margin-bottom: 48px;
+            font-size: 16px;
             color: var(--color-gray);
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s 0.3s both;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s 0.3s both;
         }
         .stat span {
             display: block;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
             color: var(--color-accent);
         }
         .course-section {
-            margin-bottom: 48px;
+            margin-bottom: 72px;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s 0.4s both;
+            transform: translateY(40px);
+            animation: fadeInUp 0.7s 0.4s both;
         }
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 40px;
         }
         .course-card {
             background: #202020;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 32px;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-accent), #ff9900);
         }
         .course-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-12px);
             box-shadow: var(--shadow);
             background: #282828;
+            border-color: rgba(255,204,0,0.3);
         }
         .course-image {
             width: 100%;
-            height: 180px;
+            height: 240px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            border-radius: 16px;
+            margin-bottom: 20px;
         }
         .course-title {
-            font-size: 17px;
-            margin-bottom: 8px;
+            font-size: 24px;
+            margin-bottom: 12px;
             color: var(--color-accent);
+            font-weight: 600;
         }
         .course-level {
             display: flex;
-            gap: 6px;
-            font-size: 12px;
-            margin-bottom: 10px;
+            gap: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            font-weight: 500;
         }
         .level-circle {
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         .level-beginner {
             background: #2ecc71;
@@ -171,75 +188,111 @@
             background: #e74c3c;
         }
         .course-price {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
             color: var(--color-accent);
         }
         .btn-primary {
             width: 100%;
-            padding: 10px 0;
-            background: var(--color-accent);
+            padding: 16px 0;
+            background: linear-gradient(135deg, var(--color-accent), #ff9900);
             border: none;
             color: #000000;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            border-radius: 8px;
+            gap: 8px;
+            font-size: 16px;
+            border-radius: 12px;
             transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(255,204,0,0.3);
         }
         .btn-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
-            background: #f5e600;
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(255, 204, 0, 0.4);
+            background: linear-gradient(135deg, #f5e600, #ffcc00);
         }
         .kinescope-block {
-            margin-top: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 12px;
-            color: var(--color-gray);
+            margin-top: 20px;
+            background: rgba(255,204,0,0.1);
+            border: 1px solid rgba(255,204,0,0.2);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--color-accent);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .kinescope-block:hover {
+            background: rgba(255,204,0,0.15);
+            transform: scale(1.02);
+        }
+        .kinescope-block a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .kinescope-block a:hover {
+            text-decoration: underline;
         }
         .social {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 48px;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s 0.6s both;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s 0.6s both;
         }
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 16px;
+            gap: 24px;
         }
         .social-link {
             color: var(--color-accent);
             text-decoration: underline;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .social-link:hover {
+            background: rgba(255,204,0,0.1);
+            text-decoration: none;
         }
         .docs {
             margin-bottom: 48px;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s 0.7s both;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s 0.7s both;
         }
         .docs h2 {
-            font-size: 18px;
-            margin-bottom: 12px;
+            font-size: 24px;
+            margin-bottom: 16px;
             color: var(--color-accent);
         }
         .docs-list {
             list-style: none;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
         }
         .docs-list a {
             color: var(--color-accent);
             text-decoration: underline;
-            font-size: 13px;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,204,0,0.2);
+            transition: var(--transition);
+        }
+        .docs-list a:hover {
+            background: rgba(255,204,0,0.1);
+            text-decoration: none;
         }
         .cart-modal {
             display: none;
@@ -248,7 +301,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.98);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -263,14 +316,14 @@
         }
         .cart-content {
             background: #202020;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 500px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 600px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
-            transform: translateY(30px);
+            transform: translateY(40px);
             transition: var(--transition);
         }
         .cart-modal.active .cart-content {
@@ -280,22 +333,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            font-size: 18px;
+            margin-bottom: 24px;
+            font-size: 24px;
             color: var(--color-accent);
+            font-weight: 600;
         }
         .cart-close {
-            font-size: 20px;
+            font-size: 28px;
             cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .cart-close:hover {
+            background: rgba(255,255,255,0.1);
         }
         .cart-items {
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 16px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             transition: var(--transition);
         }
@@ -303,49 +367,54 @@
             background: rgba(255,255,255,0.05);
         }
         .cart-item-name {
-            font-size: 14px;
+            font-size: 16px;
             flex: 1;
         }
         .cart-item-price {
-            font-size: 14px;
-        }
-        .cart-total {
-            margin-bottom: 16px;
             font-size: 16px;
             font-weight: 600;
+        }
+        .cart-total {
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 700;
             text-align: right;
             color: var(--color-accent);
         }
         .cart-btns {
             display: flex;
-            gap: 12px;
+            gap: 16px;
         }
         .btn-secondary {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            border: 1px solid rgba(255,255,255,0.2);
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            border: 1px solid rgba(255,255,255,0.3);
             background: transparent;
             color: var(--color-text);
             cursor: pointer;
             transition: var(--transition);
+            font-weight: 500;
         }
         .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
         }
         .btn-success {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
             border: none;
-            background: var(--color-accent);
+            background: linear-gradient(135deg, var(--color-accent), #ff9900);
             color: #000000;
             cursor: pointer;
             transition: var(--transition);
+            font-weight: 700;
         }
         .btn-success:hover {
             transform: scale(1.03);
-            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
         }
         @keyframes fadeInUp {
             to {
@@ -353,12 +422,28 @@
                 transform: translateY(0);
             }
         }
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            .course-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 24px;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <!-- ЗДЕСЬ ПОДСТАВЬ СВОЙ ПУБЛИЧНЫЙ URL ЛОГО -->
             <img src="https://drive.google.com/uc?export=view&id=1n60cg5HV9HD4MaKUGozhw8P5KnCu9ezN" alt="Voice Inside Galaxy Logo" />
             <span>Voice Inside Galaxy</span>
         </div>
@@ -394,7 +479,6 @@
                 <div class="course-grid">
                     <!-- Курс Ableton Live с нуля -->
                     <div class="course-card" data-id="1" data-name="Ableton Live с нуля" data-price="6990">
-                        <!-- ЗДЕСЬ ПОДСТАВЬ СВОЙ ПУБЛИЧНЫЙ URL КАРТИНКИ КУРСА -->
                         <img
                             src="https://drive.google.com/uc?export=view&id=16ytJZBJZcx0CpbfdzMcp4JRxfK1N1Bco"
                             alt="Курс Ableton Live с нуля"
@@ -410,12 +494,17 @@
                             🛒 В корзину
                         </button>
                         <div class="kinescope-block">
-                            Видео‑превью на <a href="https://kinescope.io" target="_blank">Kinescope</a>
+                            🎥 Видео‑превью доступно на <a href="https://kinescope.io" target="_blank">Kinescope</a>
                         </div>
                     </div>
 
-                    <!-- Другие курсы -->
+                    <!-- Курс Продвинутый продакшн и миксинг -->
                     <div class="course-card" data-id="2" data-name="Продвинутый продакшн и миксинг" data-price="9990">
+                        <img
+                            src="https://drive.google.com/uc?export=view&id=16ytJZBJZcx0CpbfdzMcp4JRxfK1N1Bco"
+                            alt="Курс Продвинутый продакшн и миксинг"
+                            class="course-image"
+                        />
                         <div class="course-title">Продвинутый продакшн и миксинг</div>
                         <div class="course-level">
                             <span class="level-circle level-intermediate"></span>
@@ -426,10 +515,17 @@
                             🛒 В корзину
                         </button>
                         <div class="kinescope-block">
-                            Видео‑превью на <a href="https://kinescope.io" target="_blank">Kinescope</a>
+                            🎥 Видео‑превью доступно на <a href="https://kinescope.io" target="_blank">Kinescope</a>
                         </div>
                     </div>
+
+                    <!-- Курс Мастер‑курс продюсирования -->
                     <div class="course-card" data-id="3" data-name="Мастер‑курс продюсирования" data-price="14990">
+                        <img
+                            src="https://drive.google.com/uc?export=view&id=16ytJZBJZcx0CpbfdzMcp4JRxfK1N1Bco"
+                            alt="Курс Мастер‑курс продюсирования"
+                            class="course-image"
+                        />
                         <div class="course-title">Мастер‑курс продюсирования</div>
                         <div class="course-level">
                             <span class="level-circle level-advanced"></span>
@@ -440,7 +536,7 @@
                             🛒 В корзину
                         </button>
                         <div class="kinescope-block">
-                            Видео‑превью на <a href="https://kinescope.io" target="_blank">Kinescope</a>
+                            🎥 Видео‑превью доступно на <a href="https://kinescope.io" target="_blank">Kinescope</a>
                         </div>
                     </div>
                 </div>
@@ -479,3 +575,106 @@
             <div class="cart-btns">
                 <button class="btn-secondary" onclick="clearCart()">Очистить</button>
                 <button class="btn-success" onclick="checkout()">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.setAttribute('data-count', count || 0);
+        }
+
+        function addToCart(button) {
+            const card = button.closest('.course-card');
+            const id = card.dataset.id;
+            const name = card.dataset.name;
+            const price = parseInt(card.dataset.price);
+
+            const existingItem = cart.find(item => item.id == id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // Анимация добавления
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                renderCart();
+            }
+        }
+
+        function renderCart() {
+            const itemsEl = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<div style="text-align: center; color: var(--color-gray); padding: 40px 20px;">Корзина пуста</div>';
+                totalEl.textContent = '0 ₽';
+                return;
+            }
+
+            itemsEl.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <span class="cart-item-name">${item.name}</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span class="cart-item-price">${item.price} ₽ × ${item.quantity}</span>
+                        <button onclick="removeFromCart(${item.id})" style="background: #e74c3c; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px;">×</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalEl.textContent = new Intl.NumberFormat('ru-RU').format(total) + ' ₽';
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id != id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            renderCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            renderCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`Спасибо за заказ! Итого: ${new Intl.NumberFormat('ru-RU').format(total)} ₽
+
+Скоро с вами свяжутся для оплаты и доступа к курсу!`);
+            clearCart();
+            toggleCart();
+        }
+
+        // Инициализация
+        updateCartBadge();
+        document.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('cart-modal')) {
+                toggleCart();
+            }
+        });
+    </script>
+</body>
+</html>
