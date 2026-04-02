@@ -6,12 +6,212 @@
   <title>Voice Inside Galaxy — Онлайн школа музыкального продакшна</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Дополнительные стили для новых блоков */
+    .steps-section {
+      margin: 60px 0;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    @media (min-width: 600px) {
+      .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    }
+    .step-card {
+      background: #111;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .step-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+    .step-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.5;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      line-height: 1.5;
+    }
+    @media (min-width: 768px) {
+      .step-card { padding: 32px 24px; }
+      .step-title { font-size: 1.3rem; }
+      .step-desc { font-size: 0.9rem; }
+    }
+
+    /* FAQ блок */
+    .faq-section {
+      margin: 60px 0;
+    }
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: #111;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .faq-question {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .faq-question:hover {
+      background: #1a1a1a;
+    }
+    .faq-question span:first-child {
+      flex: 1;
+      padding-right: 16px;
+    }
+    .faq-icon {
+      font-size: 1.3rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      padding: 0 20px;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      color: #a0a0a0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border-top: none;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding: 0 20px 20px 20px;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 768px) {
+      .faq-question { padding: 20px 24px; font-size: 1.05rem; }
+      .faq-answer { font-size: 0.95rem; }
+    }
+
+    /* Личный кабинет */
+    .profile-badge {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      background: #1a1a1a;
+      padding: 6px 12px 6px 16px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .profile-badge.show {
+      display: flex;
+    }
+    .profile-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .profile-avatar {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    @media (min-width: 768px) {
+      .profile-name { font-size: 0.85rem; }
+      .profile-avatar { width: 32px; height: 32px; }
+    }
+
+    /* Модалка профиля */
+    .profile-modal .modal-content {
+      max-width: 500px;
+    }
+    .profile-stats {
+      background: #1a1a1a;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin: 16px 0;
+      text-align: left;
+    }
+    .profile-stats p {
+      margin: 8px 0;
+      font-size: 0.9rem;
+    }
+    .profile-courses {
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+    }
+    .profile-course-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .profile-course-name {
+      font-size: 0.85rem;
+    }
+    .profile-course-status {
+      font-size: 0.7rem;
+      color: var(--accent);
+    }
+    .logout-btn {
+      background: transparent;
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-top: 16px;
+      font-family: inherit;
+    }
+    .logout-btn:hover {
+      background: var(--red);
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
 
 <div class="site-header">
   <div class="logo"><a href="index.html">VOICE INSIDE <span>GALAXY</span></a></div>
   <div class="right-group">
+    <div class="profile-badge" id="profileBadge">
+      <span class="profile-name" id="profileName"></span>
+      <div class="profile-avatar" id="profileAvatar"></div>
+    </div>
     <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
     <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
     <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
@@ -36,6 +236,7 @@
   <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
 </div>
 
+<!-- Модалка регистрации -->
 <div class="modal" id="regModal">
   <div class="modal-content">
     <span class="close-modal" id="closeModalBtn">&times;</span>
@@ -44,6 +245,37 @@
     <input type="email" id="regEmail" placeholder="Email">
     <input type="password" id="regPassword" placeholder="Пароль">
     <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
+    <p style="margin-top: 12px; font-size: 0.7rem; color: #666;">Уже есть аккаунт? <a href="#" id="showLoginBtn" style="color: var(--accent);">Войти</a></p>
+  </div>
+</div>
+
+<!-- Модалка входа -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeLoginModalBtn">&times;</span>
+    <h3>ВХОД</h3>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Пароль">
+    <button class="modal-btn" id="doLoginBtn">ВОЙТИ</button>
+    <p style="margin-top: 12px; font-size: 0.7rem; color: #666;">Нет аккаунта? <a href="#" id="showRegFromLoginBtn" style="color: var(--accent);">Зарегистрироваться</a></p>
+  </div>
+</div>
+
+<!-- Модалка профиля -->
+<div class="modal" id="profileModal">
+  <div class="modal-content profile-modal">
+    <span class="close-modal" id="closeProfileModalBtn">&times;</span>
+    <h3>ЛИЧНЫЙ КАБИНЕТ</h3>
+    <div class="profile-stats">
+      <p><strong>Имя:</strong> <span id="profileModalName"></span></p>
+      <p><strong>Email:</strong> <span id="profileModalEmail"></span></p>
+      <p><strong>Куплено курсов:</strong> <span id="profileCoursesCount">0</span></p>
+      <p><strong>Прогресс обучения:</strong> <span id="profileProgress">0</span>%</p>
+    </div>
+    <div class="profile-courses" id="profileCoursesList">
+      <p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>
+    </div>
+    <button class="logout-btn" id="logoutBtn">ВЫЙТИ</button>
   </div>
 </div>
 
@@ -51,32 +283,250 @@
 <div class="container">
   <div class="hero">
     <h1>Онлайн школа <span>музыкального продакшна</span></h1>
-    <p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу
-      Курсы от новичка до профи</p>
+    <p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу. Курсы от новичка до профи.</p>
     <button class="btn-primary" id="heroCoursesBtn">СМОТРЕТЬ КУРСЫ</button>
   </div>
 
   <div class="section-title">Популярные курсы</div>
   <div class="cards-grid" id="popularContainer"></div>
+
+  <!-- Блок "Как проходит обучение" -->
+  <div class="steps-section">
+    <div class="section-title">Как проходит обучение</div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="step-title">Выбирай курс</div>
+        <div class="step-desc">Отфильтруй по жанру, длительности и уровню — найдёшь идеальный курс под задачу.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-title">Покупай и заходи в профиль</div>
+        <div class="step-desc">После оплаты все материалы появляются в твоём личном кабинете: видео, файлы, пресеты.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-title">Смотри и повторяй по шагам</div>
+        <div class="step-desc">Выполняй уроки в DAW, используй чек-листы и шаблоны — учись в своём темпе.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Блок "Частые вопросы" -->
+  <div class="faq-section">
+    <div class="section-title">Частые вопросы</div>
+    <div class="faq-grid" id="faqContainer">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Нужен ли опыт чтобы начать?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Нет. Курсы для новичков начинаются с нуля — с установки DAW и первого звука. Если есть базовый опыт — есть курсы среднего и продвинутого уровня.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Сколько времени нужно в день?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Достаточно 30–60 минут в день. Уроки короткие и конкретные — без воды. Платформа сохраняет прогресс, можно учиться в любом темпе.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Как долго доступны курсы после покупки?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Пожизненный доступ. Купил один раз — смотришь сколько угодно, пересматриваешь когда нужно.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Есть ли обратная связь от преподавателя?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Да. В каждом курсе есть домашние задания, которые ты отправляешь на проверку. Продюсер лично разбирает твою работу и даёт конкретный фидбек.</div>
+      </div>
+    </div>
+  </div>
 </div>
 <footer>
   <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
-  <p style="margin-top: 6px;">hello@voicegalaxy.ru</p>
+  <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
 </footer>
 </main>
 
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
+  // Данные курсов
   const courses = [
     {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Полный курс по Ableton Live: интерфейс, запись, аранжировка",cover:"AL2.png",detailCover:"AL.png",popular:true,duration:"8 часов"},
     {id:2,name:"Сведение и мастеринг",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Основы сведения и мастеринга для начинающих",cover:"s.png",detailCover:"s2.png",popular:true,duration:"10 часов"},
+    {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн, Melodyne, коррекция и обработка вокала",cover:"at.png",detailCover:"at2.png",popular:true,duration:"5 часов"},
     {id:3,name:"DnB с нуля",level:"beginner",levelName:"НОВИЧОК",price:8000,desc:"Создание drum & bass треков с нуля",cover:"dnb.png",detailCover:"dnb2.png",popular:false,duration:"12 часов"},
     {id:4,name:"Hip-hop с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Создание trap, rap и hip-hop битов",cover:"hh.png",detailCover:"hh2.png",popular:false,duration:"9 часов"},
-    {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн, Melodyne, коррекция и обработка вокала",cover:"at.png",detailCover:"at2.png",popular:false,duration:"5 часов"},
     {id:6,name:"Продвинутое сведение",level:"pro",levelName:"ПРОДВИНУТЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",detailCover:"sm2.png",popular:false,duration:"15 часов"}
   ];
 
+  // Система пользователей
+  let currentUser = null;
+
+  function loadUsers() {
+    const users = localStorage.getItem('voiceGalaxyUsers');
+    return users ? JSON.parse(users) : [];
+  }
+
+  function saveUsers(users) {
+    localStorage.setItem('voiceGalaxyUsers', JSON.stringify(users));
+  }
+
+  function saveCurrentUser(user) {
+    localStorage.setItem('voiceGalaxyCurrentUser', JSON.stringify(user));
+    currentUser = user;
+  }
+
+  function loadCurrentUser() {
+    const user = localStorage.getItem('voiceGalaxyCurrentUser');
+    if (user) {
+      currentUser = JSON.parse(user);
+      updateProfileUI();
+    }
+  }
+
+  function updateProfileUI() {
+    if (currentUser) {
+      document.getElementById('profileBadge').classList.add('show');
+      document.getElementById('profileName').innerText = currentUser.name;
+      document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
+      document.getElementById('regBtn').style.display = 'none';
+    } else {
+      document.getElementById('profileBadge').classList.remove('show');
+      document.getElementById('regBtn').style.display = 'block';
+    }
+  }
+
+  function updateProfileModal() {
+    if (!currentUser) return;
+    document.getElementById('profileModalName').innerText = currentUser.name;
+    document.getElementById('profileModalEmail').innerText = currentUser.email;
+    
+    const purchasedCourses = currentUser.purchasedCourses || [];
+    document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
+    
+    // Прогресс (простой подсчет)
+    let totalProgress = 0;
+    if (purchasedCourses.length > 0) {
+      totalProgress = Math.floor((currentUser.completedLessons || 0) / (purchasedCourses.length * 10) * 100);
+      if (totalProgress > 100) totalProgress = 100;
+    }
+    document.getElementById('profileProgress').innerText = totalProgress;
+    
+    const coursesListDiv = document.getElementById('profileCoursesList');
+    if (purchasedCourses.length === 0) {
+      coursesListDiv.innerHTML = '<p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>';
+    } else {
+      let html = '';
+      purchasedCourses.forEach(courseId => {
+        const course = courses.find(c => c.id === courseId);
+        if (course) {
+          html += `
+            <div class="profile-course-item">
+              <span class="profile-course-name">${course.name}</span>
+              <span class="profile-course-status">✅ Куплен</span>
+            </div>
+          `;
+        }
+      });
+      coursesListDiv.innerHTML = html;
+    }
+  }
+
+  function registerUser(name, email, password) {
+    const users = loadUsers();
+    if (users.find(u => u.email === email)) {
+      alert('Пользователь с таким email уже существует');
+      return false;
+    }
+    const newUser = {
+      id: Date.now(),
+      name: name,
+      email: email,
+      password: password,
+      purchasedCourses: [],
+      completedLessons: 0,
+      cart: []
+    };
+    users.push(newUser);
+    saveUsers(users);
+    saveCurrentUser(newUser);
+    alert(`Добро пожаловать, ${name}!`);
+    closeRegModal();
+    updateProfileUI();
+    return true;
+  }
+
+  function loginUser(email, password) {
+    const users = loadUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) {
+      saveCurrentUser(user);
+      alert(`С возвращением, ${user.name}!`);
+      closeLoginModal();
+      updateProfileUI();
+      return true;
+    } else {
+      alert('Неверный email или пароль');
+      return false;
+    }
+  }
+
+  function logoutUser() {
+    localStorage.removeItem('voiceGalaxyCurrentUser');
+    currentUser = null;
+    updateProfileUI();
+    closeProfileModal();
+    alert('Вы вышли из аккаунта');
+  }
+
+  // Добавление покупки к пользователю
+  function addPurchaseToUser(courseId) {
+    if (!currentUser) {
+      alert('Войдите в аккаунт для покупки курса');
+      return false;
+    }
+    const users = loadUsers();
+    const userIndex = users.findIndex(u => u.id === currentUser.id);
+    if (userIndex !== -1) {
+      if (!users[userIndex].purchasedCourses) users[userIndex].purchasedCourses = [];
+      if (!users[userIndex].purchasedCourses.includes(courseId)) {
+        users[userIndex].purchasedCourses.push(courseId);
+        saveUsers(users);
+        currentUser.purchasedCourses = users[userIndex].purchasedCourses;
+        saveCurrentUser(currentUser);
+      }
+    }
+    return true;
+  }
+
+  // Оформление заказа
+  function checkout() {
+    if (!currentUser) {
+      alert('Войдите в аккаунт для оформления заказа');
+      openRegModal();
+      return;
+    }
+    if (cart.length === 0) {
+      alert('Корзина пуста');
+      return;
+    }
+    cart.forEach(item => {
+      addPurchaseToUser(item.id);
+    });
+    cart = [];
+    saveCart(cart);
+    updateCartUI();
+    alert('Спасибо за заказ! Курсы добавлены в ваш личный кабинет.');
+  }
+
+  // Рендер карточки
   function renderCard(c) {
     const lvlClass = c.level === 'beginner' ? 'level-beginner' : (c.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
     const coverStyle = c.cover ? `background-image: url('${c.cover}')` : 'background-color:#1a1a1a';
@@ -114,23 +564,86 @@
     });
   }
 
+  // FAQ аккордеон
+  function initFaq() {
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
+  }
+
+  // Модальные окна
+  const regModal = document.getElementById('regModal');
+  const loginModal = document.getElementById('loginModal');
+  const profileModal = document.getElementById('profileModal');
+
+  function openRegModal() { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeRegModal() { regModal.classList.remove('active'); document.body.style.overflow = ''; }
+  function openLoginModal() { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLoginModal() { loginModal.classList.remove('active'); document.body.style.overflow = ''; }
+  function openProfileModal() { 
+    updateProfileModal();
+    profileModal.classList.add('active'); 
+    document.body.style.overflow = 'hidden'; 
+  }
+  function closeProfileModal() { profileModal.classList.remove('active'); document.body.style.overflow = ''; }
+
+  // Обработчики
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
   document.getElementById('closeCartBtn').onclick = closeCart;
   document.getElementById('regBtn').onclick = openRegModal;
   document.getElementById('closeModalBtn').onclick = closeRegModal;
   document.getElementById('heroCoursesBtn').onclick = () => { window.location.href = 'courses.html'; };
-  document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  document.getElementById('checkoutBtn').onclick = checkout;
+  document.getElementById('profileBadge').onclick = openProfileModal;
+  document.getElementById('closeProfileModalBtn').onclick = closeProfileModal;
+  document.getElementById('logoutBtn').onclick = logoutUser;
+
+  // Регистрация
   document.getElementById('doRegisterBtn').onclick = () => {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
     if (!name || !email || !password) alert('Заполните все поля');
     else if (password.length < 4) alert('Пароль минимум 4 символа');
-    else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
+    else registerUser(name, email, password);
   };
 
+  // Вход
+  document.getElementById('doLoginBtn').onclick = () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    loginUser(email, password);
+  };
+
+  // Переключение между модалками
+  document.getElementById('showLoginBtn').onclick = (e) => {
+    e.preventDefault();
+    closeRegModal();
+    openLoginModal();
+  };
+  document.getElementById('showRegFromLoginBtn').onclick = (e) => {
+    e.preventDefault();
+    closeLoginModal();
+    openRegModal();
+  };
+  document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
+
+  // Закрытие модалок по клику вне
+  window.onclick = (e) => {
+    if (e.target === regModal) closeRegModal();
+    if (e.target === loginModal) closeLoginModal();
+    if (e.target === profileModal) closeProfileModal();
+  };
+
+  // Инициализация
   renderPopular();
+  initFaq();
+  loadCurrentUser();
+  updateCartUI();
 </script>
 </body>
 </html>
