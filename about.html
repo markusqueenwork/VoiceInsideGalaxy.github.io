@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>О нас — Voice Inside Galaxy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-page { min-height: 70vh; padding: 60px 20px; }
+    .about-title { font-size: 2rem; font-weight: 700; margin-bottom: 24px; text-align: center; }
+    @media (min-width: 768px) { .about-title { font-size: 3rem; } }
+    .about-title span { color: var(--accent); }
+    .about-description {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      text-align: center;
+      line-height: 1.8;
+      color: #c0c0c0;
+    }
+    .about-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .stat-item {
+      text-align: center;
+      min-width: 140px;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    @media (min-width: 768px) {
+      .stat-number { font-size: 2.8rem; }
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 8px;
+    }
+    .section-divider {
+      max-width: 800px;
+      margin: 50px auto 30px;
+      text-align: center;
+    }
+    .section-divider h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .section-divider p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .socials-grid {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .social-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      text-align: center;
+      transition: 0.25s;
+      text-decoration: none;
+      display: block;
+      min-width: 200px;
+    }
+    @media (min-width: 768px) {
+      .social-card { padding: 28px 40px; min-width: 240px; }
+    }
+    .social-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+    .social-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin: 0 auto 16px;
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .social-icon { width: 90px; height: 90px; border-radius: 24px; }
+    }
+    .social-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .docs-list {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .doc-item {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    @media (min-width: 768px) {
+      .doc-item { padding: 22px 32px; gap: 20px; }
+    }
+    .doc-item:last-child { border-bottom: none; }
+    .doc-item:hover { background: #1a1a1a; }
+    .doc-icon { font-size: 1.6rem; }
+    @media (min-width: 768px) { .doc-icon { font-size: 2rem; } }
+    .doc-name { font-weight: 600; margin-bottom: 4px; color: #fff; font-size: 1rem; }
+    .doc-desc { font-size: 0.75rem; color: var(--text-secondary); }
+    .profile-badge {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 4px 12px 4px 16px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+    }
+    .profile-badge.show { display: flex; }
+    .profile-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .profile-avatar {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .footer-offer { color: #6a6a6a; text-decoration: none; }
+    .footer-offer:hover { color: var(--accent); text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo"><a href="index.html">VOICE INSIDE <span>GALAXY</span></a></div>
+  <div class="right-group">
+    <div class="profile-badge" id="profileBadge">
+      <span class="profile-name" id="profileName"></span>
+      <div class="profile-avatar" id="profileAvatar"></div>
+    </div>
+    <button class="icon-btn" id="regBtn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    </button>
+    <div class="cart-icon-wrapper">
+      <button class="icon-btn" id="cartIconBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+      </button>
+      <span class="cart-badge-overlay" id="cartCountBadge">0</span>
+    </div>
+    <div class="burger-btn" id="burgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">НАВИГАЦИЯ</div>
+  <ul class="menu-list">
+    <li><a href="index.html">ГЛАВНАЯ</a></li>
+    <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
+    <li><a href="about.html">О НАС</a></li>
+  </ul>
+  <div style="margin-top: 40px; font-size: 11px; color: #444;">© 2025</div>
+</div>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-title"><span>КОРЗИНА</span><button class="close-cart" id="closeCartBtn">✕</button></div>
+  <div class="cart-items" id="cartItemsList"><div class="empty-cart">Корзина пуста</div></div>
+  <div class="cart-total" id="cartTotal">ИТОГО: 0 ₽</div>
+  <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
+</div>
+
+<div class="modal" id="regModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h3>РЕГИСТРАЦИЯ</h3>
+    <input type="text" id="regName" placeholder="Имя">
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="password" id="regPassword" placeholder="Пароль">
+    <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
+    <p style="margin-top: 12px; font-size: 0.7rem; color: #666;">Уже есть аккаунт? <a href="#" id="showLoginBtn" style="color: var(--accent);">Войти</a></p>
+  </div>
+</div>
+
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeLoginModalBtn">&times;</span>
+    <h3>ВХОД</h3>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Пароль">
+    <button class="modal-btn" id="doLoginBtn">ВОЙТИ</button>
+    <p style="margin-top: 12px; font-size: 0.7rem; color: #666;">Нет аккаунта? <a href="#" id="showRegFromLoginBtn" style="color: var(--accent);">Зарегистрироваться</a></p>
+  </div>
+</div>
+
+<div class="modal" id="profileModal">
+  <div class="modal-content profile-modal">
+    <span class="close-modal" id="closeProfileModalBtn">&times;</span>
+    <h3>ЛИЧНЫЙ КАБИНЕТ</h3>
+    <div class="profile-stats">
+      <p><strong>Имя:</strong> <span id="profileModalName"></span></p>
+      <p><strong>Email:</strong> <span id="profileModalEmail"></span></p>
+      <p><strong>Куплено курсов:</strong> <span id="profileCoursesCount">0</span></p>
+      <p><strong>Общий прогресс:</strong> <span id="profileProgress">0</span>%</p>
+    </div>
+    <div class="profile-courses" id="profileCoursesList">
+      <p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>
+    </div>
+    <button class="logout-btn" id="logoutBtn">ВЫЙТИ</button>
+  </div>
+</div>
+
+<main>
+<div class="container">
+  <div class="about-page">
+    <h1 class="about-title">О <span>нас</span></h1>
+    
+    <div class="about-description">
+      <p style="margin-bottom: 20px;"><strong>Voice Inside Galaxy</strong> — это онлайн-школа музыкального продакшна, созданная для тех, кто хочет научиться создавать качественную электронную музыку с нуля или прокачать свои навыки до профессионального уровня.</p>
+      <p>Мы объединили опыт лучших продюсеров, звукорежиссёров и вокалистов, чтобы дать вам только актуальные, проверенные знания без воды. Наши курсы построены так, чтобы вы сразу начинали создавать музыку, а не просто смотреть видео.</p>
+    </div>
+
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">лет в музыкальном продакшне</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5000+</div>
+        <div class="stat-label">выпускников по всему миру</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">поддержка в Telegram</div>
+      </div>
+    </div>
+
+    <div class="section-divider">
+      <h2>📱 <span style="color: var(--accent);">Связь с нами</span></h2>
+      <p>Подписывайся, чтобы быть в курсе новостей</p>
+    </div>
+
+    <div class="socials-grid">
+      <a href="https://t.me/voiceinsidegalaxy_bot" class="social-card" target="_blank">
+        <img src="tg.png" class="social-icon" alt="Telegram" onerror="this.style.display='none'">
+        <div class="social-name">Telegram</div>
+      </a>
+      <a href="https://youtube.com/@v.i.galaxy?si=m9M9PJJFvdE3QoKz" class="social-card" target="_blank">
+        <img src="yt.png" class="social-icon" alt="YouTube" onerror="this.style.display='none'">
+        <div class="social-name">YouTube</div>
+      </a>
+    </div>
+
+    <div class="section-divider">
+      <h2>📄 <span style="color: var(--accent);">Документы</span></h2>
+      <p>Официальная информация</p>
+    </div>
+
+    <div class="docs-list">
+      <a href="oferta.docx" class="doc-item" target="_blank">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Договор оферты</div>
+          <div class="doc-desc">Условия предоставления образовательных услуг</div>
+        </div>
+      </a>
+      <a href="pol.txt" class="doc-item" target="_blank">
+        <div class="doc-icon">🔒</div>
+        <div class="doc-info">
+          <div class="doc-name">Политика конфиденциальности</div>
+          <div class="doc-desc">Как мы обрабатываем и защищаем ваши данные</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<footer>
+  <p><a href="oferta.docx" class="footer-offer" target="_blank">Публичная оферта</a></p>
+  <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
+</footer>
+</main>
+
+<script src="script.js"></script>
+<script src="cart.js"></script>
+<script>
+  const allCourses = [
+    {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Полный курс по Ableton Live",cover:"AL2.png",duration:"8 часов"},
+    {id:2,name:"Сведение и мастеринг",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Основы сведения",cover:"s.png",duration:"10 часов"},
+    {id:3,name:"DnB с нуля",level:"beginner",levelName:"НОВИЧОК",price:8000,desc:"Создание DnB треков",cover:"dnb.png",duration:"12 часов"},
+    {id:4,name:"Hip-hop с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Создание битов",cover:"hh.png",duration:"9 часов"},
+    {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн и обработка",cover:"at.png",duration:"5 часов"},
+    {id:6,name:"Продвинутое сведение",level:"pro",levelName:"ОПЫТНЫЙ",price:10000,desc:"Профессиональные техники",cover:"sm.png",duration:"15 часов"}
+  ];
+
+  let currentUser = null;
+
+  function loadUsers() { const users = localStorage.getItem('voiceGalaxyUsers'); return users ? JSON.parse(users) : []; }
+  function saveUsers(users) { localStorage.setItem('voiceGalaxyUsers', JSON.stringify(users)); }
+  function saveCurrentUser(user) { localStorage.setItem('voiceGalaxyCurrentUser', JSON.stringify(user)); currentUser = user; }
+  function loadCurrentUser() { const user = localStorage.getItem('voiceGalaxyCurrentUser'); if (user) { currentUser = JSON.parse(user); updateProfileUI(); } }
+
+  function updateProfileUI() {
+    const badge = document.getElementById('profileBadge'); const regBtn = document.getElementById('regBtn');
+    if (currentUser) {
+      if (badge) badge.classList.add('show');
+      const nameSpan = document.getElementById('profileName'); const avatarDiv = document.getElementById('profileAvatar');
+      if (nameSpan) nameSpan.innerText = currentUser.name;
+      if (avatarDiv) avatarDiv.innerText = currentUser.name.charAt(0).toUpperCase();
+      if (regBtn) regBtn.style.display = 'none';
+    } else {
+      if (badge) badge.classList.remove('show');
+      if (regBtn) regBtn.style.display = 'flex';
+    }
+  }
+
+  function updateProfileModal() {
+    if (!currentUser) return;
+    document.getElementById('profileModalName').innerText = currentUser.name;
+    document.getElementById('profileModalEmail').innerText = currentUser.email;
+    const purchasedCourses = currentUser.purchasedCourses || [];
+    document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
+    let totalProgress = 0;
+    if (purchasedCourses.length > 0) {
+      const courseProgressValues = Object.values(currentUser.courseProgress || {});
+      if (courseProgressValues.length > 0) totalProgress = Math.floor(courseProgressValues.reduce((a,b) => a + b, 0) / purchasedCourses.length);
+      if (totalProgress > 100) totalProgress = 100;
+    }
+    document.getElementById('profileProgress').innerText = totalProgress;
+    const coursesListDiv = document.getElementById('profileCoursesList');
+    if (purchasedCourses.length === 0) {
+      coursesListDiv.innerHTML = '<p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>';
+    } else {
+      let html = '';
+      purchasedCourses.forEach(courseId => {
+        const course = allCourses.find(c => c.id === courseId);
+        if (course) {
+          const courseProgress = currentUser.courseProgress?.[courseId] || 0;
+          html += `<div class="profile-course-item"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span class="profile-course-name">${course.name}</span><a href="course-detail.html?id=${course.id}" class="profile-course-link">${courseProgress === 100 ? 'ПРОЙДЕН' : 'ПРОДОЛЖИТЬ'}</a></div><div style="font-size:0.7rem; color:#666;"><span style="color:var(--accent);">Прогресс: ${courseProgress}%</span></div><div style="width:100%; height:4px; background:#333; border-radius:4px; margin-top:6px;"><div style="width:${courseProgress}%; height:4px; background:var(--accent); border-radius:4px;"></div></div></div>`;
+        }
+      });
+      coursesListDiv.innerHTML = html;
+    }
+  }
+
+  function registerUser(name, email, password) {
+    const users = loadUsers();
+    if (users.find(u => u.email === email)) { alert('Пользователь с таким email уже существует'); return false; }
+    const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], courseProgress: {}, completedLessons: 0 };
+    users.push(newUser); saveUsers(users); saveCurrentUser(newUser);
+    alert(`Добро пожаловать, ${name}!`); closeRegModal(); updateProfileUI();
+    return true;
+  }
+
+  function loginUser(email, password) {
+    const users = loadUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) { saveCurrentUser(user); alert(`С возвращением, ${user.name}!`); closeLoginModal(); updateProfileUI(); return true; }
+    else { alert('Неверный email или пароль'); return false; }
+  }
+
+  function logoutUser() { localStorage.removeItem('voiceGalaxyCurrentUser'); currentUser = null; updateProfileUI(); closeProfileModal(); alert('Вы вышли из аккаунта'); }
+
+  const regModal = document.getElementById('regModal');
+  const loginModal = document.getElementById('loginModal');
+  const profileModal = document.getElementById('profileModal');
+
+  function openRegModal() { if (regModal) { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeRegModal() { if (regModal) { regModal.classList.remove('active'); document.body.style.overflow = ''; } }
+  function openLoginModal() { if (loginModal) { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeLoginModal() { if (loginModal) { loginModal.classList.remove('active'); document.body.style.overflow = ''; } }
+  function openProfileModal() { if (profileModal) { updateProfileModal(); profileModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeProfileModal() { if (profileModal) { profileModal.classList.remove('active'); document.body.style.overflow = ''; } }
+
+  document.getElementById('burgerBtn').onclick = () => { if (typeof toggleSideMenu === 'function') toggleSideMenu(); };
+  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
+  document.getElementById('closeCartBtn').onclick = () => { if (typeof closeCart === 'function') closeCart(); };
+  document.getElementById('regBtn').onclick = openRegModal;
+  document.getElementById('closeModalBtn').onclick = closeRegModal;
+  document.getElementById('checkoutBtn').onclick = () => { if (cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  document.getElementById('profileBadge').onclick = openProfileModal;
+  document.getElementById('closeProfileModalBtn').onclick = closeProfileModal;
+  document.getElementById('logoutBtn').onclick = logoutUser;
+
+  document.getElementById('doRegisterBtn').onclick = () => { const name = document.getElementById('regName').value.trim(); const email = document.getElementById('regEmail').value.trim(); const password = document.getElementById('regPassword').value; if (!name || !email || !password) alert('Заполните все поля'); else if (password.length < 4) alert('Пароль минимум 4 символа'); else registerUser(name, email, password); };
+  document.getElementById('doLoginBtn').onclick = () => { const email = document.getElementById('loginEmail').value.trim(); const password = document.getElementById('loginPassword').value; loginUser(email, password); };
+  document.getElementById('showLoginBtn').onclick = (e) => { e.preventDefault(); closeRegModal(); openLoginModal(); };
+  document.getElementById('showRegFromLoginBtn').onclick = (e) => { e.preventDefault(); closeLoginModal(); openRegModal(); };
+  document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
+
+  window.onclick = (e) => { if (e.target === regModal) closeRegModal(); if (e.target === loginModal) closeLoginModal(); if (e.target === profileModal) closeProfileModal(); };
+
+  loadCurrentUser(); if (typeof updateCartUI === 'function') updateCartUI();
+</script>
+</body>
+</html>
