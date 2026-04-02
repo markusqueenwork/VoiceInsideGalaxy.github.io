@@ -1,184 +1,468 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Voice Inside Galaxy — Онлайн-школа музыкального продакшна</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: #fff;
-    }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    h1, h2 { font-weight: 700; }
-    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
-    h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
-    
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 100px 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero h1 { margin-bottom: 1rem; color: white; }
-    .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .stat { text-align: center; }
-    .stat-number { font-size: 2.5rem; font-weight: 700; display: block; }
-    .btn {
-      display: inline-block;
-      background: #ff6b6b;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: transform 0.3s;
-    }
-    .btn:hover { transform: translateY(-2px); }
-
-    /* Features */
-    .features { padding: 80px 0; background: #f8f9fa; }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .feature {
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .feature h3 { font-size: 1.3rem; margin-bottom: 1rem; }
-
-    /* Courses */
-    .courses { padding: 80px 0; }
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    .course-card {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .course-card:hover { transform: translateY(-5px); }
-    .course-card h3 { margin-bottom: 1rem; }
-    .course-meta { color: #666; margin-bottom: 1rem; }
-    .price { font-size: 1.5rem; font-weight: 700; color: #ff6b6b; }
-
-    /* How it works / Reviews / CTA */
-    .section { padding: 80px 0; text-align: center; }
-    .reviews { background: #f8f9fa; }
-    .review { max-width: 500px; margin: 0 auto 2rem; font-style: italic; }
-    .author { font-weight: 600; margin-top: 1rem; }
-    .faq { background: white; }
-    .faq-item { max-width: 600px; margin: 0 auto 1.5rem; text-align: left; }
-
-    @media (max-width: 768px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .container { padding: 0 15px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-школа музыкального продакшна</title>
+    <style>
+        :root {
+            --color-primary: #f024b4;
+            --color-bg: #0f0f0f;
+            --color-text: #ffffff;
+            --color-gray: #666666;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        body {
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .logo img {
+            width: 32px;
+        }
+        .cart-badge {
+            position: relative;
+        }
+        .cart-badge::after {
+            content: "0";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 18px;
+            height: 18px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        main {
+            padding: 32px 24px;
+        }
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--color-gray);
+        }
+        .stat span {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .course-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            background: rgba(255,255,255,0.08);
+        }
+        .course-title {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .course-level {
+            display: flex;
+            gap: 6px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+        .level-circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .level-beginner { background: #2ecc71; }
+        .level-intermediate { background: #f39c12; }
+        .level-advanced { background: #e74c3c; }
+        .course-price {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 10px 0;
+            background: var(--color-primary);
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .social {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .social h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        .social-link {
+            font-size: 14px;
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+        .social-link:hover {
+            text-decoration: none;
+        }
+        .docs {
+            margin-bottom: 32px;
+        }
+        .docs h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        .docs-list {
+            list-style: none;
+        }
+        .docs-list li {
+            margin-bottom: 8px;
+        }
+        .docs-list a {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-modal.active {
+            display: flex;
+        }
+        .cart-content {
+            background: #1f1f1f;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+        .cart-close {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .cart-items {
+            margin-bottom: 16px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .cart-item-name {
+            font-size: 14px;
+        }
+        .cart-item-price {
+            font-size: 14px;
+        }
+        .cart-total {
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: right;
+        }
+        .cart-btns {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-secondary {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .btn-success {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: none;
+            background: var(--color-primary);
+            color: white;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1>Твоя музыка. Профессиональный звук.</h1>
-      <p>Практические курсы по продакшну, сведению, мастерингу и написанию песен. Учись у продюсера — без воды, только конкретные инструменты и результат.</p>
-      <div class="stats">
-        <div class="stat"><span class="stat-number">500+</span>Студентов</div>
-        <div class="stat"><span class="stat-number">5</span>Курсов</div>
-        <div class="stat"><span class="stat-number">100+</span>Уроков</div>
-        <div class="stat"><span class="stat-number">4.9</span>Рейтинг</div>
-      </div>
-      <a href="#courses" class="btn">Смотреть курсы</a>
-      <a href="#" class="btn" style="background: transparent; border: 2px solid white; margin-left: 1rem;">Посмотреть урок</a>
-    </div>
-  </section>
+    <header>
+        <div class="logo">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span>Drive PROD</span>
+        </div>
+        <div class="cart-badge" id="cart-badge">
+            <div class="cart-icon" onclick="toggleCart()">🛒</div>
+        </div>
+    </header>
 
-  <!-- Features -->
-  <section class="features">
-    <div class="container">
-      <h2>Всё, что нужно для серьёзного роста</h2>
-      <p>Платформа создана специально для битмейкеров — не общий курс, а конкретные инструменты для твоего звука.</p>
-      <div class="features-grid">
-        <div class="feature">
-          <h3>Видеоуроки в HD</h3>
-          <p>Подробные уроки с разбором экрана DAW. Смотри в своём темпе, пересматривай сколько угодно.</p>
-        </div>
-        <div class="feature">
-          <h3>Практические задания</h3>
-          <p>Домашние задания после каждого блока. Отправляй работу — получай обратную связь от продюсера.</p>
-        </div>
-        <div class="feature">
-          <h3>Тесты на закрепление</h3>
-          <p>Короткие квизы после урока проверяют, что ты усвоил материал и готов к следующему шагу.</p>
-        </div>
-        <div class="feature">
-          <h3>Материалы для скачивания</h3>
-          <p>Пресеты, семплы, шаблоны проектов и PDF-гайды — всё включено в курс.</p>
-        </div>
-        <div class="feature">
-          <h3>Отслеживание прогресса</h3>
-          <p>Личный кабинет показывает сколько ты прошёл, что осталось и куда двигаться дальше.</p>
-        </div>
-        <div class="feature">
-          <h3>Живое сообщество</h3>
-          <p>Доступ в закрытый Telegram-чат студентов, где можно задать вопрос и получить фидбек.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <main>
+        <section class="hero">
+            <h1>Онлайн-школа музыкального продакшна</h1>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span>500+</span>
+                    студентов
+                </div>
+                <div class="stat">
+                    <span>25</span>
+                    курсов
+                </div>
+                <div class="stat">
+                    <span>4.9</span>
+                    средний рейтинг
+                </div>
+            </div>
+        </section>
 
-  <!-- Courses -->
-  <section class="courses" id="courses">
-    <div class="container">
-      <h2>Популярные курсы</h2>
-      <p>Начни с любого — все курсы ведут к одному результату</p>
-      <div class="course-grid">
-        <div class="course-card">
-          <div>Новичок</div>
-          <h3>Основы битмейкинга в FL Studio</h3>
-          <div class="course-meta">24 уроков • 6 ч</div>
-          <div class="price">4 900 ₽ <span style="text-decoration: line-through; color: #999;">7 900 ₽</span></div>
-        </div>
-        <div class="course-card">
-          <div>Средний</div>
-          <h3>Саунд-дизайн: от пресета к своему звуку</h3>
-          <div class="course-meta">31 уроков • 8 ч 30 мин</div>
-          <div class="price">6 900 ₽</div>
-        </div>
-        <div class="course-card">
-          <div>Средний</div>
-          <h3>Сведение и мастеринг</h3>
-          <div class="course-meta">28 уроков • 7 ч</div>
-          <div class="price">5 900 ₽</div>
-        </div>
-      </div>
-      <a href="#" class="btn">Все курсы</a>
-    </div>
-  </section>
+        <section class="courses">
+            <div class="course-card" data-id="1" data-name="Базовый курс продакшна" data-price="4990">
+                <div class="course-title">Базовый курс продакшна</div>
+                <div class="course-level">
+                    <span class="level-circle level-beginner"></span>
+                    <span>Базовый</span>
+                </div>
+                <div class="course-price">4 990 ₽</div>
+                <button class="btn-primary" onclick="addToCart(this)">
+                    🛒 В корзину
+                </button>
+            </div>
+            <div class="course-card" data-id="2" data-name="Продвинутый продакшн и миксинг" data-price="9990">
+                <div class="course-title">Продвинутый продакшн и миксинг</div>
+                <div class="course-level">
+                    <span class="level-circle level-intermediate"></span>
+                    <span>Продвинутый</span>
+                </div>
+                <div class="course-price">9 990 ₽</div>
+                <button class="btn-primary" onclick="addToCart(this)">
+                    🛒 В корзину
+                </button>
+            </div>
+            <div class="course-card" data-id="3" data-name="Мастер-курс продюсирования" data-price="14990">
+                <div class="course-title">Мастер-курс продюсирования</div>
+                <div class="course-level">
+                    <span class="level-circle level-advanced"></span>
+                    <span>Мастер</span>
+                </div>
+                <div class="course-price">14 990 ₽</div>
+                <button class="btn-primary" onclick="addToCart(this)">
+                    🛒 В корзину
+                </button>
+            </div>
+        </section>
 
-  <!-- How it works -->
-  <section class="section">
-    <div class="container">
-      <h2>Как это работает</h
+        <section class="social">
+            <h2>Подписывайся в соцсетях</h2>
+            <div class="social-links">
+                <a href="https://t.me/voiceinsidegalaxy_bot" class="social-link" target="_blank">Telegram</a>
+                <a href="https://youtube.com/" class="social-link" target="_blank">YouTube</a>
+            </div>
+        </section>
+
+        <section class="docs">
+            <h2>Документы</h2>
+            <ul class="docs-list">
+                <li><a href="#" target="_blank">Договор оферты.pdf</a></li>
+                <li><a href="#" target="_blank">Политика конфиденциальности.pdf</a></li>
+                <li><a href="#" target="_blank">Публичная оферта.pdf</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Модалка корзины -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <span>Корзина</span>
+                <span class="cart-close" onclick="toggleCart()">×</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-total" id="cart-total">Сумма: 0 ₽</div>
+            <div class="cart-btns">
+                <button class="btn-secondary" onclick="toggleCart()">Продолжить обучение</button>
+                <button class="btn-success" onclick="simulatePayment()">Оплатить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cart = {
+            items: [],
+            total: 0
+        };
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const count = cart.items.reduce((acc, item) => acc + item.qty, 0);
+            badge.querySelector('.cart-badge::after')?.remove();
+            badge.insertAdjacentHTML('beforeend', `
+                <span class="cart-badge-count" style="
+                    position: absolute; top: -8px; right: -8px; 
+                    width: 18px; height: 18px; 
+                    background: #f024b4; border-radius: 50%; 
+                    font-size: 11px; display: flex; 
+                    justify-content: center; align-items: center;
+                ">
+                    ${count}
+                </span>
+            `);
+        }
+
+        function addToCart(btn) {
+            const card = btn.closest('.course-card');
+            const id = card.dataset.id;
+            const name = card.dataset.name;
+            const price = parseInt(card.dataset.price);
+
+            const existing = cart.items.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.items.push({ id, name, price, qty: 1 });
+            }
+
+            cart.total += price;
+
+            // анимация кнопки
+            btn.innerHTML = '✓ Добавлено';
+            btn.style.background = '#2ecc71';
+            setTimeout(() => {
+                btn.innerHTML = '🛒 В корзину';
+                btn.style.background = '#f024b4';
+            }, 1000);
+
+            updateCartBadge();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+
+            if (modal.classList.contains('active')) {
+                const list = document.getElementById('cart-items');
+                list.innerHTML = cart.items.length
+                    ? cart.items.map(item => `
+                        <div class="cart-item">
+                            <span class="cart-item-name">${item.name}</span>
+                            <span class="cart-item-price">${item.price} ₽ × ${item.qty}</span>
+                        </div>
+                    `).join('')
+                    : '<div class="cart-item">Корзина пуста</div>';
+
+                document.getElementById('cart-total').textContent = `Сумма: ${cart.total} ₽`;
+            }
+        }
+
+        function simulatePayment() {
+            const sum = cart.total;
+            if (sum === 0) {
+                alert('Корзина пуста!');
+                return;
+            }
+
+            // ССЫЛКА ДЛЯ ROBOKASSA — ВСТАВЬ СВОЙ YOUR_MERCHANT_LOGIN
+            const merchantLogin = "YOUR_MERCHANT_LOGIN"; // ← ЗАМЕНИТЬ
+            const url = `https://pay.robokassa.ru/?MerchantLogin=${merchantLogin}&OutSum=${sum}&InvId=123456&Description=Оплата курсов продакшна`;
+
+            alert('Переход на оплату…');
+            window.open(url, '_blank');
+        }
+
+        // init
+        updateCartBadge();
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.cart-close')) {
+                toggleCart();
+            }
+        });
+    </script>
+</body>
+</html>
