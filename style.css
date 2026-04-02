@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -742,6 +741,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #111111;
   border-radius: var(--radius);
   margin-left: -12px;
   margin-right: -12px;
