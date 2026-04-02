@@ -12,10 +12,7 @@
     @media (min-width: 768px) { .docs-title { font-size: 2.5rem; } }
     .docs-title span { color: var(--accent); }
     .docs-list { max-width: 800px; margin: 0 auto; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
-    .doc-item {
-      padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center;
-      gap: 12px; transition: 0.2s; cursor: pointer; text-decoration: none; color: inherit;
-    }
+    .doc-item { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; transition: 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
     @media (min-width: 768px) { .doc-item { padding: 20px 28px; gap: 16px; } }
     .doc-item:last-child { border-bottom: none; }
     .doc-item:hover { background: #1a1a1a; }
@@ -24,10 +21,7 @@
     .doc-name { font-weight: 600; margin-bottom: 4px; color: #fff; }
     .doc-desc { font-size: 0.7rem; color: var(--text-secondary); }
     @media (min-width: 768px) { .doc-desc { font-size: 0.8rem; } }
-    .profile-badge {
-      display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.1);
-      padding: 4px 12px 4px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer;
-    }
+    .profile-badge { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 4px 12px 4px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; }
     .profile-badge.show { display: flex; }
     .profile-name { font-size: 0.8rem; font-weight: 500; color: var(--accent); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .profile-avatar { width: 28px; height: 28px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; font-size: 0.75rem; }
@@ -100,14 +94,14 @@
   <div class="docs-page">
     <h1 class="docs-title">Документы <span>и лицензии</span></h1>
     <div class="docs-list">
-      <a href="oferta.docx" class="doc-item" target="_blank" rel="noopener noreferrer">
+      <a href="oferta.docx" class="doc-item" target="_blank">
         <div class="doc-icon">📄</div>
         <div class="doc-info">
           <div class="doc-name">Договор оферты</div>
           <div class="doc-desc">Условия предоставления образовательных услуг</div>
         </div>
       </a>
-      <a href="pol.txt" class="doc-item" target="_blank" rel="noopener noreferrer">
+      <a href="pol.txt" class="doc-item" target="_blank">
         <div class="doc-icon">🔒</div>
         <div class="doc-info">
           <div class="doc-name">Политика конфиденциальности</div>
@@ -118,7 +112,7 @@
   </div>
 </div>
 <footer>
-  <p><a href="oferta.docx" class="footer-offer" target="_blank" rel="noopener noreferrer">Публичная оферта</a></p>
+  <p><a href="oferta.docx" class="footer-offer" target="_blank">Публичная оферта</a></p>
   <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
 </footer>
 </main>
@@ -160,18 +154,13 @@
       const users = loadUsers();
       if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
       else {
-        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
-        users.push(newUser);
-        saveUsers(users);
-        saveCurrentUser(newUser);
-        alert(`Добро пожаловать, ${name}!`);
-        document.getElementById('regModal').classList.remove('active');
-        updateProfileUI();
+        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], courseProgress: {}, completedLessons: 0 };
+        users.push(newUser); saveUsers(users); saveCurrentUser(newUser);
+        alert(`Добро пожаловать, ${name}!`); document.getElementById('regModal').classList.remove('active'); updateProfileUI();
       }
     }
   };
-  loadCurrentUser();
-  if (typeof updateCartUI === 'function') updateCartUI();
+  loadCurrentUser(); if (typeof updateCartUI === 'function') updateCartUI();
 </script>
 </body>
 </html>
