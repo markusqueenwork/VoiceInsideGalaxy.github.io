@@ -19,6 +19,7 @@
       color: #e8e8e8;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     :root {
@@ -31,6 +32,7 @@
       --accent-hover: #ffdd44;
       --border: #222222;
       --radius: 20px;
+      --radius-sm: 12px;
       --transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       --green: #2ecc71;
       --orange: #e67e22;
@@ -301,7 +303,7 @@
       background: var(--accent-hover);
     }
 
-    /* MODAL */
+    /* MODAL REGISTRATION */
     .modal {
       display: none;
       position: fixed;
@@ -363,6 +365,129 @@
     }
     .close-modal:hover {
       color: var(--accent);
+    }
+
+    /* COURSE DETAIL MODAL */
+    .course-detail-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 2100;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+    .course-detail-modal.active {
+      display: flex;
+    }
+    .course-detail-content {
+      background: #111111;
+      max-width: 800px;
+      width: 100%;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      animation: fadeInUp 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .course-detail-header {
+      padding: 32px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .close-detail {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .close-detail:hover {
+      color: var(--accent);
+    }
+    .course-detail-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      padding-right: 40px;
+    }
+    .course-detail-meta {
+      display: flex;
+      gap: 24px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+    .course-detail-time {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .course-detail-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 20px 0 16px;
+    }
+    .course-detail-description {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .modules-section {
+      padding: 0 32px 32px 32px;
+    }
+    .modules-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .module-item {
+      margin-bottom: 24px;
+    }
+    .module-name {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .lesson-list {
+      list-style: none;
+      padding-left: 20px;
+    }
+    .lesson-list li {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: 4px 0;
+      position: relative;
+    }
+    .lesson-list li:before {
+      content: "•";
+      color: var(--accent);
+      position: absolute;
+      left: -16px;
+    }
+    .detail-add-to-cart {
+      background: var(--accent);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      margin-top: 16px;
+      width: 100%;
+      font-size: 1rem;
+    }
+    .detail-add-to-cart:hover {
+      background: var(--accent-hover);
     }
 
     /* MAIN CONTENT */
@@ -427,6 +552,7 @@
       overflow: hidden;
       border: 1px solid var(--border);
       transition: var(--transition);
+      cursor: pointer;
     }
     .course-card:hover {
       transform: translateY(-6px);
@@ -469,13 +595,23 @@
       margin: 12px 0;
       font-size: 0.9rem;
     }
-    .course-price {
-      color: var(--accent);
-      font-size: 1.4rem;
-      font-weight: 700;
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin: 16px 0;
     }
-    .add-to-cart {
+    .course-duration {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .course-price {
+      color: var(--accent);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .add-to-cart-btn {
       background: transparent;
       border: 1px solid var(--accent);
       padding: 10px 24px;
@@ -485,8 +621,9 @@
       transition: 0.2s;
       color: var(--accent);
       font-family: 'Inter', sans-serif;
+      width: 100%;
     }
-    .add-to-cart:hover {
+    .add-to-cart-btn:hover {
       background: var(--accent);
       color: #000;
     }
@@ -543,6 +680,7 @@
       .header-btn span:not(.badge-text) { display: none; }
       .header-btn { padding: 6px 12px; }
       .cart-panel { width: 320px; right: 10px; }
+      .course-detail-title { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -587,7 +725,7 @@
   <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
 </div>
 
-<!-- MODAL -->
+<!-- REGISTRATION MODAL -->
 <div class="modal" id="regModal">
   <div class="modal-content">
     <span class="close-modal" id="closeModalBtn">&times;</span>
@@ -596,6 +734,27 @@
     <input type="email" id="regEmail" placeholder="Email">
     <input type="password" id="regPassword" placeholder="Пароль">
     <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
+  </div>
+</div>
+
+<!-- COURSE DETAIL MODAL -->
+<div class="course-detail-modal" id="courseDetailModal">
+  <div class="course-detail-content">
+    <div class="course-detail-header">
+      <button class="close-detail" id="closeDetailBtn">&times;</button>
+      <div class="course-detail-title" id="detailTitle"></div>
+      <div class="course-detail-meta">
+        <span class="course-detail-time" id="detailDuration"></span>
+        <span class="level-badge" id="detailLevel"></span>
+      </div>
+      <div class="course-detail-description" id="detailDescription"></div>
+      <div class="course-detail-price" id="detailPrice"></div>
+      <button class="detail-add-to-cart" id="detailAddToCartBtn">ДОБАВИТЬ В КОРЗИНУ</button>
+    </div>
+    <div class="modules-section">
+      <div class="modules-title">ПРОГРАММА КУРСА</div>
+      <div id="modulesList"></div>
+    </div>
   </div>
 </div>
 
@@ -670,230 +829,73 @@
 </main>
 
 <script>
-  // ДАННЫЕ КУРСОВ
+  // ДАННЫЕ КУРСОВ С МОДУЛЯМИ И ВРЕМЕНЕМ
   const allCourses = [
-    { id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, description: "Полный курс по Ableton Live: интерфейс, запись, аранжировка, эффекты", cover: "AL.png", popular: true },
-    { id: 2, name: "Сведение и мастеринг", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 6900, description: "Профессиональное сведение треков, работа с динамикой и частотным балансом", cover: null, popular: true },
-    { id: 3, name: "Продакшн Techno", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 5900, description: "Создание драйвовых техно-треков, работа с драм-машинами и синтезаторами", cover: null, popular: false },
-    { id: 4, name: "Вокал в электронике", level: "beginner", levelName: "НОВИЧОК", price: 4500, description: "Техники вокала для house, techno, synthwave", cover: null, popular: false },
-    { id: 5, name: "Звуковой дизайн", level: "pro", levelName: "ПРОФИ", price: 8900, description: "Создание уникальных звуков с нуля, синтез, сэмплирование", cover: null, popular: false },
-    { id: 6, name: "FL Studio с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, description: "Полное руководство по FL Studio для начинающих продюсеров", cover: null, popular: false }
+    { 
+      id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, 
+      description: "Полный курс по Ableton Live: интерфейс, запись, аранжировка, эффекты", 
+      cover: "AL.png", popular: true, duration: "8 часов",
+      modules: [
+        { name: "Модуль 1: Интерфейс и настройка", lessons: ["Обзор окна Arrangement и Session", "Настройка аудио и MIDI", "Браузер и поиск звуков"] },
+        { name: "Модуль 2: Запись и редактирование", lessons: ["Запись аудио и MIDI", "Редактирование нот и автоматизация", "Работа с лупами и сэмплами"] },
+        { name: "Модуль 3: Эффекты и обработка", lessons: ["EQ, компрессор, реверберация", "Создание эффектовых цепочек", "Return-треки и параллельная обработка"] }
+      ]
+    },
+    { 
+      id: 2, name: "Сведение и мастеринг", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 6900, 
+      description: "Профессиональное сведение треков, работа с динамикой и частотным балансом", 
+      cover: null, popular: true, duration: "12 часов",
+      modules: [
+        { name: "Модуль 1: Баланс и панорама", lessons: ["Громкостной баланс", "Панорамирование и стерео-образ", "Проверка моно-совместимости"] },
+        { name: "Модуль 2: Частотная обработка", lessons: ["Эквалайзинг каждого элемента", "Убираем резонансы", "Создание пространства"] },
+        { name: "Модуль 3: Динамическая обработка", lessons: ["Компрессия многодорожечная", "Параллельная компрессия", "Мастеринг-цепочка"] }
+      ]
+    },
+    { 
+      id: 3, name: "Продакшн Techno", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 5900, 
+      description: "Создание драйвовых техно-треков, работа с драм-машинами и синтезаторами", 
+      cover: null, popular: false, duration: "10 часов",
+      modules: [
+        { name: "Модуль 1: Барабаны и ритм", lessons: ["Создание кick и bass", "Паттерны для техно", "Работа с драм-машинами"] },
+        { name: "Модуль 2: Синтез и текстуры", lessons: ["Создание bassline", "Эволюция синтезатора", "Шумы и атмосфера"] },
+        { name: "Модуль 3: Аранжировка", lessons: ["Структура трека", "Автоматизации и переходы", "Финальная полировка"] }
+      ]
+    },
+    { 
+      id: 4, name: "Вокал в электронике", level: "beginner", levelName: "НОВИЧОК", price: 4500, 
+      description: "Техники вокала для house, techno, synthwave", 
+      cover: null, popular: false, duration: "6 часов",
+      modules: [
+        { name: "Модуль 1: Подготовка голоса", lessons: ["Распевки и дыхание", "Микрофонная техника", "Защита голоса"] },
+        { name: "Модуль 2: Обработка вокала", lessons: ["Pitch-коррекция", "Эффекты для электронного вокала", "Вокальные chops"] },
+        { name: "Модуль 3: Работа в треке", lessons: ["Запись для клубного трека", "Вокальные сэмплы и зацикливание"] }
+      ]
+    },
+    { 
+      id: 5, name: "Звуковой дизайн", level: "pro", levelName: "ПРОФИ", price: 8900, 
+      description: "Создание уникальных звуков с нуля, синтез, сэмплирование", 
+      cover: null, popular: false, duration: "14 часов",
+      modules: [
+        { name: "Модуль 1: Основы синтеза", lessons: ["Субтрактивный синтез", "FM-синтез", "Wavetable и гранулярный синтез"] },
+        { name: "Модуль 2: Создание патчей", lessons: ["Бас-дизайн", "Лид-синтезаторы", "Пэды и текстуры"] },
+        { name: "Модуль 3: Эффекты и постобработка", lessons: ["Ревёрс и глитч", "Создание переходов", "Уникальные звуковые эффекты"] }
+      ]
+    },
+    { 
+      id: 6, name: "FL Studio с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, 
+      description: "Полное руководство по FL Studio для начинающих продюсеров", 
+      cover: null, popular: false, duration: "7 часов",
+      modules: [
+        { name: "Модуль 1: Интерфейс", lessons: ["Step Sequencer и Piano Roll", "Playlist и микшер", "Браузер и управление"] },
+        { name: "Модуль 2: Создание бита", lessons: ["Драм-паттерны", "Базовая мелодия", "Аранжировка"] },
+        { name: "Модуль 3: Микширование", lessons: ["Эффекты и автоматизация", "Отправка на эффекты", "Экспорт трека"] }
+      ]
+    }
   ];
 
   let cart = [];
+  let currentDetailCourse = null;
 
   // Функция отрисовки карточки
   function renderCourseCard(course) {
     const levelClass = course.level === 'beginner' ? 'level-beginner' : (course.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
-    const coverStyle = course.cover ? `background-image: url('${course.cover}'); background-size: cover; background-position: center;` : 'background-color: #1a1a1a;';
-    return `
-      <div class="course-card">
-        <div class="course-cover" style="${coverStyle}"></div>
-        <div class="course-info">
-          <div class="course-header">
-            <span class="course-name">${course.name}</span>
-            <span class="level-badge ${levelClass}">${course.levelName}</span>
-          </div>
-          <div class="course-description">${course.description}</div>
-          <div class="course-price">${course.price.toLocaleString()} ₽</div>
-          <button class="add-to-cart" data-id="${course.id}" data-name="${course.name}" data-price="${course.price}">В КОРЗИНУ</button>
-        </div>
-      </div>
-    `;
-  }
-
-  // Отрисовка всех курсов
-  function renderAllCourses() {
-    const popularCourses = allCourses.filter(c => c.popular);
-    const popularContainer = document.getElementById('popularCoursesContainer');
-    const allCoursesContainer = document.getElementById('allCoursesContainer');
-    
-    if(popularContainer) {
-      popularContainer.innerHTML = popularCourses.map(c => renderCourseCard(c)).join('');
-    }
-    if(allCoursesContainer) {
-      allCoursesContainer.innerHTML = allCourses.map(c => renderCourseCard(c)).join('');
-    }
-    attachCartEvents();
-  }
-
-  function attachCartEvents() {
-    document.querySelectorAll('.add-to-cart').forEach(btn => {
-      btn.onclick = function(e) {
-        e.preventDefault();
-        const id = parseInt(this.dataset.id);
-        const name = this.dataset.name;
-        const price = parseInt(this.dataset.price);
-        addToCart({ id, name, price });
-      };
-    });
-  }
-
-  function addToCart(item) {
-    const existing = cart.find(i => i.id === item.id);
-    if(existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ ...item, quantity: 1 });
-    }
-    updateCartUI();
-    showToast("Добавлено в корзину");
-  }
-
-  function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
-    updateCartUI();
-    showToast("Товар удалён");
-  }
-
-  function updateCartUI() {
-    const totalItems = cart.reduce((sum, it) => sum + it.quantity, 0);
-    const cartCountBadge = document.getElementById('cartCountBadge');
-    if(cartCountBadge) cartCountBadge.innerText = totalItems;
-    
-    const cartItemsList = document.getElementById('cartItemsList');
-    const cartTotalSpan = document.getElementById('cartTotal');
-    if(!cartItemsList) return;
-    
-    if(cart.length === 0) {
-      cartItemsList.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
-      if(cartTotalSpan) cartTotalSpan.innerText = "ИТОГО: 0 ₽";
-      return;
-    }
-    
-    let html = '';
-    let totalSum = 0;
-    cart.forEach(item => {
-      const itemSum = item.price * item.quantity;
-      totalSum += itemSum;
-      html += `
-        <div class="cart-item">
-          <div class="cart-item-info">
-            <div class="cart-item-title">${item.name}</div>
-            <div class="cart-item-price">${item.price.toLocaleString()} ₽ × ${item.quantity}</div>
-          </div>
-          <div class="cart-item-actions">
-            <span style="color:var(--accent); font-weight:600;">${itemSum.toLocaleString()} ₽</span>
-            <button class="remove-cart-item" data-id="${item.id}">✕</button>
-          </div>
-        </div>
-      `;
-    });
-    cartItemsList.innerHTML = html;
-    if(cartTotalSpan) cartTotalSpan.innerText = `ИТОГО: ${totalSum.toLocaleString()} ₽`;
-    
-    document.querySelectorAll('.remove-cart-item').forEach(btn => {
-      btn.onclick = function() {
-        const id = parseInt(this.dataset.id);
-        removeFromCart(id);
-      };
-    });
-  }
-
-  function showToast(msg) {
-    const toast = document.createElement('div');
-    toast.innerText = msg;
-    toast.style.position = 'fixed';
-    toast.style.bottom = '24px';
-    toast.style.left = '24px';
-    toast.style.backgroundColor = '#FFCC00';
-    toast.style.color = '#000';
-    toast.style.padding = '12px 24px';
-    toast.style.borderRadius = '40px';
-    toast.style.fontWeight = '600';
-    toast.style.zIndex = '9999';
-    toast.style.fontFamily = "'Inter', sans-serif";
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
-  }
-
-  // НАВИГАЦИЯ
-  function navigateTo(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-      page.classList.remove('active-page');
-    });
-    const targetPage = document.getElementById(`${pageId}-page`);
-    if(targetPage) targetPage.classList.add('active-page');
-    
-    document.querySelectorAll('.nav-link, .menu-list a').forEach(link => {
-      link.classList.remove('active');
-    });
-    const activeLink = document.querySelector(`.menu-list a[data-page="${pageId}"]`);
-    if(activeLink) activeLink.classList.add('active');
-    
-    closeSideMenu();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function toggleSideMenu() { 
-    document.getElementById('sideMenu').classList.toggle('open'); 
-  }
-  function closeSideMenu() { 
-    document.getElementById('sideMenu').classList.remove('open'); 
-  }
-  function toggleCartPanel() { 
-    document.getElementById('cartPanel').classList.toggle('show'); 
-    updateCartUI();
-  }
-  function openModal() { document.getElementById('regModal').classList.add('active'); }
-  function closeModal() { document.getElementById('regModal').classList.remove('active'); }
-
-  // ОБРАБОТЧИКИ СОБЫТИЙ
-  document.getElementById('burgerBtn').onclick = toggleSideMenu;
-  document.getElementById('cartIconBtn').onclick = function(e) { e.stopPropagation(); toggleCartPanel(); };
-  document.getElementById('closeCartBtn').onclick = function() { document.getElementById('cartPanel').classList.remove('show'); };
-  document.getElementById('regBtn').onclick = openModal;
-  document.getElementById('closeModalBtn').onclick = closeModal;
-  document.getElementById('heroCoursesBtn').onclick = function() { navigateTo('courses'); };
-  
-  document.getElementById('doRegisterBtn').onclick = function() {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const password = document.getElementById('regPassword').value;
-    if(!name || !email || !password) {
-      alert('Заполните все поля');
-      return;
-    }
-    if(password.length < 4) {
-      alert('Пароль должен быть не менее 4 символов');
-      return;
-    }
-    alert(`Добро пожаловать, ${name}! Регистрация успешна.`);
-    closeModal();
-  };
-  
-  document.getElementById('checkoutBtn').onclick = function() {
-    if(cart.length === 0) alert('Корзина пуста');
-    else alert('Спасибо за заказ! Менеджер свяжется с вами.');
-  };
-  
-  // Навигация через меню
-  document.querySelectorAll('.menu-list a').forEach(link => {
-    link.onclick = function(e) {
-      e.preventDefault();
-      const page = this.getAttribute('data-page');
-      if(page) navigateTo(page);
-    };
-  });
-  
-  // Закрытие корзины и меню при клике вне
-  document.addEventListener('click', function(e) {
-    const sideMenu = document.getElementById('sideMenu');
-    const burgerBtn = document.getElementById('burgerBtn');
-    const cartPanel = document.getElementById('cartPanel');
-    const cartIcon = document.getElementById('cartIconBtn');
-    
-    if(sideMenu.classList.contains('open') && !sideMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
-      closeSideMenu();
-    }
-    if(cartPanel.classList.contains('show') && !cartPanel.contains(e.target) && e.target !== cartIcon && !cartIcon.contains(e.target)) {
-      cartPanel.classList.remove('show');
-    }
-  });
-  
-  // ЗАПУСК
-  renderAllCourses();
-  updateCartUI();
-</script>
-</body>
-</html>
