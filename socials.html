@@ -13,7 +13,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
     .socials-title {
       font-size: 2.5rem;
@@ -32,7 +32,7 @@
     }
     .socials-grid {
       display: flex;
-      gap: 32px;
+      gap: 40px;
       flex-wrap: wrap;
       justify-content: center;
       max-width: 600px;
@@ -42,21 +42,24 @@
       background: #111;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 32px 48px;
+      padding: 24px 32px;
       text-align: center;
       transition: 0.25s;
       cursor: pointer;
       text-decoration: none;
       display: block;
-      min-width: 200px;
+      min-width: 220px;
     }
     .social-card:hover {
       transform: translateY(-6px);
       border-color: var(--accent);
     }
     .social-icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin: 0 auto 16px;
       display: block;
     }
     .social-name {
@@ -72,8 +75,8 @@
     }
     @media (max-width: 768px) {
       .socials-title { font-size: 1.8rem; }
-      .social-card { padding: 24px 32px; min-width: 160px; }
-      .social-icon { font-size: 2.5rem; }
+      .social-card { padding: 20px 24px; min-width: 180px; }
+      .social-icon { width: 60px; height: 60px; border-radius: 16px; }
       .social-name { font-size: 1.1rem; }
     }
   </style>
@@ -126,13 +129,13 @@
     
     <div class="socials-grid">
       <a href="https://t.me/voiceinsidegalaxy_bot" class="social-card" target="_blank" rel="noopener noreferrer">
-        <span class="social-icon">📱</span>
+        <img src="tg.png" alt="Telegram" class="social-icon" onerror="this.style.display='none'">
         <div class="social-name">Telegram</div>
         <div class="social-link-text">@voiceinsidegalaxy_bot</div>
       </a>
       
       <a href="https://youtube.com/@v.i.galaxy?si=m9M9PJJFvdE3QoKz" class="social-card" target="_blank" rel="noopener noreferrer">
-        <span class="social-icon">▶️</span>
+        <img src="yt.png" alt="YouTube" class="social-icon" onerror="this.style.display='none'">
         <div class="social-name">YouTube</div>
         <div class="social-link-text">@v.i.galaxy</div>
       </a>
@@ -148,7 +151,6 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  // Обработчики
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
   document.getElementById('closeCartBtn').onclick = closeCart;
