@@ -39,16 +39,9 @@
       --red: #e74c3c;
     }
 
-    /* Анимации */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeIn {
@@ -57,14 +50,8 @@
     }
 
     @keyframes scaleIn {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .page {
@@ -81,7 +68,6 @@
     .course-card:nth-child(3) { animation-delay: 0.15s; }
     .course-card:nth-child(4) { animation-delay: 0.2s; }
 
-    /* Основные стили */
     a {
       color: var(--text);
       text-decoration: none;
@@ -221,6 +207,7 @@
       transition: 0.2s;
       display: block;
       padding: 8px 0;
+      cursor: pointer;
     }
     .menu-list a:hover {
       color: var(--accent);
@@ -628,11 +615,11 @@
 <div class="side-menu" id="sideMenu">
   <div class="menu-header">НАВИГАЦИЯ</div>
   <ul class="menu-list">
-    <li><a href="#" data-page="home" class="nav-link active">ГЛАВНАЯ</a></li>
-    <li><a href="#" data-page="courses" class="nav-link">ВСЕ КУРСЫ</a></li>
-    <li><a href="#" data-page="info" class="nav-link">ИНФОРМАЦИЯ</a></li>
-    <li><a href="#" data-page="socials" class="nav-link">СОЦ СЕТИ</a></li>
-    <li><a href="#" data-page="docs" class="nav-link">ДОКУМЕНТЫ</a></li>
+    <li><a data-page="home" class="nav-link active">ГЛАВНАЯ</a></li>
+    <li><a data-page="courses" class="nav-link">ВСЕ КУРСЫ</a></li>
+    <li><a data-page="info" class="nav-link">ИНФОРМАЦИЯ</a></li>
+    <li><a data-page="socials" class="nav-link">СОЦ СЕТИ</a></li>
+    <li><a data-page="docs" class="nav-link">ДОКУМЕНТЫ</a></li>
   </ul>
   <div style="margin-top: 48px; font-size: 11px; color: #444;">© 2025</div>
 </div>
@@ -733,7 +720,7 @@
 </main>
 
 <script>
-  // КУРСЫ
+  // ДАННЫЕ КУРСОВ
   const allCourses = [
     { id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900, description: "Полный курс по Ableton Live: интерфейс, запись, аранжировка, эффекты", cover: "AL.png", popular: true },
     { id: 2, name: "Сведение и мастеринг", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 6900, description: "Профессиональное сведение треков, работа с динамикой и частотным балансом", cover: null, popular: true },
@@ -745,7 +732,7 @@
 
   let cart = [];
 
-  // Функции отрисовки
+  // Функция отрисовки карточки
   function renderCourseCard(course) {
     const levelClass = course.level === 'beginner' ? 'level-beginner' : (course.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
     const coverStyle = course.cover ? `background-image: url('${course.cover}'); background-size: cover; background-position: center;` : 'background-color: #1a1a1a;';
@@ -765,17 +752,23 @@
     `;
   }
 
+  // Отрисовка всех курсов
   function renderAllCourses() {
     const popularCourses = allCourses.filter(c => c.popular);
     const popularContainer = document.getElementById('popularCoursesContainer');
     const allCoursesContainer = document.getElementById('allCoursesContainer');
-    if(popularContainer) popularContainer.innerHTML = popularCourses.map(c => renderCourseCard(c)).join('');
-    if(allCoursesContainer) allCoursesContainer.innerHTML = allCourses.map(c => renderCourseCard(c)).join('');
+    
+    if(popularContainer) {
+      popularContainer.innerHTML = popularCourses.map(c => renderCourseCard(c)).join('');
+    }
+    if(allCoursesContainer) {
+      allCoursesContainer.innerHTML = allCourses.map(c => renderCourseCard(c)).join('');
+    }
     attachCartEvents();
   }
 
   function attachCartEvents() {
-    document.querySelectorAll('.add-to-cart[data-id]').forEach(btn => {
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
       btn.removeEventListener('click', handleAddToCart);
       btn.addEventListener('click', handleAddToCart);
     });
@@ -868,16 +861,17 @@
     setTimeout(() => toast.remove(), 2000);
   }
 
-  // Навигация
+  // НАВИГАЦИЯ
   function navigateTo(pageId) {
     document.querySelectorAll('.page').forEach(page => {
       page.classList.remove('active-page');
     });
-    document.getElementById(`${pageId}-page`).classList.add('active-page');
+    const targetPage = document.getElementById(`${pageId}-page`);
+    if(targetPage) targetPage.classList.add('active-page');
     
     document.querySelectorAll('.nav-link').forEach(link => {
       link.classList.remove('active');
-      if(link.dataset.page === pageId) {
+      if(link.getAttribute('data-page') === pageId) {
         link.classList.add('active');
       }
     });
@@ -886,21 +880,19 @@
   }
 
   function toggleSideMenu() { 
-    const menu = document.getElementById('sideMenu');
-    menu.classList.toggle('open'); 
+    document.getElementById('sideMenu').classList.toggle('open'); 
   }
   function closeSideMenu() { 
     document.getElementById('sideMenu').classList.remove('open'); 
   }
   function toggleCartPanel() { 
-    const panel = document.getElementById('cartPanel');
-    panel.classList.toggle('show'); 
+    document.getElementById('cartPanel').classList.toggle('show'); 
     updateCartUI();
   }
   function openModal() { document.getElementById('regModal').classList.add('active'); }
   function closeModal() { document.getElementById('regModal').classList.remove('active'); }
 
-  // Обработчики событий
+  // ОБРАБОТЧИКИ
   document.getElementById('burgerBtn')?.addEventListener('click', toggleSideMenu);
   document.getElementById('cartIconBtn')?.addEventListener('click', (e) => { e.stopPropagation(); toggleCartPanel(); });
   document.getElementById('closeCartBtn')?.addEventListener('click', () => document.getElementById('cartPanel').classList.remove('show'));
@@ -926,4 +918,4 @@
   
   document.getElementById('checkoutBtn')?.addEventListener('click', () => {
     if(cart.length === 0) alert('Корзина пуста');
-    else alert('Спасибо за заказ! Менеджер свяжется с
+    else alert('Спасибо за заказ! Менеджер
