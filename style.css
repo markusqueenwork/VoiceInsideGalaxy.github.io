@@ -28,7 +28,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Header - адаптив для всех экранов */
+/* Header */
 .site-header {
   position: fixed;
   top: 0;
@@ -53,7 +53,6 @@ body {
   .site-header { height: 72px; padding: 0 48px; }
 }
 
-/* Для Fold 4 в разложенном состоянии (около 800px ширины) */
 @media (min-width: 800px) and (max-width: 1200px) {
   .site-header { padding: 0 32px; }
 }
@@ -385,7 +384,7 @@ body {
   color: #aaa;
 }
 
-/* Course cards - адаптивная сетка */
+/* Course cards - с фиксированной высотой для кнопки на одном уровне */
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -412,8 +411,10 @@ body {
   transition: 0.25s;
   cursor: pointer;
   text-decoration: none;
-  display: block;
+  display: flex;
+  flex-direction: column;
   color: inherit;
+  height: 100%;
 }
 
 .course-card:active { transform: scale(0.98); }
@@ -429,7 +430,13 @@ body {
   background-position: center;
 }
 
-.course-info { padding: 12px; }
+.course-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 @media (min-width: 600px) { .course-info { padding: 16px; } }
 @media (min-width: 768px) { .course-info { padding: 20px; } }
 
@@ -463,12 +470,13 @@ body {
 
 .level-beginner { background: var(--green); color: #000; }
 .level-intermediate { background: var(--orange); color: #000; }
-.level-pro { background: var(--red); color: #fff; }
+.level-pro { background: var(--orange); color: #000; }
 
 .course-description {
   color: #a0a0a0;
   margin: 6px 0;
   font-size: 0.7rem;
+  flex: 1;
 }
 
 @media (min-width: 600px) { .course-description { font-size: 0.75rem; } }
@@ -510,6 +518,7 @@ body {
   width: 100%;
   font-family: inherit;
   font-size: 0.7rem;
+  margin-top: auto;
 }
 
 @media (min-width: 600px) { .add-to-cart-btn { padding: 8px 16px; font-size: 0.75rem; } }
@@ -596,7 +605,7 @@ footer {
 @media (min-width: 600px) { footer { padding: 32px 0 28px; font-size: 0.7rem; } }
 @media (min-width: 768px) { footer { padding: 48px 0 40px; margin-top: 80px; font-size: 0.8rem; } }
 
-/* Дополнительные стили для соцсетей и документов */
+/* Соцсети и документы */
 .socials-page, .docs-page {
   min-height: 70vh;
   padding: 60px 20px;
