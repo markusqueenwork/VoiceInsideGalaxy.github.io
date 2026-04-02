@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Документы — Voice Inside Galaxy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .docs-page {
+      min-height: 70vh;
+      padding: 40px 20px;
+    }
+    .docs-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .docs-title span {
+      color: var(--accent);
+    }
+    .docs-subtitle {
+      color: #a0a0a0;
+      text-align: center;
+      margin-bottom: 48px;
+      font-size: 1rem;
+    }
+    .docs-list {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #111;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .doc-item {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: 0.2s;
+    }
+    .doc-item:last-child {
+      border-bottom: none;
+    }
+    .doc-item:hover {
+      background: #1a1a1a;
+    }
+    .doc-icon {
+      font-size: 1.5rem;
+    }
+    .doc-info {
+      flex: 1;
+    }
+    .doc-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .doc-desc {
+      font-size: 0.8rem;
+      color: #a0a0a0;
+    }
+    @media (max-width: 768px) {
+      .docs-title { font-size: 1.8rem; }
+      .doc-item { padding: 16px 20px; }
+      .doc-icon { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo"><a href="index.html">VOICE INSIDE <span>GALAXY</span></a></div>
+  <div class="right-group">
+    <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
+    <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
+    <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">НАВИГАЦИЯ</div>
+  <ul class="menu-list">
+    <li><a href="index.html">ГЛАВНАЯ</a></li>
+    <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
+    <li><a href="socials.html">СОЦ СЕТИ</a></li>
+    <li><a href="docs.html">ДОКУМЕНТЫ</a></li>
+  </ul>
+  <div style="margin-top: 40px; font-size: 11px; color: #444;">© 2025</div>
+</div>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-title"><span>КОРЗИНА</span><button class="close-cart" id="closeCartBtn">✕</button></div>
+  <div class="cart-items" id="cartItemsList"><div class="empty-cart">Корзина пуста</div></div>
+  <div class="cart-total" id="cartTotal">ИТОГО: 0 ₽</div>
+  <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
+</div>
+
+<div class="modal" id="regModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h3>РЕГИСТРАЦИЯ</h3>
+    <input type="text" id="regName" placeholder="Имя">
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="password" id="regPassword" placeholder="Пароль">
+    <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
+  </div>
+</div>
+
+<main>
+<div class="container">
+  <div class="docs-page">
+    <h1 class="docs-title">Документы <span>и лицензии</span></h1>
+    <p class="docs-subtitle">Официальные документы школы Voice Inside Galaxy</p>
+    
+    <div class="docs-list">
+      <div class="doc-item">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Лицензия на образовательную деятельность</div>
+          <div class="doc-desc">№ Л035-01298-77/00765432</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon">🔒</div>
+        <div class="doc-info">
+          <div class="doc-name">Политика обработки персональных данных</div>
+          <div class="doc-desc">Как мы собираем, храним и используем ваши данные</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon">📝</div>
+        <div class="doc-info">
+          <div class="doc-name">Договор оферты на оказание услуг</div>
+          <div class="doc-desc">Условия предоставления образовательных услуг</div>
+        </div>
+      </div>
+      <div class="doc-item">
+        <div class="doc-icon">📺</div>
+        <div class="doc-info">
+          <div class="doc-name">Свидетельство СМИ</div>
+          <div class="doc-desc">ЭЛ № ФС 77 — 88777</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
+  <p style="margin-top: 6px;">hello@voicegalaxy.ru</p>
+</footer>
+</main>
+
+<script src="script.js"></script>
+<script src="cart.js"></script>
+<script>
+  // Обработчики
+  document.getElementById('burgerBtn').onclick = toggleSideMenu;
+  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
+  document.getElementById('closeCartBtn').onclick = closeCart;
+  document.getElementById('regBtn').onclick = openRegModal;
+  document.getElementById('closeModalBtn').onclick = closeRegModal;
+  document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  document.getElementById('doRegisterBtn').onclick = () => {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    if (!name || !email || !password) alert('Заполните все поля');
+    else if (password.length < 4) alert('Пароль минимум 4 символа');
+    else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
+  };
+</script>
+</body>
+</html>
