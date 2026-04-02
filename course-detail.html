@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Курс — Voice Inside Galaxy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -118,6 +118,7 @@
       .course-detail-title { font-size: 1.5rem; }
       .modules-title { font-size: 1.2rem; }
       .module-name { font-size: 1rem; }
+      .course-detail-price { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -268,7 +269,7 @@
     if (course.cover) {
       coverHtml = `<img class="course-detail-cover" src="${course.cover}" alt="${course.name}" onerror="this.style.display='none'">`;
     } else {
-      coverHtml = '<div style="background:#1a1a1a; height:300px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius); margin-bottom:24px;">🎧 Курс</div>';
+      coverHtml = '<div style="background:#1a1a1a; height:300px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius); margin-bottom:24px;">Курс</div>';
     }
     
     let modulesHtml = '';
@@ -292,7 +293,7 @@
         ${coverHtml}
         <h1 class="course-detail-title">${course.name}</h1>
         <div class="course-detail-meta">
-          <span class="course-detail-duration">🕒 ${course.duration}</span>
+          <span class="course-detail-duration">${course.duration}</span>
           <span class="level-badge ${lvlClass}">${course.levelName}</span>
         </div>
         <div class="course-detail-desc">${course.desc}</div>
@@ -315,6 +316,7 @@
     }
   }
 
+  // Обработчики
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof updateCartUI === 'function') updateCartUI();
     renderCourseDetail();
@@ -330,7 +332,7 @@
     if (burgerBtn) burgerBtn.onclick = toggleSideMenu;
     if (cartIconBtn) cartIconBtn.onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
     if (closeCartBtn) closeCartBtn.onclick = () => { if (typeof closeCart === 'function') closeCart(); };
-        if (regBtn) regBtn.onclick = () => { if (typeof openRegModal === 'function') openRegModal(); };
+    if (regBtn) regBtn.onclick = () => { if (typeof openRegModal === 'function') openRegModal(); };
     if (closeModalBtn) closeModalBtn.onclick = () => { if (typeof closeRegModal === 'function') closeRegModal(); };
     if (checkoutBtn) {
       checkoutBtn.onclick = () => { 
