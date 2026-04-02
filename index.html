@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice Inside Galaxy — Онлайн-школа музыкального продакшна</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Inside Galaxy — Онлайн‑школа музыкального продакшна</title>
     <style>
         :root {
             --color-bg: #000000;
@@ -53,10 +53,11 @@
         }
         .cart-badge {
             position: relative;
+            display: inline-block;
             font-size: 16px;
         }
         .cart-badge::after {
-            content: "0";
+            content: attr(data-count);
             position: absolute;
             top: -8px;
             right: -8px;
@@ -346,7 +347,6 @@
             transform: scale(1.03);
             box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
         }
-
         @keyframes fadeInUp {
             to {
                 opacity: 1;
@@ -362,7 +362,7 @@
             <img src="https://drive.google.com/uc?export=view&id=1n60cg5HV9HD4MaKUGozhw8P5KnCu9ezN" alt="Voice Inside Galaxy Logo" />
             <span>Voice Inside Galaxy</span>
         </div>
-        <div class="cart-badge" id="cart-badge">
+        <div class="cart-badge" id="cart-badge" data-count="0">
             <div class="cart-icon" onclick="toggleCart()">🛒</div>
         </div>
     </header>
@@ -371,7 +371,7 @@
         <main>
             <!-- Блок "Герой" -->
             <section class="hero">
-                <h1>Онлайн-школа музыкального продакшна</h1>
+                <h1>Онлайн‑школа музыкального продакшна</h1>
                 <div class="hero-stats">
                     <div class="stat">
                         <span>500+</span>
@@ -429,8 +429,8 @@
                             Видео‑превью на <a href="https://kinescope.io" target="_blank">Kinescope</a>
                         </div>
                     </div>
-                    <div class="course-card" data-id="3" data-name="Мастер-курс продюсирования" data-price="14990">
-                        <div class="course-title">Мастер-курс продюсирования</div>
+                    <div class="course-card" data-id="3" data-name="Мастер‑курс продюсирования" data-price="14990">
+                        <div class="course-title">Мастер‑курс продюсирования</div>
                         <div class="course-level">
                             <span class="level-circle level-advanced"></span>
                             <span>Мастер</span>
@@ -450,4 +450,32 @@
             <section class="social">
                 <h2 class="section-title">Подписывайся в соцсетях</h2>
                 <div class="social-links">
-                    <a href
+                    <a href="https://t.me/..." class="social-link" target="_blank">Telegram</a>
+                    <a href="https://vk.com/..." class="social-link" target="_blank">VK</a>
+                    <a href="https://instagram.com/..." class="social-link" target="_blank">Instagram</a>
+                </div>
+            </section>
+
+            <!-- Документы -->
+            <section class="docs">
+                <h2 class="section-title">Документы</h2>
+                <ul class="docs-list">
+                    <li><a href="https://docs.google.com/..." target="_blank">Оферта</a></li>
+                    <li><a href="https://docs.google.com/..." target="_blank">Политика обработки данных</a></li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <div>Корзина</div>
+                <div class="cart-close" onclick="toggleCart()">✕</div>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-total" id="cart-total">0 ₽</div>
+            <div class="cart-btns">
+                <button class="btn-secondary" onclick="clearCart()">Очистить</button>
+                <button class="btn-success" onclick="checkout()">Оформить заказ</button>
