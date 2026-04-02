@@ -84,10 +84,10 @@ body {
   align-items: center;
 }
 
-/* ========== КРУГЛЫЕ ИКОНКИ ========== */
+/* ========== КРУГЛЫЕ ИКОНКИ - УВЕЛИЧЕННЫЕ НА ВЕСЬ КРУЖОК ========== */
 .icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
@@ -97,12 +97,13 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .icon-btn {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -113,16 +114,16 @@ body {
 }
 
 .icon-btn img {
-  width: 20px;
-  height: 20px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   filter: brightness(0) invert(1);
-  object-fit: contain;
 }
 
 @media (min-width: 768px) {
   .icon-btn img {
-    width: 22px;
-    height: 22px;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -132,8 +133,8 @@ body {
 
 /* Бургер-меню */
 .burger-btn {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
@@ -149,8 +150,8 @@ body {
 
 @media (min-width: 768px) {
   .burger-btn {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     gap: 5px;
   }
 }
@@ -161,7 +162,7 @@ body {
 }
 
 .burger-btn span {
-  width: 16px;
+  width: 18px;
   height: 2px;
   background: #fff;
   border-radius: 2px;
@@ -169,7 +170,7 @@ body {
 
 @media (min-width: 768px) {
   .burger-btn span {
-    width: 18px;
+    width: 20px;
   }
 }
 
@@ -185,16 +186,16 @@ body {
 
 .cart-badge-overlay {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: -6px;
+  right: -6px;
   background: var(--accent);
   color: #000;
   border-radius: 50%;
   padding: 2px 5px;
   font-size: 0.6rem;
   font-weight: 700;
-  min-width: 16px;
-  height: 16px;
+  min-width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,10 +203,10 @@ body {
 
 @media (min-width: 768px) {
   .cart-badge-overlay {
-    top: -5px;
-    right: -5px;
-    min-width: 18px;
-    height: 18px;
+    top: -7px;
+    right: -7px;
+    min-width: 20px;
+    height: 20px;
     font-size: 0.65rem;
   }
 }
@@ -216,7 +217,7 @@ body {
   align-items: center;
   gap: 8px;
   background: rgba(255, 255, 255, 0.1);
-  padding: 4px 10px 4px 14px;
+  padding: 4px 12px 4px 16px;
   border-radius: 40px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
@@ -233,10 +234,10 @@ body {
 }
 
 .profile-name {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--accent);
-  max-width: 80px;
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -244,14 +245,14 @@ body {
 
 @media (min-width: 768px) {
   .profile-name {
-    font-size: 0.85rem;
-    max-width: 120px;
+    font-size: 0.9rem;
+    max-width: 130px;
   }
 }
 
 .profile-avatar {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   background: var(--accent);
   border-radius: 50%;
   display: flex;
@@ -259,7 +260,7 @@ body {
   justify-content: center;
   color: #000;
   font-weight: 700;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 /* Side menu */
