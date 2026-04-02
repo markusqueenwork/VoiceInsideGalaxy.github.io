@@ -7,13 +7,127 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Уровень "ОПЫТНЫЙ" без переноса */
+    /* Дополнительные стили для courses.html */
+    .profile-badge {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      background: #1a1a1a;
+      padding: 6px 12px 6px 16px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .profile-badge.show {
+      display: flex;
+    }
+    .profile-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .profile-avatar {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    @media (min-width: 768px) {
+      .profile-name { font-size: 0.85rem; }
+      .profile-avatar { width: 32px; height: 32px; }
+    }
+    .profile-modal .modal-content {
+      max-width: 500px;
+    }
+    .profile-stats {
+      background: #1a1a1a;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin: 16px 0;
+      text-align: left;
+    }
+    .profile-stats p {
+      margin: 8px 0;
+      font-size: 0.9rem;
+    }
+    .profile-courses {
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+    }
+    .profile-course-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .profile-course-name {
+      font-size: 0.85rem;
+    }
+    .profile-course-status {
+      font-size: 0.7rem;
+      color: var(--accent);
+    }
+    .logout-btn {
+      background: transparent;
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-top: 16px;
+      font-family: inherit;
+    }
+    .logout-btn:hover {
+      background: var(--red);
+      color: #fff;
+    }
+    .footer-offer {
+      color: #6a6a6a;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-offer:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
     .level-badge {
       white-space: nowrap;
     }
     .level-pro {
       background: var(--accent);
       color: #000;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-top: 70px;
+    }
+    @media (min-width: 768px) {
+      .hero { padding-top: 110px; }
+    }
+    .hero h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 3.2rem; }
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 0.8rem;
+      color: #a0a0a0;
+    }
+    @media (min-width: 768px) {
+      .hero p { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -22,6 +136,10 @@
 <div class="site-header">
   <div class="logo"><a href="index.html">VOICE INSIDE <span>GALAXY</span></a></div>
   <div class="right-group">
+    <div class="profile-badge" id="profileBadge">
+      <span class="profile-name" id="profileName"></span>
+      <div class="profile-avatar" id="profileAvatar"></div>
+    </div>
     <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
     <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
     <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
@@ -88,7 +206,7 @@
 
 <main>
 <div class="container">
-  <div class="hero" style="margin-bottom: 20px; padding-top: 70px;">
+  <div class="hero">
     <h1>Все <span>курсы</span></h1>
     <p>Выбери направление и уровень подготовки</p>
   </div>
@@ -137,14 +255,18 @@
   }
 
   function updateProfileUI() {
+    const badge = document.getElementById('profileBadge');
+    const regBtn = document.getElementById('regBtn');
     if (currentUser) {
-      document.getElementById('profileBadge').classList.add('show');
-      document.getElementById('profileName').innerText = currentUser.name;
-      document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
-      document.getElementById('regBtn').style.display = 'none';
+      if (badge) badge.classList.add('show');
+      const nameSpan = document.getElementById('profileName');
+      const avatarDiv = document.getElementById('profileAvatar');
+      if (nameSpan) nameSpan.innerText = currentUser.name;
+      if (avatarDiv) avatarDiv.innerText = currentUser.name.charAt(0).toUpperCase();
+      if (regBtn) regBtn.style.display = 'none';
     } else {
-      document.getElementById('profileBadge').classList.remove('show');
-      document.getElementById('regBtn').style.display = 'block';
+      if (badge) badge.classList.remove('show');
+      if (regBtn) regBtn.style.display = 'block';
     }
   }
 
@@ -152,17 +274,14 @@
     if (!currentUser) return;
     document.getElementById('profileModalName').innerText = currentUser.name;
     document.getElementById('profileModalEmail').innerText = currentUser.email;
-    
     const purchasedCourses = currentUser.purchasedCourses || [];
     document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
-    
     let totalProgress = 0;
     if (purchasedCourses.length > 0) {
       totalProgress = Math.floor((currentUser.completedLessons || 0) / (purchasedCourses.length * 10) * 100);
       if (totalProgress > 100) totalProgress = 100;
     }
     document.getElementById('profileProgress').innerText = totalProgress;
-    
     const coursesListDiv = document.getElementById('profileCoursesList');
     if (purchasedCourses.length === 0) {
       coursesListDiv.innerHTML = '<p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>';
@@ -171,12 +290,7 @@
       purchasedCourses.forEach(courseId => {
         const course = courses.find(c => c.id === courseId);
         if (course) {
-          html += `
-            <div class="profile-course-item">
-              <span class="profile-course-name">${course.name}</span>
-              <span class="profile-course-status">✅ Куплен</span>
-            </div>
-          `;
+          html += `<div class="profile-course-item"><span class="profile-course-name">${course.name}</span><span class="profile-course-status">✅ Куплен</span></div>`;
         }
       });
       coursesListDiv.innerHTML = html;
@@ -206,40 +320,56 @@
   }
 
   function renderAllCourses() {
-    document.getElementById('allCoursesContainer').innerHTML = courses.map(c => renderCard(c)).join('');
-    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-      btn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const id = parseInt(btn.dataset.id);
-        const name = btn.dataset.name;
-        const price = parseInt(btn.dataset.price);
-        addToCart({ id, name, price });
-      };
-    });
+    const container = document.getElementById('allCoursesContainer');
+    if (container) {
+      container.innerHTML = courses.map(c => renderCard(c)).join('');
+      document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = parseInt(btn.dataset.id);
+          const name = btn.dataset.name;
+          const price = parseInt(btn.dataset.price);
+          if (typeof addToCart === 'function') {
+            addToCart({ id, name, price });
+          }
+        };
+      });
+    }
   }
 
-  // Функции модалок
+  // Модальные окна
   const regModal = document.getElementById('regModal');
   const loginModal = document.getElementById('loginModal');
   const profileModal = document.getElementById('profileModal');
 
-  function openRegModal() { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeRegModal() { regModal.classList.remove('active'); document.body.style.overflow = ''; }
-  function openLoginModal() { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeLoginModal() { loginModal.classList.remove('active'); document.body.style.overflow = ''; }
-  function openProfileModal() { updateProfileModal(); profileModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeProfileModal() { profileModal.classList.remove('active'); document.body.style.overflow = ''; }
+  function openRegModal() { if (regModal) { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeRegModal() { if (regModal) { regModal.classList.remove('active'); document.body.style.overflow = ''; } }
+  function openLoginModal() { if (loginModal) { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeLoginModal() { if (loginModal) { loginModal.classList.remove('active'); document.body.style.overflow = ''; } }
+  function openProfileModal() { if (profileModal) { updateProfileModal(); profileModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeProfileModal() { if (profileModal) { profileModal.classList.remove('active'); document.body.style.overflow = ''; } }
 
-  document.getElementById('burgerBtn').onclick = toggleSideMenu;
-  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
-  document.getElementById('closeCartBtn').onclick = closeCart;
-  document.getElementById('regBtn').onclick = openRegModal;
-  document.getElementById('closeModalBtn').onclick = closeRegModal;
-  document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
-  document.getElementById('profileBadge').onclick = openProfileModal;
-  document.getElementById('closeProfileModalBtn').onclick = closeProfileModal;
-  document.getElementById('logoutBtn').onclick = () => {
+  // Обработчики
+  const burgerBtn = document.getElementById('burgerBtn');
+  const cartIconBtn = document.getElementById('cartIconBtn');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const regBtn = document.getElementById('regBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const profileBadge = document.getElementById('profileBadge');
+  const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  if (burgerBtn) burgerBtn.onclick = () => { if (typeof toggleSideMenu === 'function') toggleSideMenu(); };
+  if (cartIconBtn) cartIconBtn.onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
+  if (closeCartBtn) closeCartBtn.onclick = () => { if (typeof closeCart === 'function') closeCart(); };
+  if (regBtn) regBtn.onclick = openRegModal;
+  if (closeModalBtn) closeModalBtn.onclick = closeRegModal;
+  if (checkoutBtn) checkoutBtn.onclick = () => { if (typeof cart !== 'undefined' && cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  if (profileBadge) profileBadge.onclick = openProfileModal;
+  if (closeProfileModalBtn) closeProfileModalBtn.onclick = closeProfileModal;
+  if (logoutBtn) logoutBtn.onclick = () => {
     localStorage.removeItem('voiceGalaxyCurrentUser');
     currentUser = null;
     updateProfileUI();
@@ -247,39 +377,51 @@
     alert('Вы вышли из аккаунта');
   };
 
-  document.getElementById('doRegisterBtn').onclick = () => {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const password = document.getElementById('regPassword').value;
-    if (!name || !email || !password) alert('Заполните все поля');
-    else if (password.length < 4) alert('Пароль минимум 4 символа');
-    else {
-      const users = loadUsers();
-      if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
+  // Регистрация
+  const doRegisterBtn = document.getElementById('doRegisterBtn');
+  if (doRegisterBtn) {
+    doRegisterBtn.onclick = () => {
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      if (!name || !email || !password) alert('Заполните все поля');
+      else if (password.length < 4) alert('Пароль минимум 4 символа');
       else {
-        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
-        users.push(newUser);
-        saveUsers(users);
-        saveCurrentUser(newUser);
-        alert(`Добро пожаловать, ${name}!`);
-        closeRegModal();
-        updateProfileUI();
+        const users = loadUsers();
+        if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
+        else {
+          const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
+          users.push(newUser);
+          saveUsers(users);
+          saveCurrentUser(newUser);
+          alert(`Добро пожаловать, ${name}!`);
+          closeRegModal();
+          updateProfileUI();
+        }
       }
-    }
-  };
+    };
+  }
 
-  document.getElementById('doLoginBtn').onclick = () => {
-    const email = document.getElementById('loginEmail').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    const users = loadUsers();
-    const user = users.find(u => u.email === email && u.password === password);
-    if (user) { saveCurrentUser(user); alert(`С возвращением, ${user.name}!`); closeLoginModal(); updateProfileUI(); }
-    else alert('Неверный email или пароль');
-  };
+  // Вход
+  const doLoginBtn = document.getElementById('doLoginBtn');
+  if (doLoginBtn) {
+    doLoginBtn.onclick = () => {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const users = loadUsers();
+      const user = users.find(u => u.email === email && u.password === password);
+      if (user) { saveCurrentUser(user); alert(`С возвращением, ${user.name}!`); closeLoginModal(); updateProfileUI(); }
+      else alert('Неверный email или пароль');
+    };
+  }
 
-  document.getElementById('showLoginBtn').onclick = (e) => { e.preventDefault(); closeRegModal(); openLoginModal(); };
-  document.getElementById('showRegFromLoginBtn').onclick = (e) => { e.preventDefault(); closeLoginModal(); openRegModal(); };
-  document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
+  const showLoginBtn = document.getElementById('showLoginBtn');
+  const showRegFromLoginBtn = document.getElementById('showRegFromLoginBtn');
+  const closeLoginModalBtn = document.getElementById('closeLoginModalBtn');
+  
+  if (showLoginBtn) showLoginBtn.onclick = (e) => { e.preventDefault(); closeRegModal(); openLoginModal(); };
+  if (showRegFromLoginBtn) showRegFromLoginBtn.onclick = (e) => { e.preventDefault(); closeLoginModal(); openRegModal(); };
+  if (closeLoginModalBtn) closeLoginModalBtn.onclick = closeLoginModal;
 
   window.onclick = (e) => {
     if (e.target === regModal) closeRegModal();
@@ -287,9 +429,10 @@
     if (e.target === profileModal) closeProfileModal();
   };
 
+  // Запуск
   renderAllCourses();
   loadCurrentUser();
-  updateCartUI();
+  if (typeof updateCartUI === 'function') updateCartUI();
 </script>
 </body>
 </html>
