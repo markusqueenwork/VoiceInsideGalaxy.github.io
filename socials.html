@@ -12,20 +12,14 @@
     @media (min-width: 768px) { .socials-title { font-size: 2.5rem; } }
     .socials-title span { color: var(--accent); }
     .socials-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; max-width: 600px; margin: 0 auto; }
-    .social-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 20px 24px; text-align: center; transition: 0.25s; text-decoration: none; display: block; min-width: 180px;
-    }
+    .social-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; text-align: center; transition: 0.25s; text-decoration: none; display: block; min-width: 180px; }
     @media (min-width: 768px) { .social-card { padding: 24px 32px; min-width: 220px; } }
     .social-card:hover { transform: translateY(-6px); border-color: var(--accent); }
     .social-icon { width: 60px; height: 60px; border-radius: 16px; object-fit: cover; margin: 0 auto 16px; display: block; }
     @media (min-width: 768px) { .social-icon { width: 80px; height: 80px; border-radius: 20px; } }
     .social-name { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 8px; }
     @media (min-width: 768px) { .social-name { font-size: 1.3rem; } }
-    .profile-badge {
-      display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.1);
-      padding: 4px 12px 4px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer;
-    }
+    .profile-badge { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 4px 12px 4px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; }
     .profile-badge.show { display: flex; }
     .profile-name { font-size: 0.8rem; font-weight: 500; color: var(--accent); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .profile-avatar { width: 28px; height: 28px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; font-size: 0.75rem; }
@@ -98,11 +92,11 @@
   <div class="socials-page">
     <h1 class="socials-title">Наши <span>соцсети</span></h1>
     <div class="socials-grid">
-      <a href="https://t.me/voiceinsidegalaxy_bot" class="social-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://t.me/voiceinsidegalaxy_bot" class="social-card" target="_blank">
         <img src="tg.png" class="social-icon" alt="Telegram" onerror="this.style.display='none'">
         <div class="social-name">Telegram</div>
       </a>
-      <a href="https://youtube.com/@v.i.galaxy?si=m9M9PJJFvdE3QoKz" class="social-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://youtube.com/@v.i.galaxy?si=m9M9PJJFvdE3QoKz" class="social-card" target="_blank">
         <img src="yt.png" class="social-icon" alt="YouTube" onerror="this.style.display='none'">
         <div class="social-name">YouTube</div>
       </a>
@@ -110,7 +104,7 @@
   </div>
 </div>
 <footer>
-  <p><a href="oferta.docx" class="footer-offer" target="_blank" rel="noopener noreferrer">Публичная оферта</a></p>
+  <p><a href="oferta.docx" class="footer-offer" target="_blank">Публичная оферта</a></p>
   <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
 </footer>
 </main>
@@ -152,18 +146,13 @@
       const users = loadUsers();
       if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
       else {
-        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
-        users.push(newUser);
-        saveUsers(users);
-        saveCurrentUser(newUser);
-        alert(`Добро пожаловать, ${name}!`);
-        document.getElementById('regModal').classList.remove('active');
-        updateProfileUI();
+        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], courseProgress: {}, completedLessons: 0 };
+        users.push(newUser); saveUsers(users); saveCurrentUser(newUser);
+        alert(`Добро пожаловать, ${name}!`); document.getElementById('regModal').classList.remove('active'); updateProfileUI();
       }
     }
   };
-  loadCurrentUser();
-  if (typeof updateCartUI === 'function') updateCartUI();
+  loadCurrentUser(); if (typeof updateCartUI === 'function') updateCartUI();
 </script>
 </body>
 </html>
