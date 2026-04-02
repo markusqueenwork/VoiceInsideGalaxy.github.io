@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Дополнительные стили для новых блоков */
     .steps-section {
       margin: 60px 0;
     }
@@ -56,7 +55,6 @@
       .step-desc { font-size: 0.9rem; }
     }
 
-    /* FAQ блок */
     .faq-section {
       margin: 60px 0;
     }
@@ -117,7 +115,6 @@
       .faq-answer { font-size: 0.95rem; }
     }
 
-    /* Личный кабинет */
     .profile-badge {
       display: none;
       align-items: center;
@@ -153,7 +150,6 @@
       .profile-avatar { width: 32px; height: 32px; }
     }
 
-    /* Модалка профиля */
     .profile-modal .modal-content {
       max-width: 500px;
     }
@@ -200,6 +196,17 @@
     .logout-btn:hover {
       background: var(--red);
       color: #fff;
+    }
+
+    /* Футер */
+    .footer-offer {
+      color: #6a6a6a;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-offer:hover {
+      color: var(--accent);
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -283,36 +290,34 @@
 <div class="container">
   <div class="hero">
     <h1>Онлайн школа <span>музыкального продакшна</span></h1>
-    <p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу. Курсы от новичка до профи.</p>
+    <p>Обучаем созданию электронной музыки, вокалу, сведению и мастерингу. Курсы от новичка до профи</p>
     <button class="btn-primary" id="heroCoursesBtn">СМОТРЕТЬ КУРСЫ</button>
   </div>
 
   <div class="section-title">Популярные курсы</div>
   <div class="cards-grid" id="popularContainer"></div>
 
-  <!-- Блок "Как проходит обучение" -->
   <div class="steps-section">
     <div class="section-title">Как проходит обучение</div>
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-number">01</div>
         <div class="step-title">Выбирай курс</div>
-        <div class="step-desc">Отфильтруй по жанру, длительности и уровню — найдёшь идеальный курс под задачу.</div>
+        <div class="step-desc">Отфильтруй по жанру, длительности и уровню — найдёшь идеальный курс под задачу</div>
       </div>
       <div class="step-card">
         <div class="step-number">02</div>
         <div class="step-title">Покупай и заходи в профиль</div>
-        <div class="step-desc">После оплаты все материалы появляются в твоём личном кабинете: видео, файлы, пресеты.</div>
+        <div class="step-desc">После оплаты все материалы появляются в твоём личном кабинете: видео, файлы, пресеты</div>
       </div>
       <div class="step-card">
         <div class="step-number">03</div>
         <div class="step-title">Смотри и повторяй по шагам</div>
-        <div class="step-desc">Выполняй уроки в DAW, используй чек-листы и шаблоны — учись в своём темпе.</div>
+        <div class="step-desc">Выполняй уроки в DAW, используй чек-листы и шаблоны — учись в своём темпе</div>
       </div>
     </div>
   </div>
 
-  <!-- Блок "Частые вопросы" -->
   <div class="faq-section">
     <div class="section-title">Частые вопросы</div>
     <div class="faq-grid" id="faqContainer">
@@ -321,34 +326,34 @@
           <span>Нужен ли опыт чтобы начать?</span>
           <span class="faq-icon">+</span>
         </div>
-        <div class="faq-answer">Нет. Курсы для новичков начинаются с нуля — с установки DAW и первого звука. Если есть базовый опыт — есть курсы среднего и продвинутого уровня.</div>
+        <div class="faq-answer">Нет. Курсы для новичков начинаются с нуля — с установки DAW и первого звука. Если есть базовый опыт — есть курсы среднего и продвинутого уровня</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">
           <span>Сколько времени нужно в день?</span>
           <span class="faq-icon">+</span>
         </div>
-        <div class="faq-answer">Достаточно 30–60 минут в день. Уроки короткие и конкретные — без воды. Платформа сохраняет прогресс, можно учиться в любом темпе.</div>
+        <div class="faq-answer">Достаточно 30–60 минут в день. Уроки короткие и конкретные — без воды. Платформа сохраняет прогресс, можно учиться в любом темпе</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">
           <span>Как долго доступны курсы после покупки?</span>
           <span class="faq-icon">+</span>
         </div>
-        <div class="faq-answer">Пожизненный доступ. Купил один раз — смотришь сколько угодно, пересматриваешь когда нужно.</div>
+        <div class="faq-answer">Пожизненный доступ. Купил один раз — смотришь сколько угодно, пересматриваешь когда нужно</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">
           <span>Есть ли обратная связь от преподавателя?</span>
           <span class="faq-icon">+</span>
         </div>
-        <div class="faq-answer">Да. В каждом курсе есть домашние задания, которые ты отправляешь на проверку. Продюсер лично разбирает твою работу и даёт конкретный фидбек.</div>
+        <div class="faq-answer">Да. В каждом курсе есть домашние задания, которые ты отправляешь на проверку. Продюсер лично разбирает твою работу и даёт конкретный фидбек</div>
       </div>
     </div>
   </div>
 </div>
 <footer>
-  <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
+  <p><a href="oferta.docx" class="footer-offer" target="_blank" rel="noopener noreferrer">Публичная оферта</a></p>
   <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
 </footer>
 </main>
@@ -356,17 +361,15 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  // Данные курсов
   const courses = [
     {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Полный курс по Ableton Live: интерфейс, запись, аранжировка",cover:"AL2.png",detailCover:"AL.png",popular:true,duration:"8 часов"},
     {id:2,name:"Сведение и мастеринг",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Основы сведения и мастеринга для начинающих",cover:"s.png",detailCover:"s2.png",popular:true,duration:"10 часов"},
     {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн, Melodyne, коррекция и обработка вокала",cover:"at.png",detailCover:"at2.png",popular:true,duration:"5 часов"},
     {id:3,name:"DnB с нуля",level:"beginner",levelName:"НОВИЧОК",price:8000,desc:"Создание drum & bass треков с нуля",cover:"dnb.png",detailCover:"dnb2.png",popular:false,duration:"12 часов"},
     {id:4,name:"Hip-hop с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Создание trap, rap и hip-hop битов",cover:"hh.png",detailCover:"hh2.png",popular:false,duration:"9 часов"},
-    {id:6,name:"Продвинутое сведение",level:"pro",levelName:"ПРОДВИНУТЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",detailCover:"sm2.png",popular:false,duration:"15 часов"}
+    {id:6,name:"Продвинутое сведение",level:"pro",levelName:"ОПЫТНЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",detailCover:"sm2.png",popular:false,duration:"15 часов"}
   ];
 
-  // Система пользователей
   let currentUser = null;
 
   function loadUsers() {
@@ -411,7 +414,6 @@
     const purchasedCourses = currentUser.purchasedCourses || [];
     document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
     
-    // Прогресс (простой подсчет)
     let totalProgress = 0;
     if (purchasedCourses.length > 0) {
       totalProgress = Math.floor((currentUser.completedLessons || 0) / (purchasedCourses.length * 10) * 100);
@@ -486,7 +488,6 @@
     alert('Вы вышли из аккаунта');
   }
 
-  // Добавление покупки к пользователю
   function addPurchaseToUser(courseId) {
     if (!currentUser) {
       alert('Войдите в аккаунт для покупки курса');
@@ -506,7 +507,6 @@
     return true;
   }
 
-  // Оформление заказа
   function checkout() {
     if (!currentUser) {
       alert('Войдите в аккаунт для оформления заказа');
@@ -526,7 +526,6 @@
     alert('Спасибо за заказ! Курсы добавлены в ваш личный кабинет.');
   }
 
-  // Рендер карточки
   function renderCard(c) {
     const lvlClass = c.level === 'beginner' ? 'level-beginner' : (c.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
     const coverStyle = c.cover ? `background-image: url('${c.cover}')` : 'background-color:#1a1a1a';
@@ -564,7 +563,6 @@
     });
   }
 
-  // FAQ аккордеон
   function initFaq() {
     document.querySelectorAll('.faq-item').forEach(item => {
       const question = item.querySelector('.faq-question');
@@ -574,7 +572,6 @@
     });
   }
 
-  // Модальные окна
   const regModal = document.getElementById('regModal');
   const loginModal = document.getElementById('loginModal');
   const profileModal = document.getElementById('profileModal');
@@ -590,7 +587,6 @@
   }
   function closeProfileModal() { profileModal.classList.remove('active'); document.body.style.overflow = ''; }
 
-  // Обработчики
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
   document.getElementById('closeCartBtn').onclick = closeCart;
@@ -602,7 +598,6 @@
   document.getElementById('closeProfileModalBtn').onclick = closeProfileModal;
   document.getElementById('logoutBtn').onclick = logoutUser;
 
-  // Регистрация
   document.getElementById('doRegisterBtn').onclick = () => {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
@@ -612,14 +607,12 @@
     else registerUser(name, email, password);
   };
 
-  // Вход
   document.getElementById('doLoginBtn').onclick = () => {
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
     loginUser(email, password);
   };
 
-  // Переключение между модалками
   document.getElementById('showLoginBtn').onclick = (e) => {
     e.preventDefault();
     closeRegModal();
@@ -632,14 +625,12 @@
   };
   document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
 
-  // Закрытие модалок по клику вне
   window.onclick = (e) => {
     if (e.target === regModal) closeRegModal();
     if (e.target === loginModal) closeLoginModal();
     if (e.target === profileModal) closeProfileModal();
   };
 
-  // Инициализация
   renderPopular();
   initFaq();
   loadCurrentUser();
