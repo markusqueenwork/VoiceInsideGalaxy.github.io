@@ -1,182 +1,184 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Music‑LMS — онлайн‑курсы по музыке</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Inside Galaxy — Онлайн-школа музыкального продакшна</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #333;
-      background: #fafafa;
-    }
-    a { text-decoration: none; color: inherit; }
-    section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
       background: #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      z-index: 1000;
-      padding: 16px 20px;
     }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #000;
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-    nav li:not(:last-child) { margin-right: 24px; }
-    nav a {
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: #333;
-      transition: color 0.2s;
-    }
-    nav a:hover {
-      color: #007bff;
-    }
-
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    h1, h2 { font-weight: 700; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
+    
     /* Hero */
     .hero {
       text-align: center;
-      padding: 100px 20px 80px;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border-bottom: 1px solid #dee2e6;
+      padding: 100px 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-      color: #111;
+    .hero h1 { margin-bottom: 1rem; color: white; }
+    .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
     }
-    .hero p {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 24px;
-      color: #555;
-    }
+    .stat { text-align: center; }
+    .stat-number { font-size: 2.5rem; font-weight: 700; display: block; }
     .btn {
       display: inline-block;
-      padding: 12px 24px;
-      background: #007bff;
-      color: #fff;
-      border-radius: 6px;
-      font-weight: 500;
-      transition: background 0.2s;
+      background: #ff6b6b;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: transform 0.3s;
     }
-    .btn:hover {
-      background: #0056b3;
-    }
+    .btn:hover { transform: translateY(-2px); }
 
     /* Features */
-    .features {
-      background: #fff;
-    }
-    .features h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 1.8rem;
-      color: #111;
-    }
-    .feature-grid {
+    .features { padding: 80px 0; background: #f8f9fa; }
+    .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
-    .feature-card {
-      padding: 24px;
-      border-radius: 8px;
-      background: #f8f9fa;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    .feature {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       text-align: center;
     }
-    .feature-card h3 {
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-      color: #222;
-    }
+    .feature h3 { font-size: 1.3rem; margin-bottom: 1rem; }
 
     /* Courses */
-    .courses h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.8rem;
-      color: #111;
-    }
+    .courses { padding: 80px 0; }
     .course-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
     }
     .course-card {
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
     }
-    .course-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-      color: #222;
-    }
-    .course-card p {
-      font-size: 0.95rem;
-      color: #555;
-      margin-bottom: 16px;
-    }
-    .course-card .price {
-      font-weight: 700;
-      color: #111;
-      font-size: 1.1rem;
-      margin-bottom: 16px;
-    }
+    .course-card:hover { transform: translateY(-5px); }
+    .course-card h3 { margin-bottom: 1rem; }
+    .course-meta { color: #666; margin-bottom: 1rem; }
+    .price { font-size: 1.5rem; font-weight: 700; color: #ff6b6b; }
 
-    /* Reviews */
-    .reviews {
-      background: #f8f9fa;
-    }
-    .reviews h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.8rem;
-      color: #111;
-    }
-    .review-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .review-card {
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    }
-    .review-card p {
-      font-style: italic;
-      margin-bottom: 12px;
-      color: #444;
-    }
-    .review-card .author {
-      font-weight: 500;
-      color: #222;
-      font-size: 0.9rem;
-    }
+    /* How it works / Reviews / CTA */
+    .section { padding: 80px 0; text-align: center; }
+    .reviews { background: #f8f9fa; }
+    .review { max-width: 500px; margin: 0 auto 2rem; font-style: italic; }
+    .author { font-weight: 600; margin-top: 1rem; }
+    .faq { background: white; }
+    .faq-item { max-width: 600px; margin: 0 auto 1.5rem; text-align: left; }
 
-    /* Footer */
-    footer {
-      backgr
+    @media (max-width: 768px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .container { padding: 0 15px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Твоя музыка. Профессиональный звук.</h1>
+      <p>Практические курсы по продакшну, сведению, мастерингу и написанию песен. Учись у продюсера — без воды, только конкретные инструменты и результат.</p>
+      <div class="stats">
+        <div class="stat"><span class="stat-number">500+</span>Студентов</div>
+        <div class="stat"><span class="stat-number">5</span>Курсов</div>
+        <div class="stat"><span class="stat-number">100+</span>Уроков</div>
+        <div class="stat"><span class="stat-number">4.9</span>Рейтинг</div>
+      </div>
+      <a href="#courses" class="btn">Смотреть курсы</a>
+      <a href="#" class="btn" style="background: transparent; border: 2px solid white; margin-left: 1rem;">Посмотреть урок</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2>Всё, что нужно для серьёзного роста</h2>
+      <p>Платформа создана специально для битмейкеров — не общий курс, а конкретные инструменты для твоего звука.</p>
+      <div class="features-grid">
+        <div class="feature">
+          <h3>Видеоуроки в HD</h3>
+          <p>Подробные уроки с разбором экрана DAW. Смотри в своём темпе, пересматривай сколько угодно.</p>
+        </div>
+        <div class="feature">
+          <h3>Практические задания</h3>
+          <p>Домашние задания после каждого блока. Отправляй работу — получай обратную связь от продюсера.</p>
+        </div>
+        <div class="feature">
+          <h3>Тесты на закрепление</h3>
+          <p>Короткие квизы после урока проверяют, что ты усвоил материал и готов к следующему шагу.</p>
+        </div>
+        <div class="feature">
+          <h3>Материалы для скачивания</h3>
+          <p>Пресеты, семплы, шаблоны проектов и PDF-гайды — всё включено в курс.</p>
+        </div>
+        <div class="feature">
+          <h3>Отслеживание прогресса</h3>
+          <p>Личный кабинет показывает сколько ты прошёл, что осталось и куда двигаться дальше.</p>
+        </div>
+        <div class="feature">
+          <h3>Живое сообщество</h3>
+          <p>Доступ в закрытый Telegram-чат студентов, где можно задать вопрос и получить фидбек.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section class="courses" id="courses">
+    <div class="container">
+      <h2>Популярные курсы</h2>
+      <p>Начни с любого — все курсы ведут к одному результату</p>
+      <div class="course-grid">
+        <div class="course-card">
+          <div>Новичок</div>
+          <h3>Основы битмейкинга в FL Studio</h3>
+          <div class="course-meta">24 уроков • 6 ч</div>
+          <div class="price">4 900 ₽ <span style="text-decoration: line-through; color: #999;">7 900 ₽</span></div>
+        </div>
+        <div class="course-card">
+          <div>Средний</div>
+          <h3>Саунд-дизайн: от пресета к своему звуку</h3>
+          <div class="course-meta">31 уроков • 8 ч 30 мин</div>
+          <div class="price">6 900 ₽</div>
+        </div>
+        <div class="course-card">
+          <div>Средний</div>
+          <h3>Сведение и мастеринг</h3>
+          <div class="course-meta">28 уроков • 7 ч</div>
+          <div class="price">5 900 ₽</div>
+        </div>
+      </div>
+      <a href="#" class="btn">Все курсы</a>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section">
+    <div class="container">
+      <h2>Как это работает</h
