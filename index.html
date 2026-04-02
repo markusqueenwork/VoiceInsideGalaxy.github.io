@@ -6,12 +6,13 @@
     <title>Онлайн-школа музыкального продакшна</title>
     <style>
         :root {
-            --color-bg: #000000;        /* чёрный фон */
-            --color-text: #ffffff;     /* белый текст */
-            --color-panel: #202020;    /* панель/фон панелей */
-            --color-accent: #FFCC00;   /* жёлтый акцент (#FFCC00) */
+            --color-bg: #000000;
+            --color-text: #ffffff;
+            --color-panel: #202020;
+            --color-accent: #FFCC00;
             --color-gray: #666666;
-            --shadow: 0 4px 12px rgba(0,0,0,0.3);
+            --shadow: 0 4px 12px rgba(0,0,0,0.4);
+            --transition: all 0.25s ease;
         }
         * {
             margin: 0;
@@ -24,13 +25,21 @@
             color: var(--color-text);
             min-height: 100vh;
         }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px;
+        }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
             background: #202020;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .logo {
             display: flex;
@@ -64,25 +73,31 @@
             cursor: pointer;
         }
         main {
-            padding: 32px 24px;
+            padding: 40px 0;
         }
         .hero {
-            max-width: 800px;
-            margin: 0 auto 40px;
             text-align: center;
+            max-width: 800px;
+            margin: 0 auto 48px;
         }
         .hero h1 {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 16px;
             color: var(--color-accent);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s 0.2s both;
         }
         .hero-stats {
             display: flex;
             justify-content: center;
             gap: 32px;
-            margin-bottom: 16px;
+            margin-bottom: 32px;
             font-size: 14px;
             color: var(--color-gray);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s 0.4s both;
         }
         .stat span {
             display: block;
@@ -91,20 +106,26 @@
             color: var(--color-accent);
         }
         .courses {
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s 0.5s both;
+        }
+        .course-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
-            margin-bottom: 40px;
         }
         .course-card {
             background: #202020;
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: var(--transition);
+            transform: translateY(0);
         }
         .course-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
             box-shadow: var(--shadow);
             background: #282828;
         }
@@ -154,10 +175,18 @@
             gap: 6px;
             font-size: 14px;
             border-radius: 8px;
+            transition: var(--transition);
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
         }
         .social {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s 0.7s both;
         }
         .social-links {
             display: flex;
@@ -170,7 +199,10 @@
             font-size: 14px;
         }
         .docs {
-            margin-bottom: 32px;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s 0.8s both;
         }
         .docs h2 {
             font-size: 18px;
@@ -196,9 +228,14 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
         }
         .cart-modal.active {
             display: flex;
+            opacity: 1;
+            pointer-events: all;
         }
         .cart-content {
             background: #202020;
@@ -209,6 +246,11 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .cart-modal.active .cart-content {
+            transform: translateY(0);
         }
         .cart-header {
             display: flex;
@@ -231,6 +273,10 @@
             align-items: center;
             padding: 10px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+        .cart-item:hover {
+            background: rgba(255,255,255,0.05);
         }
         .cart-item-name {
             font-size: 14px;
@@ -258,6 +304,7 @@
             background: transparent;
             color: var(--color-text);
             cursor: pointer;
+            transition: var(--transition);
         }
         .btn-secondary:hover {
             background: rgba(255,255,255,0.1);
@@ -270,9 +317,18 @@
             background: var(--color-accent);
             color: #000000;
             cursor: pointer;
+            transition: var(--transition);
         }
         .btn-success:hover {
-            opacity: 0.9;
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -289,91 +345,95 @@
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Онлайн-школа музыкального продакшна</h1>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span>500+</span>
-                    студентов
+    <div class="container">
+        <main>
+            <section class="hero">
+                <h1>Онлайн-школа музыкального продакшна</h1>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span>500+</span>
+                        студентов
+                    </div>
+                    <div class="stat">
+                        <span>25</span>
+                        курсов
+                    </div>
+                    <div class="stat">
+                        <span>4.9</span>
+                        рейтинг
+                    </div>
                 </div>
-                <div class="stat">
-                    <span>25</span>
-                    курсов
-                </div>
-                <div class="stat">
-                    <span>4.9</span>
-                    рейтинг
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="courses">
-            <div class="course-card" data-id="1" data-name="Базовый курс продакшна" data-price="4990">
-                <div class="course-title">Базовый курс продакшна</div>
-                <div class="course-level">
-                    <span class="level-circle level-beginner"></span>
-                    <span>Базовый</span>
+            <section class="courses">
+                <div class="course-grid">
+                    <div class="course-card" data-id="1" data-name="Базовый курс продакшна" data-price="4990">
+                        <div class="course-title">Базовый курс продакшна</div>
+                        <div class="course-level">
+                            <span class="level-circle level-beginner"></span>
+                            <span>Базовый</span>
+                        </div>
+                        <div class="course-price">4 990 ₽</div>
+                        <button class="btn-primary" onclick="addToCart(this)">
+                            🛒 В корзину
+                        </button>
+                    </div>
+                    <div class="course-card" data-id="2" data-name="Продвинутый продакшн и миксинг" data-price="9990">
+                        <div class="course-title">Продвинутый продакшн и миксинг</div>
+                        <div class="course-level">
+                            <span class="level-circle level-intermediate"></span>
+                            <span>Продвинутый</span>
+                        </div>
+                        <div class="course-price">9 990 ₽</div>
+                        <button class="btn-primary" onclick="addToCart(this)">
+                            🛒 В корзину
+                        </button>
+                    </div>
+                    <div class="course-card" data-id="3" data-name="Мастер-курс продюсирования" data-price="14990">
+                        <div class="course-title">Мастер-курс продюсирования</div>
+                        <div class="course-level">
+                            <span class="level-circle level-advanced"></span>
+                            <span>Мастер</span>
+                        </div>
+                        <div class="course-price">14 990 ₽</div>
+                        <button class="btn-primary" onclick="addToCart(this)">
+                            🛒 В корзину
+                        </button>
+                    </div>
                 </div>
-                <div class="course-price">4 990 ₽</div>
-                <button class="btn-primary" onclick="addToCart(this)">
-                    🛒 В корзину
-                </button>
-            </div>
-            <div class="course-card" data-id="2" data-name="Продвинутый продакшн и миксинг" data-price="9990">
-                <div class="course-title">Продвинутый продакшн и миксинг</div>
-                <div class="course-level">
-                    <span class="level-circle level-intermediate"></span>
-                    <span>Продвинутый</span>
+            </section>
+
+            <section class="social">
+                <h2>Подписывайся в соцсетях</h2>
+                <div class="social-links">
+                    <a href="https://t.me/voiceinsidegalaxy_bot" class="social-link" target="_blank">Telegram</a>
+                    <a href="https://www.youtube.com/" class="social-link" target="_blank">YouTube</a>
                 </div>
-                <div class="course-price">9 990 ₽</div>
-                <button class="btn-primary" onclick="addToCart(this)">
-                    🛒 В корзину
-                </button>
-            </div>
-            <div class="course-card" data-id="3" data-name="Мастер-курс продюсирования" data-price="14990">
-                <div class="course-title">Мастер-курс продюсирования</div>
-                <div class="course-level">
-                    <span class="level-circle level-advanced"></span>
-                    <span>Мастер</span>
+            </section>
+
+            <section class="docs">
+                <h2>Документы</h2>
+                <ul class="docs-list">
+                    <li><a href="#" target="_blank">Договор оферты.pdf</a></li>
+                    <li><a href="#" target="_blank">Политика конфиденциальности.pdf</a></li>
+                    <li><a href="#" target="_blank">Публичная оферта.pdf</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Модалка корзины -->
+        <div class="cart-modal" id="cart-modal">
+            <div class="cart-content">
+                <div class="cart-header">
+                    <span>Корзина</span>
+                    <span class="cart-close" onclick="toggleCart()">×</span>
                 </div>
-                <div class="course-price">14 990 ₽</div>
-                <button class="btn-primary" onclick="addToCart(this)">
-                    🛒 В корзину
-                </button>
-            </div>
-        </section>
-
-        <section class="social">
-            <h2>Подписывайся в соцсетях</h2>
-            <div class="social-links">
-                <a href="https://t.me/voiceinsidegalaxy_bot" class="social-link" target="_blank">Telegram</a>
-                <a href="https://www.youtube.com/" class="social-link" target="_blank">YouTube</a>
-            </div>
-        </section>
-
-        <section class="docs">
-            <h2>Документы</h2>
-            <ul class="docs-list">
-                <li><a href="#" target="_blank">Договор оферты.pdf</a></li>
-                <li><a href="#" target="_blank">Политика конфиденциальности.pdf</a></li>
-                <li><a href="#" target="_blank">Публичная оферта.pdf</a></li>
-            </ul>
-        </section>
-    </main>
-
-    <!-- Модалка корзины -->
-    <div class="cart-modal" id="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <span>Корзина</span>
-                <span class="cart-close" onclick="toggleCart()">×</span>
-            </div>
-            <div class="cart-items" id="cart-items"></div>
-            <div class="cart-total" id="cart-total">Сумма: 0 ₽</div>
-            <div class="cart-btns">
-                <button class="btn-secondary" onclick="toggleCart()">Продолжить обучение</button>
-                <button class="btn-success" onclick="goToPayment()">Оплатить</button>
+                <div class="cart-items" id="cart-items"></div>
+                <div class="cart-total" id="cart-total">Сумма: 0 ₽</div>
+                <div class="cart-btns">
+                    <button class="btn-secondary" onclick="toggleCart()">Продолжить обучение</button>
+                    <button class="btn-success" onclick="goToPayment()">Оплатить</button>
+                </div>
             </div>
         </div>
     </div>
@@ -429,40 +489,4 @@
 
         function toggleCart() {
             const modal = document.getElementById('cart-modal');
-            modal.classList.toggle('active');
-
-            if (modal.classList.contains('active')) {
-                const list = document.getElementById('cart-items');
-                list.innerHTML = cart.items.length
-                    ? cart.items.map(item => `
-                        <div class="cart-item">
-                            <span class="cart-item-name">${item.name}</span>
-                            <span class="cart-item-price">${item.price} ₽ × ${item.qty}</span>
-                        </div>
-                    `).join('')
-                    : '<div class="cart-item">Корзина пуста</div>';
-
-                document.getElementById('cart-total').textContent = `Сумма: ${cart.total} ₽`;
-            }
-        }
-
-        function goToPayment() {
-            const sum = cart.total;
-            if (sum === 0) {
-                alert('Корзина пуста!');
-                return;
-            }
-
-            // ЗДЕСЬ ВСТАВЬ СВОЙ ЛОГИН ROBOKASSA
-            const merchantLogin = "YOUR_MERCHANT_LOGIN"; // ← ЗАМЕНИТЬ НА СВОЙ
-            const url = `https://pay.robokassa.ru/?MerchantLogin=${merchantLogin}&OutSum=${sum}&InvId=123456&Description=Оплата курсов`;
-
-            alert('Переход на оплату…');
-            window.open(url, '_blank');
-        }
-
-        // init
-        updateCartBadge();
-    </script>
-</body>
-</html>
+            modal.classList.toggle
