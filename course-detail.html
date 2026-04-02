@@ -108,6 +108,11 @@
       text-decoration: none;
     }
     .back-link:hover { text-decoration: underline; }
+    .loading, .not-found {
+      text-align: center;
+      padding: 60px;
+    }
+    .not-found a { color: var(--accent); }
     @media (max-width: 768px) {
       .course-detail { padding: 20px 0; }
       .course-detail-title { font-size: 1.5rem; }
@@ -160,8 +165,7 @@
 <main>
 <div class="container">
   <div class="course-detail" id="courseDetail">
-    <!-- Контент загружается через JS -->
-    <div style="text-align: center; padding: 60px;">Загрузка...</div>
+    <div class="loading">Загрузка курса...</div>
   </div>
 </div>
 <footer>
@@ -173,7 +177,7 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  // Данные курсов с модулями
+  // ДАННЫЕ КУРСОВ С МОДУЛЯМИ (полная копия)
   const coursesData = [
     {
       id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900,
@@ -237,33 +241,54 @@
     }
   ];
 
+  // Получение ID из URL
   function getCourseId() {
-    const params = new URLSearchParams(window.location.search);
-    return parseInt(params.get('id'));
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    return id ? parseInt(id) : null;
   }
 
+  // Отрисовка детальной страницы
   function renderCourseDetail() {
-    const id = getCourseId();
-    const course = coursesData.find(c => c.id === id);
+    const courseId = getCourseId();
+    const container = document.getElementById('courseDetail');
+    
+    if (!courseId) {
+      container.innerHTML = '<div class="not-found"><h2>Курс не выбран</h2><a href="courses.html">Вернуться к курсам</a></div>';
+      return;
+    }
+    
+    const course = coursesData.find(c => c.id === courseId);
     
     if (!course) {
-      document.getElementById('courseDetail').innerHTML = '<div style="text-align:center;padding:60px;"><h2>Курс не найден</h2><a href="courses.html" style="color:#FFCC00;">Вернуться к курсам</a></div>';
+      container.innerHTML = '<div class="not-found"><h2>Курс не найден</h2><a href="courses.html">Вернуться к курсам</a></div>';
       return;
     }
 
     const lvlClass = course.level === 'beginner' ? 'level-beginner' : (course.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
-    const coverHtml = course.cover ? `<img class="course-detail-cover" src="${course.cover}" alt="${course.name}">` : '<div class="course-detail-cover" style="background:#1a1a1a; display:flex;align-items:center;justify-content:center;">📀</div>';
+    
+    let coverHtml = '';
+    if (course.cover) {
+      coverHtml = `<img class="course-detail-cover" src="${course.cover}" alt="${course.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">`;
+      coverHtml += `<div style="display:none; background:#1a1a1a; height:300px; align-items:center; justify-content:center; border-radius:var(--radius); margin-bottom:24px;">🎧 ${course.name}</div>`;
+    } else {
+      coverHtml = '<div style="background:#1a1a1a; height:300px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius); margin-bottom:24px;">🎧 Курс</div>';
+    }
     
     let modulesHtml = '';
-    course.modules.forEach(module => {
-      const lessonsHtml = module.lessons.map(lesson => `<li>${lesson}</li>`).join('');
-      modulesHtml += `
-        <div class="module-item">
-          <div class="module-name">${module.name}</div>
-          <ul class="lesson-list">${lessonsHtml}</ul>
-        </div>
-      `;
-    });
+    if (course.modules && course.modules.length > 0) {
+      course.modules.forEach(module => {
+        const lessonsHtml = module.lessons.map(lesson => `<li>${lesson}</li>`).join('');
+        modulesHtml += `
+          <div class="module-item">
+            <div class="module-name">${module.name}</div>
+            <ul class="lesson-list">${lessonsHtml}</ul>
+          </div>
+        `;
+      });
+    } else {
+      modulesHtml = '<p style="color:#a0a0a0;">Модули в разработке</p>';
+    }
 
     const html = `
       <a href="courses.html" class="back-link">← Назад к курсам</a>
@@ -284,30 +309,55 @@
       </div>
     `;
     
-    document.getElementById('courseDetail').innerHTML = html;
+    container.innerHTML = html;
     
-    document.getElementById('detailAddToCartBtn').onclick = () => {
-      addToCart({ id: course.id, name: course.name, price: course.price });
-    };
+    const addBtn = document.getElementById('detailAddToCartBtn');
+    if (addBtn) {
+      addBtn.onclick = () => {
+        addToCart({ id: course.id, name: course.name, price: course.price });
+      };
+    }
   }
 
-  // Обработчики
-  document.getElementById('burgerBtn').onclick = toggleSideMenu;
-  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
-  document.getElementById('closeCartBtn').onclick = closeCart;
-  document.getElementById('regBtn').onclick = openRegModal;
-  document.getElementById('closeModalBtn').onclick = closeRegModal;
-  document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
-  document.getElementById('doRegisterBtn').onclick = () => {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const password = document.getElementById('regPassword').value;
-    if (!name || !email || !password) alert('Заполните все поля');
-    else if (password.length < 4) alert('Пароль минимум 4 символа');
-    else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
-  };
-
-  renderCourseDetail();
+  // Обработчики для хедера
+  document.addEventListener('DOMContentLoaded', () => {
+    // Инициализация корзины
+    if (typeof updateCartUI === 'function') updateCartUI();
+    
+    // Рендер курса
+    renderCourseDetail();
+    
+    // Обработчики кнопок
+    const burgerBtn = document.getElementById('burgerBtn');
+    const cartIconBtn = document.getElementById('cartIconBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const regBtn = document.getElementById('regBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const doRegisterBtn = document.getElementById('doRegisterBtn');
+    
+    if (burgerBtn) burgerBtn.onclick = toggleSideMenu;
+    if (cartIconBtn) cartIconBtn.onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
+    if (closeCartBtn) closeCartBtn.onclick = () => { if (typeof closeCart === 'function') closeCart(); };
+    if (regBtn) regBtn.onclick = () => { if (typeof openRegModal === 'function') openRegModal(); };
+    if (closeModalBtn) closeModalBtn.onclick = () => { if (typeof closeRegModal === 'function') closeRegModal(); };
+    if (checkoutBtn) {
+      checkoutBtn.onclick = () => { 
+        if (typeof cart !== 'undefined' && cart.length === 0) alert('Корзина пуста'); 
+        else alert('Спасибо за заказ! Менеджер свяжется с вами.');
+      };
+    }
+    if (doRegisterBtn) {
+      doRegisterBtn.onclick = () => {
+        const name = document.getElementById('regName')?.value.trim();
+        const email = document.getElementById('regEmail')?.value.trim();
+        const password = document.getElementById('regPassword')?.value;
+        if (!name || !email || !password) alert('Заполните все поля');
+        else if (password.length < 4) alert('Пароль минимум 4 символа');
+        else { alert(`Добро пожаловать, ${name}!`); if (typeof closeRegModal === 'function') closeRegModal(); }
+      };
+    }
+  });
 </script>
 </body>
 </html>
