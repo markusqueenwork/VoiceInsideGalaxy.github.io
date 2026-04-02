@@ -115,41 +115,6 @@
       .faq-answer { font-size: 0.95rem; }
     }
 
-    .profile-badge {
-      display: none;
-      align-items: center;
-      gap: 12px;
-      background: #1a1a1a;
-      padding: 6px 12px 6px 16px;
-      border-radius: 40px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-    }
-    .profile-badge.show {
-      display: flex;
-    }
-    .profile-name {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--accent);
-    }
-    .profile-avatar {
-      width: 28px;
-      height: 28px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      font-weight: 700;
-      font-size: 0.8rem;
-    }
-    @media (min-width: 768px) {
-      .profile-name { font-size: 0.85rem; }
-      .profile-avatar { width: 32px; height: 32px; }
-    }
-
     .profile-modal .modal-content {
       max-width: 500px;
     }
@@ -197,7 +162,6 @@
       background: var(--red);
       color: #fff;
     }
-
     .footer-offer {
       color: #6a6a6a;
       text-decoration: none;
@@ -248,23 +212,14 @@
       text-shadow: 0 1px 5px rgba(0,0,0,0.5);
     }
 
-    /* Уровень "ОПЫТНЫЙ" без переноса */
+    /* Уровни */
     .level-badge {
       white-space: nowrap;
-      font-size: 0.55rem;
-      padding: 3px 8px;
-      border-radius: 40px;
-      font-weight: 700;
-      text-transform: uppercase;
     }
-    @media (min-width: 600px) {
-      .level-badge { font-size: 0.6rem; }
+    .level-pro {
+      background: var(--accent);
+      color: #000;
     }
-    @media (min-width: 768px) {
-      .level-badge { font-size: 0.7rem; padding: 4px 12px; }
-    }
-    .level-beginner { background: var(--green); color: #000; }
-    .level-pro { background: var(--accent); color: #000; }
   </style>
 </head>
 <body>
@@ -276,9 +231,18 @@
       <span class="profile-name" id="profileName"></span>
       <div class="profile-avatar" id="profileAvatar"></div>
     </div>
-    <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
-    <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
-    <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
+    <button class="icon-btn" id="regBtn">
+      <img src="p.png" alt="Регистрация">
+    </button>
+    <div class="cart-icon-wrapper">
+      <button class="icon-btn" id="cartIconBtn">
+        <img src="k.png" alt="Корзина">
+      </button>
+      <span class="cart-badge-overlay" id="cartCountBadge">0</span>
+    </div>
+    <div class="burger-btn" id="burgerBtn">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </div>
 
@@ -452,14 +416,18 @@
   }
 
   function updateProfileUI() {
+    const badge = document.getElementById('profileBadge');
+    const regBtn = document.getElementById('regBtn');
     if (currentUser) {
-      document.getElementById('profileBadge').classList.add('show');
-      document.getElementById('profileName').innerText = currentUser.name;
-      document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
-      document.getElementById('regBtn').style.display = 'none';
+      if (badge) badge.classList.add('show');
+      const nameSpan = document.getElementById('profileName');
+      const avatarDiv = document.getElementById('profileAvatar');
+      if (nameSpan) nameSpan.innerText = currentUser.name;
+      if (avatarDiv) avatarDiv.innerText = currentUser.name.charAt(0).toUpperCase();
+      if (regBtn) regBtn.style.display = 'none';
     } else {
-      document.getElementById('profileBadge').classList.remove('show');
-      document.getElementById('regBtn').style.display = 'block';
+      if (badge) badge.classList.remove('show');
+      if (regBtn) regBtn.style.display = 'flex';
     }
   }
 
@@ -467,17 +435,14 @@
     if (!currentUser) return;
     document.getElementById('profileModalName').innerText = currentUser.name;
     document.getElementById('profileModalEmail').innerText = currentUser.email;
-    
     const purchasedCourses = currentUser.purchasedCourses || [];
     document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
-    
     let totalProgress = 0;
     if (purchasedCourses.length > 0) {
       totalProgress = Math.floor((currentUser.completedLessons || 0) / (purchasedCourses.length * 10) * 100);
       if (totalProgress > 100) totalProgress = 100;
     }
     document.getElementById('profileProgress').innerText = totalProgress;
-    
     const coursesListDiv = document.getElementById('profileCoursesList');
     if (purchasedCourses.length === 0) {
       coursesListDiv.innerHTML = '<p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>';
@@ -486,12 +451,7 @@
       purchasedCourses.forEach(courseId => {
         const course = courses.find(c => c.id === courseId);
         if (course) {
-          html += `
-            <div class="profile-course-item">
-              <span class="profile-course-name">${course.name}</span>
-              <span class="profile-course-status">✅ Куплен</span>
-            </div>
-          `;
+          html += `<div class="profile-course-item"><span class="profile-course-name">${course.name}</span><span class="profile-course-status">✅ Куплен</span></div>`;
         }
       });
       coursesListDiv.innerHTML = html;
@@ -633,20 +593,16 @@
   const loginModal = document.getElementById('loginModal');
   const profileModal = document.getElementById('profileModal');
 
-  function openRegModal() { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeRegModal() { regModal.classList.remove('active'); document.body.style.overflow = ''; }
-  function openLoginModal() { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeLoginModal() { loginModal.classList.remove('active'); document.body.style.overflow = ''; }
-  function openProfileModal() { 
-    updateProfileModal();
-    profileModal.classList.add('active'); 
-    document.body.style.overflow = 'hidden'; 
-  }
-  function closeProfileModal() { profileModal.classList.remove('active'); document.body.style.overflow = ''; }
+  function openRegModal() { if (regModal) { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeRegModal() { if (regModal) { regModal.classList.remove('active'); document.body.style.overflow = ''; } }
+  function openLoginModal() { if (loginModal) { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeLoginModal() { if (loginModal) { loginModal.classList.remove('active'); document.body.style.overflow = ''; } }
+  function openProfileModal() { if (profileModal) { updateProfileModal(); profileModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+  function closeProfileModal() { if (profileModal) { profileModal.classList.remove('active'); document.body.style.overflow = ''; } }
 
-  document.getElementById('burgerBtn').onclick = toggleSideMenu;
-  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
-  document.getElementById('closeCartBtn').onclick = closeCart;
+  document.getElementById('burgerBtn').onclick = () => { if (typeof toggleSideMenu === 'function') toggleSideMenu(); };
+  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
+  document.getElementById('closeCartBtn').onclick = () => { if (typeof closeCart === 'function') closeCart(); };
   document.getElementById('regBtn').onclick = openRegModal;
   document.getElementById('closeModalBtn').onclick = closeRegModal;
   document.getElementById('heroCoursesBtn').onclick = () => { window.location.href = 'courses.html'; };
@@ -670,17 +626,13 @@
     loginUser(email, password);
   };
 
-  document.getElementById('showLoginBtn').onclick = (e) => {
-    e.preventDefault();
-    closeRegModal();
-    openLoginModal();
-  };
-  document.getElementById('showRegFromLoginBtn').onclick = (e) => {
-    e.preventDefault();
-    closeLoginModal();
-    openRegModal();
-  };
-  document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
+  const showLoginBtn = document.getElementById('showLoginBtn');
+  const showRegFromLoginBtn = document.getElementById('showRegFromLoginBtn');
+  const closeLoginModalBtn = document.getElementById('closeLoginModalBtn');
+  
+  if (showLoginBtn) showLoginBtn.onclick = (e) => { e.preventDefault(); closeRegModal(); openLoginModal(); };
+  if (showRegFromLoginBtn) showRegFromLoginBtn.onclick = (e) => { e.preventDefault(); closeLoginModal(); openRegModal(); };
+  if (closeLoginModalBtn) closeLoginModalBtn.onclick = closeLoginModal;
 
   window.onclick = (e) => {
     if (e.target === regModal) closeRegModal();
@@ -691,7 +643,7 @@
   renderPopular();
   initFaq();
   loadCurrentUser();
-  updateCartUI();
+  if (typeof updateCartUI === 'function') updateCartUI();
 </script>
 </body>
 </html>
