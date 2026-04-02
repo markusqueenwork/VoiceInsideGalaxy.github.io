@@ -2,563 +2,698 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Voice Inside Galaxy — Обучение вокалу в электронной музыке</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    :root {
-      --bg: #000000;
-      --bg-dark: #202020;
-      --text: #ffffff;
-      --accent: #ffcc00;
-      --border-radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: "Segoe UI", "Roboto", sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
       scroll-behavior: smooth;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.2s;
+    /* константы */
+    :root {
+      --bg: #000000;
+      --bg-dark: #1a1a1a;
+      --bg-card: #202020;
+      --text: #ffffff;
+      --accent: #ffcc00;
+      --accent-glow: rgba(255, 204, 0, 0.3);
+      --radius: 14px;
+      --transition: all 0.25s ease;
     }
 
-    a:hover {
-      color: #ffffff;
-    }
-
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    header {
-      padding: 80px 0 60px;
-      text-align: center;
-      position: relative;
-    }
-
-    header:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent);
-      opacity: 0.3;
-    }
-
-    header h1 {
-      font-size: 3.2rem;
-      margin-bottom: 16px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--accent);
-      background: radial-gradient(50% 50% at 51% 50%, #ffcc00 0%, #ffcc00 50%, #000 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    header h1 span {
-      display: block;
-      font-size: 1.1rem;
-      font-weight: 400;
-      opacity: 0.7;
-      margin-top: 4px;
-      letter-spacing: 0.05em;
-    }
-
-    header p {
-      opacity: 0.8;
-      max-width: 720px;
-      margin: 0 auto 36px;
-      font-size: 1.1rem;
-    }
-
+    /* хедер фиксированный */
     .site-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
-      height: 60px;
+      height: 64px;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
       display: flex;
       align-items: center;
-      padding: 0 20px;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1100;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .logo {
-      flex: 1;
-    }
-
     .logo a {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
       color: var(--accent);
-      letter-spacing: 0.5px;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .logo span {
+      font-size: 0.8rem;
+      font-weight: normal;
+      opacity: 0.7;
     }
 
-    .actions {
+    /* группа кнопок: регистрация + корзина + бургер */
+    .right-group {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
-    .action-btn {
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      border: 1px solid var(--accent);
-      background: transparent;
-      color: var(--accent);
-      border-radius: 8px;
+    /* стили кнопок */
+    .icon-btn {
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f0f0f0;
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
-    }
-
-    .action-btn:hover {
-      background-color: var(--accent);
-      color: #000;
-    }
-
-    .cart-btn {
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: rgba(0, 0, 0, 0.5);
-      color: #ccc;
-      border-radius: 8px;
-      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .cart-btn:hover {
+    .icon-btn:hover {
+      background: var(--accent);
       border-color: var(--accent);
-      color: var(--accent);
+      color: #000;
+      transform: translateY(-1px);
     }
 
-    .menu-btn {
+    .cart-badge {
+      background: var(--accent);
+      color: black;
+      border-radius: 40px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-left: 4px;
+    }
+
+    /* бургер-кнопка (справа крайняя) */
+    .burger-btn {
+      background: rgba(255, 204, 0, 0.15);
+      border: 1px solid var(--accent);
+      width: 42px;
+      height: 42px;
+      border-radius: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      width: 28px;
-      height: 20px;
-      padding: 4px;
-      border: 0;
-      background: transparent;
+      justify-content: center;
+      gap: 5px;
       cursor: pointer;
-      margin-left: 12px;
-      z-index: 1001;
+      transition: 0.2s;
     }
 
-    .menu-btn span {
-      display: block;
-      width: 100%;
-      height: 3px;
-      background-color: var(--accent);
-      border-radius: 2px;
-      transition: 0.3s;
+    .burger-btn span {
+      width: 20px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: 0.2s;
     }
 
-    .menu-overlay {
+    .burger-btn:hover {
+      background: var(--accent);
+    }
+    .burger-btn:hover span {
+      background: #000;
+    }
+
+    /* боковое меню (справа) */
+    .side-menu {
       position: fixed;
-      top: 60px;
-      right: -300px;
-      width: 280px;
-      height: 100vh;
-      background-color: var(--bg-dark);
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
-      transform: translateX(0);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 999;
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 30px 20px;
+      top: 64px;
+      right: -320px;
+      width: 300px;
+      height: calc(100% - 64px);
+      background: #111111;
+      backdrop-filter: blur(16px);
+      background-color: rgba(10, 10, 10, 0.96);
+      border-left: 1px solid rgba(255, 204, 0, 0.3);
+      z-index: 1050;
+      transition: right 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      padding: 32px 20px;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.6);
     }
 
-    .menu-overlay.open {
-      transform: translateX(-280px);
+    .side-menu.open {
+      right: 0;
     }
 
-    .menu-title {
-      margin-bottom: 20px;
+    .menu-header {
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--accent);
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
     }
 
     .menu-list {
       list-style: none;
     }
-
-    .menu-item {
-      margin-bottom: 16px;
+    .menu-list li {
+      margin-bottom: 22px;
     }
-
-    .menu-link {
-      color: var(--text);
-      opacity: 0.85;
-      font-size: 0.95rem;
-      display: block;
-      transition: opacity 0.2s;
-      padding: 6px 0;
-    }
-
-    .menu-link:hover {
-      opacity: 1;
-      color: var(--accent);
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 32px;
-      margin: 5px;
-      border: 2px solid var(--accent);
-      background-color: rgba(32, 32, 32, 0.6);
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: 32px;
-      transition: var(--transition);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      box-shadow: 0 4px 12px rgba(255, 204, 0, 0.15);
-    }
-
-    .btn:hover {
-      background-color: var(--accent);
-      color: #000;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.25);
-    }
-
-    section {
-      padding: 70px 0 100px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2rem;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-top: 110px;
-    }
-
-    .section-title span {
-      font-size: 0.9rem;
-      font-weight: 400;
-      opacity: 0.6;
-      display: block;
-      margin-top: 4px;
-    }
-
-    .cards, .free-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-    }
-
-    .card {
-      display: flex;
-      flex-direction: column;
-      background-color: var(--bg-dark);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: var(--transition);
-      position: relative;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent);
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card-cover {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-      filter: brightness(0.95);
-      border-bottom: 1px solid rgba(255, 204, 0, 0.25);
-    }
-
-    .card-body {
-      padding: 24px;
-      flex: 1;
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      font-size: 1.35rem;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .card p {
-      opacity: 0.85;
-      margin-bottom: 16px;
-      font-size: 0.95rem;
-      line-height: 1.54;
-    }
-
-    .card-price {
-      font-weight: 600;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-      color: var(--accent);
-    }
-
-    .card-footer {
-      text-align: right;
-    }
-
-    .card-footer a {
-      font-size: 0.95rem;
-    }
-
-    .steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 28px;
-      margin-top: 30px;
-    }
-
-    .step {
-      flex: 1 1 280px;
-      max-width: 320px;
-      padding: 24px;
-      border-radius: var(--border-radius);
-      background-color: var(--bg-dark);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: var(--transition);
-    }
-
-    .step:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .step h3 {
-      color: var(--accent);
-      margin-bottom: 10px;
-      font-size: 1.25rem;
-    }
-
-    .step p {
-      opacity: 0.8;
-      font-size: 0.95rem;
-    }
-
-    .faq {
-      background-color: var(--bg-dark);
-      border-radius: var(--border-radius);
-      padding: 24px;
-      margin-top: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .faq-item {
-      margin-bottom: 18px;
-    }
-
-    .faq-item h4 {
-      margin-bottom: 6px;
+    .menu-list a {
+      color: #ececec;
+      text-decoration: none;
       font-size: 1.05rem;
       font-weight: 500;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-
-    .faq-item p {
-      opacity: 0.85;
-      font-size: 0.95rem;
-    }
-
-    .voice-trainer {
-      background: linear-gradient(135deg, #0d0d0d 0%, #202020 50%, #1a1a1a 100%);
-      border-radius: var(--border-radius);
-      padding: 36px;
-      text-align: center;
-      border: 1px solid rgba(255, 204, 0, 0.25);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    .voice-trainer h3 {
+    .menu-list a:hover {
       color: var(--accent);
-      margin-bottom: 12px;
-      font-size: 1.4rem;
+      transform: translateX(5px);
     }
 
-    .voice-trainer p {
-      opacity: 0.85;
-      max-width: 600px;
-      margin: 0 auto 20px;
-      font-size: 0.95rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 50px 0 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      margin-top: 70px;
-      font-size: 0.95rem;
-      opacity: 0.7;
-    }
-
-    footer p {
-      margin-bottom: 4px;
-    }
-
-    footer a:hover {
-      color: var(--accent);
-    }
-
-    .card {
-      animation: fadeInUpSmall 0.6s forwards;
-    }
-
-    .card:nth-child(1) { animation-delay: 0s; }
-    .card:nth-child(2) { animation-delay: 0.1s; }
-    .card:nth-child(3) { animation-delay: 0.2s; }
-    .card:nth-child(4) { animation-delay: 0.3s; }
-
-    @keyframes fadeInUpSmall {
-      0% {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* корзина */
-    .mini-cart {
+    /* корзина-панель (выпадашка) */
+    .cart-panel {
       position: fixed;
-      bottom: 20px;
+      top: 70px;
       right: 20px;
-      width: 300px;
-      background-color: var(--bg-dark);
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      z-index: 1000;
-      max-height: 400px;
-      overflow-y: auto;
+      width: 320px;
+      background: #1c1c1c;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 204, 0, 0.4);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      z-index: 1150;
+      padding: 18px;
       display: none;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
     }
-
-    .mini-cart.open {
-      display: block;
+    .cart-panel.show {
+      display: flex;
     }
-
-    .mini-cart-header {
+    .cart-title {
       display: flex;
       justify-content: space-between;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
       margin-bottom: 12px;
     }
-
-    .mini-cart-close {
+    .cart-items {
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .cart-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #2c2c2c;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cart-total {
+      margin-top: 12px;
+      text-align: right;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .empty-cart {
+      text-align: center;
+      opacity: 0.6;
+      padding: 15px;
+    }
+    .close-cart {
+      cursor: pointer;
       background: none;
       border: none;
       color: #ccc;
-      cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
 
-    .mini-cart-course {
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 0.95rem;
-    }
-
-    .mini-cart-course-price {
-      margin-top: 4px;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .mini-cart-total {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      font-weight: 600;
-      text-align: right;
-    }
-
-    /* модальное окно регистрации / входа */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 2000;
+    /* модалка регистрации */
+    .modal {
       display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
     }
-
-    .modal-overlay.open {
+    .modal.active {
       display: flex;
     }
-
-    .modal {
-      background-color: var(--bg-dark);
-      border-radius: 16px;
-      padding: 32px 28px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-      max-width: 420px;
+    .modal-content {
+      background: #1e1e1e;
+      max-width: 380px;
+      width: 90%;
+      padding: 28px 24px;
+      border-radius: 28px;
+      border: 1px solid var(--accent);
+      text-align: center;
+    }
+    .modal-content input {
       width: 100%;
-      border: 1px solid rgba(255, 255, 25
+      padding: 12px;
+      margin: 12px 0;
+      background: #2a2a2a;
+      border: 1px solid #3f3f3f;
+      border-radius: 40px;
+      color: white;
+    }
+    .modal-btn {
+      background: var(--accent);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: bold;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+    .close-modal {
+      float: right;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+
+    /* основной контент */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      padding-top: 100px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #ffcc00, #ffaa00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin: 60px 0 30px;
+      border-left: 5px solid var(--accent);
+      padding-left: 20px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .course-card {
+      background: #1a1a1a;
+      border-radius: 24px;
+      padding: 20px;
+      transition: 0.2s;
+      border: 1px solid #2b2b2b;
+    }
+    .course-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+    .course-price {
+      color: var(--accent);
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+    .add-to-cart {
+      background: var(--accent);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .add-to-cart:hover {
+      background: white;
+      transform: scale(0.97);
+    }
+    .free-block {
+      background: #111;
+      border-radius: 28px;
+      padding: 30px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      opacity: 0.7;
+      border-top: 1px solid #2a2a2a;
+      margin-top: 60px;
+    }
+    @media (max-width: 600px) {
+      .icon-btn span:not(.badge-text) { display: none; }
+      .icon-btn { padding: 6px 12px; }
+      .cart-panel { width: 280px; right: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo">
+    <a href="#">🎤 Voice Inside Galaxy <span>| вокал в электронике</span></a>
+  </div>
+  <div class="right-group">
+    <!-- Кнопка регистрации -->
+    <button class="icon-btn" id="regBtn">📝 Регистрация</button>
+    <!-- Кнопка корзины -->
+    <button class="icon-btn" id="cartIconBtn">🛒 Корзина <span id="cartCountBadge" class="cart-badge">0</span></button>
+    <!-- Бургер-меню (самый правый) -->
+    <div class="burger-btn" id="burgerBtn">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Боковое меню (бургер) с пунктами: информация, курсы, соц сети, документы -->
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">✦ НАВИГАЦИЯ</div>
+  <ul class="menu-list">
+    <li><a href="#info" id="menuInfoLink">📘 Информация</a></li>
+    <li><a href="#courses" id="menuCoursesLink">🎓 Курсы</a></li>
+    <li><a href="#socials" id="menuSocialsLink">🌐 Соц сети</a></li>
+    <li><a href="#docs" id="menuDocsLink">📄 Документы</a></li>
+  </ul>
+  <div style="margin-top: 40px; font-size: 12px; opacity: 0.5; border-top: 1px solid #333; padding-top: 20px;">
+    Voice Inside Galaxy © 2025
+  </div>
+</div>
+
+<!-- Панель корзины -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-title">
+    <span>🛍️ Моя корзина</span>
+    <button class="close-cart" id="closeCartBtn">✖</button>
+  </div>
+  <div class="cart-items" id="cartItemsList">
+    <div class="empty-cart">Корзина пуста</div>
+  </div>
+  <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
+  <button class="add-to-cart" style="margin-top: 12px; background:#ffcc00; color:#000;" id="checkoutBtn">Оформить</button>
+</div>
+
+<!-- Модальное окно регистрации -->
+<div class="modal" id="regModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h3>Регистрация / Вход</h3>
+    <input type="text" placeholder="Ваше имя" id="regName">
+    <input type="email" placeholder="Email" id="regEmail">
+    <button class="modal-btn" id="doRegisterBtn">Продолжить</button>
+    <p style="font-size:12px; margin-top:12px;">⚡ Доступ к материалам после регистрации</p>
+  </div>
+</div>
+
+<main class="container">
+  <header>
+    <h1>Voice Inside Galaxy</h1>
+    <p>Обучение вокалу в стилях электронной музыки: techno, house, synthwave и не только. Раскрой свой голос!</p>
+    <div style="margin-top: 20px;">
+      <a href="#courses" class="icon-btn" style="background:#ffcc00; color:#000;">🔥 Начать обучение</a>
+    </div>
+  </header>
+
+  <!-- Информация (якорь) -->
+  <section id="info">
+    <div class="section-title">📌 Информация о школе</div>
+    <p style="font-size:1.1rem; max-width:800px;">Мы — первая онлайн-академия вокала, адаптированная под электронные жанры. Опытные педагоги, современные методики, записи и персональные фидбеки. Поможем звучать ярко на сцене и в студии.</p>
+  </section>
+
+  <!-- Курсы -->
+  <section id="courses">
+    <div class="section-title">🎧 Популярные курсы</div>
+    <div class="cards-grid" id="coursesContainer">
+      <!-- курсы будут добавлены через js -->
+    </div>
+  </section>
+
+  <!-- Соц сети блок -->
+  <section id="socials">
+    <div class="section-title">🌐 Наши соц сети</div>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <a href="#" style="background:#1a1a1a; padding:12px 20px; border-radius: 50px;">📸 Instagram</a>
+      <a href="#" style="background:#1a1a1a; padding:12px 20px; border-radius: 50px;">🎵 TikTok</a>
+      <a href="#" style="background:#1a1a1a; padding:12px 20px; border-radius: 50px;">💬 Telegram</a>
+      <a href="#" style="background:#1a1a1a; padding:12px 20px; border-radius: 50px;">▶️ YouTube</a>
+    </div>
+  </section>
+
+  <!-- Документы -->
+  <section id="docs">
+    <div class="section-title">📑 Документы и лицензии</div>
+    <div style="background:#111; border-radius: 24px; padding:24px;">
+      <p>📄 Лицензия на образовательную деятельность № Л035-01298-77/00765432</p>
+      <p>📄 Политика обработки персональных данных</p>
+      <p>📄 Договор оферты на оказание услуг</p>
+      <p>📄 Свидетельство СМИ: ЭЛ № ФС 77 — 88777</p>
+    </div>
+  </section>
+
+  <div class="free-block">
+    <h3>🎙️ Бесплатный воркшоп "Голос и бит"</h3>
+    <p>Регистрируйся и получи запись первого урока и чек-лист вокалиста</p>
+    <button class="add-to-cart" id="freeWorkshopBtn">Получить бесплатно</button>
+  </div>
+</main>
+
+<footer>
+  <p>Voice Inside Galaxy — вокальное измерение электронной музыки</p>
+  <p>✉️ hello@voicegalaxy.ru | © 2025</p>
+</footer>
+
+<script>
+  // ----- Данные курсов -----
+  const coursesData = [
+    { id: 1, name: "Основы вокального дыхания", price: 3900, description: "Техники дыхания для электронной музыки" },
+    { id: 2, name: "Эффекты и обработка голоса", price: 4900, description: "Работа с дисторшеном, Delay, Reverb" },
+    { id: 3, name: "Микрофонная техника в клубе", price: 3500, description: "Как звучать на сцене" },
+    { id: 4, name: "Студийная запись вокала", price: 5900, description: "Работа с продюсером, overdub" }
+  ];
+
+  let cart = []; // { id, name, price }
+
+  // Элементы DOM
+  const coursesContainer = document.getElementById('coursesContainer');
+  const cartPanel = document.getElementById('cartPanel');
+  const cartIconBtn = document.getElementById('cartIconBtn');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const cartItemsList = document.getElementById('cartItemsList');
+  const cartTotalSpan = document.getElementById('cartTotal');
+  const cartCountBadge = document.getElementById('cartCountBadge');
+  const burgerBtn = document.getElementById('burgerBtn');
+  const sideMenu = document.getElementById('sideMenu');
+  const regBtn = document.getElementById('regBtn');
+  const regModal = document.getElementById('regModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const doRegisterBtn = document.getElementById('doRegisterBtn');
+  const freeWorkshopBtn = document.getElementById('freeWorkshopBtn');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  // --- отрисовка курсов на странице ---
+  function renderCourses() {
+    if(!coursesContainer) return;
+    coursesContainer.innerHTML = '';
+    coursesData.forEach(course => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.innerHTML = `
+        <h3>🎤 ${course.name}</h3>
+        <p>${course.description}</p>
+        <div class="course-price">${course.price.toLocaleString()} ₽</div>
+        <button class="add-to-cart" data-id="${course.id}" data-name="${course.name}" data-price="${course.price}">➕ В корзину</button>
+      `;
+      coursesContainer.appendChild(card);
+    });
+    // вешаем события на кнопки "В корзину" динамически
+    document.querySelectorAll('.add-to-cart[data-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.dataset.id);
+        const name = btn.dataset.name;
+        const price = parseInt(btn.dataset.price);
+        addToCart({ id, name, price });
+      });
+    });
+  }
+
+  // --- работа с корзиной ---
+  function addToCart(item) {
+    const existing = cart.find(i => i.id === item.id);
+    if(existing) {
+      existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+      cart.push({ ...item, quantity: 1 });
+    }
+    updateCartUI();
+    showTemporaryNotification('Товар добавлен в корзину');
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    // обновить бейдж
+    const totalItems = cart.reduce((sum, it) => sum + (it.quantity || 1), 0);
+    cartCountBadge.innerText = totalItems;
+    // отрисовать содержимое корзины
+    if(!cartItemsList) return;
+    if(cart.length === 0) {
+      cartItemsList.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
+      cartTotalSpan.innerText = 'Итого: 0 ₽';
+      return;
+    }
+    let html = '';
+    let totalSum = 0;
+    cart.forEach(item => {
+      const qty = item.quantity || 1;
+      const itemSum = item.price * qty;
+      totalSum += itemSum;
+      html += `
+        <div class="cart-item">
+          <div><strong>${item.name}</strong> x${qty}</div>
+          <div>${itemSum} ₽ <button style="background:transparent; border:none; color:#ffaa00; margin-left:8px; cursor:pointer;" class="remove-cart-item" data-id="${item.id}">🗑️</button></div>
+        </div>
+      `;
+    });
+    cartItemsList.innerHTML = html;
+    cartTotalSpan.innerText = `Итого: ${totalSum} ₽`;
+    // добавим удаление
+    document.querySelectorAll('.remove-cart-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.dataset.id);
+        removeFromCart(id);
+      });
+    });
+  }
+
+  function showTemporaryNotification(msg) {
+    // небольшой тост
+    const toast = document.createElement('div');
+    toast.innerText = msg;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '20px';
+    toast.style.backgroundColor = '#ffcc00';
+    toast.style.color = '#000';
+    toast.style.padding = '10px 20px';
+    toast.style.borderRadius = '40px';
+    toast.style.zIndex = '9999';
+    toast.style.fontWeight = 'bold';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 1800);
+  }
+
+  // --- бургер меню (открыть/закрыть) ---
+  function toggleSideMenu() {
+    sideMenu.classList.toggle('open');
+  }
+
+  function closeSideMenu() {
+    sideMenu.classList.remove('open');
+  }
+
+  // закрыть корзину по клику вне? просто кнопка закрытия и иконка
+  function toggleCartPanel() {
+    if(cartPanel.classList.contains('show')) {
+      cartPanel.classList.remove('show');
+    } else {
+      cartPanel.classList.add('show');
+      // обновить при открытии
+      updateCartUI();
+    }
+  }
+
+  // --- регистрация модалка ---
+  function openModal() { regModal.classList.add('active'); }
+  function closeModal() { regModal.classList.remove('active'); }
+
+  // --- скролл к якорям с закрытием меню ---
+  function scrollToSection(sectionId) {
+    const el = document.getElementById(sectionId);
+    if(el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    closeSideMenu();
+  }
+
+  // --- обработчики событий ---
+  burgerBtn.addEventListener('click', toggleSideMenu);
+  // закрытие при клике вне меню (если кликнуть по документу)
+  document.addEventListener('click', (e) => {
+    if(sideMenu.classList.contains('open') && !sideMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
+      closeSideMenu();
+    }
+    // закрыть корзину если клик вне
+    if(cartPanel.classList.contains('show') && !cartPanel.contains(e.target) && e.target !== cartIconBtn && !cartIconBtn.contains(e.target)) {
+      cartPanel.classList.remove('show');
+    }
+  });
+
+  cartIconBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleCartPanel();
+    updateCartUI();
+  });
+  closeCartBtn.addEventListener('click', () => cartPanel.classList.remove('show'));
+  regBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  doRegisterBtn.addEventListener('click', () => {
+    const name = document.getElementById('regName').value.trim();
+    if(name) alert(`Добро пожаловать, ${name}! Регистрация завершена.`);
+    else alert('Введите имя');
+    closeModal();
+  });
+  freeWorkshopBtn.addEventListener('click', () => {
+    alert('Бесплатный воркшоп добавлен в ваш кабинет. Зарегистрируйтесь, чтобы получить доступ.');
+  });
+  checkoutBtn.addEventListener('click', () => {
+    if(cart.length === 0) alert('Корзина пуста');
+    else alert('Спасибо за заказ! С вами свяжется менеджер для оплаты.');
+  });
+
+  // обработчики пунктов меню (бургер)
+  document.getElementById('menuInfoLink')?.addEventListener('click', (e) => { e.preventDefault(); scrollToSection('info'); });
+  document.getElementById('menuCoursesLink')?.addEventListener('click', (e) => { e.preventDefault(); scrollToSection('courses'); });
+  document.getElementById('menuSocialsLink')?.addEventListener('click', (e) => { e.preventDefault(); scrollToSection('socials'); });
+  document.getElementById('menuDocsLink')?.addEventListener('click', (e) => { e.preventDefault(); scrollToSection('docs'); });
+  // также обрабатываем якоря через обычные ссылки из меню
+  window.addEventListener('load', () => {
+    renderCourses();
+    updateCartUI();
+    // начальное скрытие панели
+    cartPanel.classList.remove('show');
+  });
+  // дополнительно навигация по якорям вручную (для # в адресной строке)
+  if(window.location.hash) {
+    setTimeout(() => {
+      const id = window.location.hash.slice(1);
+      if(id) scrollToSection(id);
+    }, 200);
+  }
+</script>
+</body>
+</html>
