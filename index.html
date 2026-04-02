@@ -26,6 +26,7 @@
       font-family: "Segoe UI", "Roboto", sans-serif;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
     }
 
     a {
@@ -89,6 +90,143 @@
       font-size: 1.1rem;
     }
 
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .logo {
+      flex: 1;
+    }
+
+    .logo a {
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .action-btn:hover {
+      background-color: var(--accent);
+      color: #000;
+    }
+
+    .cart-btn {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.5);
+      color: #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cart-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .menu-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      padding: 4px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      margin-left: 12px;
+      z-index: 1001;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: var(--accent);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 60px;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background-color: var(--bg-dark);
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+      transform: translateX(0);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 30px 20px;
+    }
+
+    .menu-overlay.open {
+      transform: translateX(-280px);
+    }
+
+    .menu-title {
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-list {
+      list-style: none;
+    }
+
+    .menu-item {
+      margin-bottom: 16px;
+    }
+
+    .menu-link {
+      color: var(--text);
+      opacity: 0.85;
+      font-size: 0.95rem;
+      display: block;
+      transition: opacity 0.2s;
+      padding: 6px 0;
+    }
+
+    .menu-link:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
     .btn {
       display: inline-block;
       padding: 14px 32px;
@@ -113,7 +251,7 @@
     }
 
     section {
-      padding: 70px 0;
+      padding: 70px 0 100px;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.8s forwards;
@@ -322,7 +460,6 @@
       color: var(--accent);
     }
 
-    /* анимации */
     .card {
       animation: fadeInUpSmall 0.6s forwards;
     }
@@ -342,119 +479,73 @@
         transform: translateY(0);
       }
     }
-  </style>
-</head>
 
-<body>
-  <div class="container">
-    <header>
-      <h1>Voice Inside Galaxy<span>Data‑driven vocal design in electronic music</span></h1>
-      <p>
-        Образовательная студия вокала и голоса в электронной музыке: записи, обработки, сведения и продюсинга для продюсеров и вокалистов.
-      </p>
-      <a href="#courses" class="btn">Посмотреть курсы</a>
-      <a href="#free" class="btn">Бесплатные уроки</a>
-      <a href="#consult" class="btn">Консультация</a>
-    </header>
+    /* модальное окно регистрации / входа */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
 
-    <section id="courses">
-      <h2 class="section-title">
-        Популярные курсы
-        <span>Каждый курс — с фирменной обложкой и готовым визуальным стилем</span>
-      </h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-cover" style="
-            background: linear-gradient(45deg, #ffcc00 10%, #202020 60%);
-          "></div>
-          <div class="card-body">
-            <h3>Vocal Inside Synthwave</h3>
-            <p>
-              Научишься обрабатывать вокал под Synthwave и Retrowave: автотюн, модуляции, реверберации и сложные вокальные текстуры без перегруза в миксе.
-            </p>
-            <div class="card-price">3990 ₽</div>
-            <div class="card-footer">
-              <a href="#" class="btn">Подробнее</a>
-            </div>
-          </div>
-        </div>
+    .modal-overlay.open {
+      display: flex;
+    }
 
-        <div class="card">
-          <div class="card-cover" style="
-            background: linear-gradient(135deg, #1a1a1a, #202020), url('https://via.placeholder.com/400x300/202020/ffcc00?text=Liquid+Vocals') no-repeat center top;
-            background-size: cover;
-          "></div>
-          <div class="card-body">
-            <h3>Liquid & D&B Vocal Processing</h3>
-            <p>
-              Работа с вокалом в liquid, dubstep и других тяжёлых электронных стилях: сабтракторы, side‑chain, речь как инструмент и сложные многоголосые аранжировки.
-            </p>
-            <div class="card-price">4500 ₽</div>
-            <div class="card-footer">
-              <a href="#" class="btn">Подробнее</a>
-            </div>
-          </div>
-        </div>
+    .modal {
+      background-color: var(--bg-dark);
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+      max-width: 420px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-        <div class="card">
-          <div class="card-cover" style="
-            background: radial-gradient(circle at 50% 40%, #ffcc00 0%, #ffcc00 20%, #202020 100%);
-          "></div>
-          <div class="card-body">
-            <h3>Мастер‑класс по автотюну и гармонии</h3>
-            <p>
-              Глубокий разбор автотюна, гармонии вокальных линий и использования гармонизаторов в электронной музыке. Практика на реальных треках.
-            </p>
-            <div class="card-price">3200 ₽</div>
-            <div class="card-footer">
-              <a href="#" class="btn">Подробнее</a>
-            </div>
-          </div>
-        </div>
+    .modal-title {
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-size: 1.3rem;
+    }
 
-        <div class="card">
-          <div class="card-cover" style="
-            background: linear-gradient(90deg, #1a1a1a, #202020) url('https://via.placeholder.com/400x300/202020/ffcc00?text=Home+Studio+Vocals') no-repeat center top;
-            background-size: cover;
-          "></div>
-          <div class="card-body">
-            <h3>Как записать вокал в домашней студии</h3>
-            <p>
-              Практика записи вокала без студии: выбор микрофона, обработка комнаты, подготовка певца и подготовка к сведению.
-            </p>
-            <div class="card-price">3490 ₽</div>
-            <div class="card-footer">
-              <a href="#" class="btn">Подробнее</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    .modal-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
 
-    <section id="free">
-      <h2 class="section-title">
-        Бесплатные уроки
-        <span>Мини‑курсы с обложками‑превью для старта</span>
-      </h2>
-      <div class="free-cards">
-        <div class="card">
-          <div class="card-cover" style="
-            background: linear-gradient(45deg, #1a1a1a, #202020), url('https://via.placeholder.com/400x300/202020/ffcc00?text=Hear+Vocals') no-repeat center top;
-            background-size: cover;
-          "></div>
-          <div class="card-body">
-            <h3>Как слышать вокал в миксе</h3>
-            <p>Учимся выделять вокал в плотном миксе и понимать, какие частоты «забивают» голос. Практические примеры из реальных треков.</p>
-            <a href="#" class="btn">Открыть</a>
-          </div>
-        </div>
+    .tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
 
-        <div class="card">
-          <div class="card-cover" style="
-            background: linear-gradient(45deg, #202020, #1a1a1a), url('https://via.placeholder.com/400x300/202020/ffcc00?text=Basic+AutoTune') no-repeat center top;
-            background-size: cover;
-          "></div>
-          <div class="card-body">
-            <h3>Базовый автотюн для начинающих</h3>
-            <p>Простые шаги настройки автотюна и типичные ошибки при работе с вокалом. Покажем, как избежать звкулки.</p>
-            <
+    .tab.active {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+     
