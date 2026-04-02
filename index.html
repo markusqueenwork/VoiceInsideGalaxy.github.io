@@ -19,7 +19,6 @@
       color: #e8e8e8;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.5;
-      scroll-behavior: smooth;
     }
 
     :root {
@@ -32,7 +31,6 @@
       --accent-hover: #ffdd44;
       --border: #222222;
       --radius: 20px;
-      --radius-sm: 12px;
       --transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       --green: #2ecc71;
       --orange: #e67e22;
@@ -49,33 +47,13 @@
       to { opacity: 1; }
     }
 
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     .page {
+      display: none;
+      padding-top: 110px;
       animation: fadeInUp 0.5s ease forwards;
     }
-
-    .course-card {
-      transition: var(--transition);
-      animation: fadeInUp 0.4s ease backwards;
-    }
-
-    .course-card:nth-child(1) { animation-delay: 0.05s; }
-    .course-card:nth-child(2) { animation-delay: 0.1s; }
-    .course-card:nth-child(3) { animation-delay: 0.15s; }
-    .course-card:nth-child(4) { animation-delay: 0.2s; }
-
-    a {
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    a:hover {
-      color: var(--accent);
+    .page.active-page {
+      display: block;
     }
 
     /* HEADER */
@@ -100,6 +78,7 @@
       font-weight: 700;
       letter-spacing: -0.5px;
       color: var(--text);
+      text-decoration: none;
     }
     .logo a span {
       color: var(--accent);
@@ -164,7 +143,6 @@
     }
     .burger-btn:hover {
       border-color: var(--accent);
-      transform: scale(1.02);
     }
     .burger-btn:hover span {
       background: var(--accent);
@@ -208,6 +186,8 @@
       display: block;
       padding: 8px 0;
       cursor: pointer;
+      color: var(--text);
+      text-decoration: none;
     }
     .menu-list a:hover {
       color: var(--accent);
@@ -234,7 +214,6 @@
       flex-direction: column;
       backdrop-filter: blur(20px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      animation: scaleIn 0.25s ease;
     }
     .cart-panel.show {
       display: flex;
@@ -255,7 +234,6 @@
     .cart-item {
       padding: 14px 0;
       border-bottom: 1px solid #1e1e1e;
-      font-size: 0.85rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -271,17 +249,12 @@
       color: var(--accent);
       font-size: 0.8rem;
     }
-    .cart-item-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
     .remove-cart-item {
       background: transparent;
       border: none;
       color: #888;
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       transition: 0.2s;
     }
     .remove-cart-item:hover {
@@ -307,7 +280,6 @@
       color: #aaa;
       cursor: pointer;
       font-size: 1.2rem;
-      transition: 0.2s;
     }
     .close-cart:hover {
       color: var(--accent);
@@ -327,7 +299,6 @@
     }
     .cart-btn-yellow:hover {
       background: var(--accent-hover);
-      transform: translateY(-2px);
     }
 
     /* MODAL */
@@ -369,7 +340,6 @@
       color: white;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
-      transition: 0.2s;
     }
     .modal-content input:focus {
       outline: none;
@@ -384,18 +354,12 @@
       cursor: pointer;
       margin-top: 16px;
       font-family: 'Inter', sans-serif;
-      transition: 0.2s;
-    }
-    .modal-btn:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
     }
     .close-modal {
       float: right;
       cursor: pointer;
       font-size: 1.4rem;
       color: #aaa;
-      transition: 0.2s;
     }
     .close-modal:hover {
       color: var(--accent);
@@ -406,14 +370,6 @@
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 32px;
-    }
-
-    .page {
-      display: none;
-      padding-top: 110px;
-    }
-    .page.active-page {
-      display: block;
     }
 
     .hero {
@@ -451,7 +407,6 @@
     .btn-primary:hover {
       background: var(--accent-hover);
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255,204,0,0.2);
     }
 
     .section-title {
@@ -476,7 +431,6 @@
     .course-card:hover {
       transform: translateY(-6px);
       border-color: var(--accent);
-      box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
     }
     .course-cover {
       width: 100%;
@@ -484,10 +438,6 @@
       background-color: #1a1a1a;
       background-size: cover;
       background-position: center;
-      transition: transform 0.4s ease;
-    }
-    .course-card:hover .course-cover {
-      transform: scale(1.02);
     }
     .course-info {
       padding: 24px;
@@ -518,7 +468,6 @@
       color: var(--text-secondary);
       margin: 12px 0;
       font-size: 0.9rem;
-      line-height: 1.5;
     }
     .course-price {
       color: var(--accent);
@@ -540,7 +489,6 @@
     .add-to-cart:hover {
       background: var(--accent);
       color: #000;
-      transform: translateY(-2px);
     }
 
     .info-block {
@@ -563,11 +511,13 @@
       border-radius: 40px;
       border: 1px solid var(--border);
       font-weight: 500;
+      text-decoration: none;
+      color: var(--text);
       transition: 0.2s;
     }
     .social-links a:hover {
       border-color: var(--accent);
-      transform: translateY(-2px);
+      color: var(--accent);
     }
     .docs-block {
       background: var(--bg-card);
@@ -615,11 +565,11 @@
 <div class="side-menu" id="sideMenu">
   <div class="menu-header">НАВИГАЦИЯ</div>
   <ul class="menu-list">
-    <li><a data-page="home" class="nav-link active">ГЛАВНАЯ</a></li>
-    <li><a data-page="courses" class="nav-link">ВСЕ КУРСЫ</a></li>
-    <li><a data-page="info" class="nav-link">ИНФОРМАЦИЯ</a></li>
-    <li><a data-page="socials" class="nav-link">СОЦ СЕТИ</a></li>
-    <li><a data-page="docs" class="nav-link">ДОКУМЕНТЫ</a></li>
+    <li><a data-page="home">ГЛАВНАЯ</a></li>
+    <li><a data-page="courses">ВСЕ КУРСЫ</a></li>
+    <li><a data-page="info">ИНФОРМАЦИЯ</a></li>
+    <li><a data-page="socials">СОЦ СЕТИ</a></li>
+    <li><a data-page="docs">ДОКУМЕНТЫ</a></li>
   </ul>
   <div style="margin-top: 48px; font-size: 11px; color: #444;">© 2025</div>
 </div>
@@ -637,14 +587,14 @@
   <button class="cart-btn-yellow" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
 </div>
 
-<!-- MODAL REGISTRATION -->
+<!-- MODAL -->
 <div class="modal" id="regModal">
   <div class="modal-content">
     <span class="close-modal" id="closeModalBtn">&times;</span>
     <h3>РЕГИСТРАЦИЯ</h3>
-    <input type="text" placeholder="Имя" id="regName" autocomplete="name">
-    <input type="email" placeholder="Email" id="regEmail" autocomplete="email">
-    <input type="password" placeholder="Пароль" id="regPassword" autocomplete="new-password">
+    <input type="text" id="regName" placeholder="Имя">
+    <input type="email" id="regEmail" placeholder="Email">
+    <input type="password" id="regPassword" placeholder="Пароль">
     <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
   </div>
 </div>
@@ -667,7 +617,7 @@
       <div class="cards-grid" id="popularCoursesContainer"></div>
     </div>
 
-    <!-- ALL COURSES PAGE -->
+    <!-- COURSES PAGE -->
     <div id="courses-page" class="page">
       <div class="hero" style="padding-top: 30px;">
         <h1>Все <span>курсы</span></h1>
@@ -769,17 +719,14 @@
 
   function attachCartEvents() {
     document.querySelectorAll('.add-to-cart').forEach(btn => {
-      btn.removeEventListener('click', handleAddToCart);
-      btn.addEventListener('click', handleAddToCart);
+      btn.onclick = function(e) {
+        e.preventDefault();
+        const id = parseInt(this.dataset.id);
+        const name = this.dataset.name;
+        const price = parseInt(this.dataset.price);
+        addToCart({ id, name, price });
+      };
     });
-  }
-
-  function handleAddToCart(e) {
-    const btn = e.currentTarget;
-    const id = parseInt(btn.dataset.id);
-    const name = btn.dataset.name;
-    const price = parseInt(btn.dataset.price);
-    addToCart({ id, name, price });
   }
 
   function addToCart(item) {
@@ -836,10 +783,10 @@
     if(cartTotalSpan) cartTotalSpan.innerText = `ИТОГО: ${totalSum.toLocaleString()} ₽`;
     
     document.querySelectorAll('.remove-cart-item').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(btn.dataset.id);
+      btn.onclick = function() {
+        const id = parseInt(this.dataset.id);
         removeFromCart(id);
-      });
+      };
     });
   }
 
@@ -856,7 +803,6 @@
     toast.style.fontWeight = '600';
     toast.style.zIndex = '9999';
     toast.style.fontFamily = "'Inter', sans-serif";
-    toast.style.animation = 'fadeInUp 0.3s ease';
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 2000);
   }
@@ -869,12 +815,12 @@
     const targetPage = document.getElementById(`${pageId}-page`);
     if(targetPage) targetPage.classList.add('active-page');
     
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .menu-list a').forEach(link => {
       link.classList.remove('active');
-      if(link.getAttribute('data-page') === pageId) {
-        link.classList.add('active');
-      }
     });
+    const activeLink = document.querySelector(`.menu-list a[data-page="${pageId}"]`);
+    if(activeLink) activeLink.classList.add('active');
+    
     closeSideMenu();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -892,15 +838,15 @@
   function openModal() { document.getElementById('regModal').classList.add('active'); }
   function closeModal() { document.getElementById('regModal').classList.remove('active'); }
 
-  // ОБРАБОТЧИКИ
-  document.getElementById('burgerBtn')?.addEventListener('click', toggleSideMenu);
-  document.getElementById('cartIconBtn')?.addEventListener('click', (e) => { e.stopPropagation(); toggleCartPanel(); });
-  document.getElementById('closeCartBtn')?.addEventListener('click', () => document.getElementById('cartPanel').classList.remove('show'));
-  document.getElementById('regBtn')?.addEventListener('click', openModal);
-  document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
-  document.getElementById('heroCoursesBtn')?.addEventListener('click', () => navigateTo('courses'));
+  // ОБРАБОТЧИКИ СОБЫТИЙ
+  document.getElementById('burgerBtn').onclick = toggleSideMenu;
+  document.getElementById('cartIconBtn').onclick = function(e) { e.stopPropagation(); toggleCartPanel(); };
+  document.getElementById('closeCartBtn').onclick = function() { document.getElementById('cartPanel').classList.remove('show'); };
+  document.getElementById('regBtn').onclick = openModal;
+  document.getElementById('closeModalBtn').onclick = closeModal;
+  document.getElementById('heroCoursesBtn').onclick = function() { navigateTo('courses'); };
   
-  document.getElementById('doRegisterBtn')?.addEventListener('click', () => {
+  document.getElementById('doRegisterBtn').onclick = function() {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
@@ -914,8 +860,40 @@
     }
     alert(`Добро пожаловать, ${name}! Регистрация успешна.`);
     closeModal();
+  };
+  
+  document.getElementById('checkoutBtn').onclick = function() {
+    if(cart.length === 0) alert('Корзина пуста');
+    else alert('Спасибо за заказ! Менеджер свяжется с вами.');
+  };
+  
+  // Навигация через меню
+  document.querySelectorAll('.menu-list a').forEach(link => {
+    link.onclick = function(e) {
+      e.preventDefault();
+      const page = this.getAttribute('data-page');
+      if(page) navigateTo(page);
+    };
   });
   
-  document.getElementById('checkoutBtn')?.addEventListener('click', () => {
-    if(cart.length === 0) alert('Корзина пуста');
-    else alert('Спасибо за заказ! Менеджер
+  // Закрытие корзины и меню при клике вне
+  document.addEventListener('click', function(e) {
+    const sideMenu = document.getElementById('sideMenu');
+    const burgerBtn = document.getElementById('burgerBtn');
+    const cartPanel = document.getElementById('cartPanel');
+    const cartIcon = document.getElementById('cartIconBtn');
+    
+    if(sideMenu.classList.contains('open') && !sideMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
+      closeSideMenu();
+    }
+    if(cartPanel.classList.contains('show') && !cartPanel.contains(e.target) && e.target !== cartIcon && !cartIcon.contains(e.target)) {
+      cartPanel.classList.remove('show');
+    }
+  });
+  
+  // ЗАПУСК
+  renderAllCourses();
+  updateCartUI();
+</script>
+</body>
+</html>
