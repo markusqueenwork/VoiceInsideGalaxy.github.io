@@ -26,7 +26,7 @@ function updateCartUI() {
       <div class="cart-item">
         <div class="cart-item-info">
           <div>${item.name}</div>
-          <div style="color:#FFCC00;font-size:0.8rem">${item.price.toLocaleString()} ₽ × ${qty}</div>
+          <div style="color:#FFCC00;font-size:0.75rem">${item.price.toLocaleString()} ₽ × ${qty}</div>
         </div>
         <div>
           <span style="color:#FFCC00;font-weight:600;">${itemSum.toLocaleString()} ₽</span>
@@ -60,7 +60,7 @@ function addToCart(item) {
   showToast("Добавлено в корзину");
 }
 
-// Инициализация при загрузке
+// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
 });
