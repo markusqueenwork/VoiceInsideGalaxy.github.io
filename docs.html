@@ -9,7 +9,7 @@
   <style>
     .docs-page {
       min-height: 70vh;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
     .docs-title {
       font-size: 2.5rem;
@@ -41,6 +41,9 @@
       align-items: center;
       gap: 16px;
       transition: 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
     }
     .doc-item:last-child {
       border-bottom: none;
@@ -49,7 +52,7 @@
       background: #1a1a1a;
     }
     .doc-icon {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
     .doc-info {
       flex: 1;
@@ -57,6 +60,7 @@
     .doc-name {
       font-weight: 600;
       margin-bottom: 4px;
+      color: #fff;
     }
     .doc-desc {
       font-size: 0.8rem;
@@ -65,7 +69,7 @@
     @media (max-width: 768px) {
       .docs-title { font-size: 1.8rem; }
       .doc-item { padding: 16px 20px; }
-      .doc-icon { font-size: 1.2rem; }
+      .doc-icon { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -116,34 +120,20 @@
     <p class="docs-subtitle">Официальные документы школы Voice Inside Galaxy</p>
     
     <div class="docs-list">
-      <div class="doc-item">
+      <a href="oferta.docx" class="doc-item" target="_blank" rel="noopener noreferrer">
         <div class="doc-icon">📄</div>
         <div class="doc-info">
-          <div class="doc-name">Лицензия на образовательную деятельность</div>
-          <div class="doc-desc">№ Л035-01298-77/00765432</div>
-        </div>
-      </div>
-      <div class="doc-item">
-        <div class="doc-icon">🔒</div>
-        <div class="doc-info">
-          <div class="doc-name">Политика обработки персональных данных</div>
-          <div class="doc-desc">Как мы собираем, храним и используем ваши данные</div>
-        </div>
-      </div>
-      <div class="doc-item">
-        <div class="doc-icon">📝</div>
-        <div class="doc-info">
-          <div class="doc-name">Договор оферты на оказание услуг</div>
+          <div class="doc-name">Договор оферты</div>
           <div class="doc-desc">Условия предоставления образовательных услуг</div>
         </div>
-      </div>
-      <div class="doc-item">
-        <div class="doc-icon">📺</div>
+      </a>
+      <a href="pol.pdf" class="doc-item" target="_blank" rel="noopener noreferrer">
+        <div class="doc-icon">🔒</div>
         <div class="doc-info">
-          <div class="doc-name">Свидетельство СМИ</div>
-          <div class="doc-desc">ЭЛ № ФС 77 — 88777</div>
+          <div class="doc-name">Политика конфиденциальности</div>
+          <div class="doc-desc">Как мы собираем, храним и используем ваши данные</div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
@@ -156,7 +146,6 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  // Обработчики
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
   document.getElementById('closeCartBtn').onclick = closeCart;
