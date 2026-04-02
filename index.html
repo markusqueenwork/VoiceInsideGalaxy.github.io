@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Дополнительные стили для главной страницы */
     .steps-section {
       margin: 60px 0;
     }
@@ -212,13 +213,135 @@
       text-shadow: 0 1px 5px rgba(0,0,0,0.5);
     }
 
-    /* Уровни */
-    .level-badge {
-      white-space: nowrap;
+    /* Круглые иконки в шапке */
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      padding: 0;
     }
-    .level-pro {
+    @media (min-width: 768px) {
+      .icon-btn {
+        width: 42px;
+        height: 42px;
+      }
+    }
+    .icon-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .icon-btn img {
+      width: 18px;
+      height: 18px;
+      filter: brightness(0) invert(1);
+    }
+    @media (min-width: 768px) {
+      .icon-btn img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .icon-btn:hover img {
+      filter: brightness(0);
+    }
+
+    .cart-icon-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-badge-overlay {
+      position: absolute;
+      top: -4px;
+      right: -4px;
       background: var(--accent);
       color: #000;
+      border-radius: 50%;
+      padding: 2px 5px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      min-width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-badge {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 8px 4px 12px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .profile-badge.show {
+      display: flex;
+    }
+    .profile-name {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      max-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .profile-avatar {
+      width: 26px;
+      height: 26px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    .burger-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    @media (min-width: 768px) {
+      .burger-btn {
+        width: 42px;
+        height: 42px;
+      }
+    }
+    .burger-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .burger-btn span {
+      width: 16px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .burger-btn:hover span {
+      background: #000;
     }
   </style>
 </head>
@@ -232,11 +355,13 @@
       <div class="profile-avatar" id="profileAvatar"></div>
     </div>
     <button class="icon-btn" id="regBtn">
-      <img src="p.png" alt="Регистрация">
+      <img src="p.png" alt="Регистрация" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+      <span style="display:none; color:#fff; font-size:12px;">P</span>
     </button>
     <div class="cart-icon-wrapper">
       <button class="icon-btn" id="cartIconBtn">
-        <img src="k.png" alt="Корзина">
+        <img src="k.png" alt="Корзина" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+        <span style="display:none; color:#fff; font-size:12px;">K</span>
       </button>
       <span class="cart-badge-overlay" id="cartCountBadge">0</span>
     </div>
