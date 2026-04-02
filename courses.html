@@ -86,7 +86,7 @@
           </div>
           <div class="course-description">${c.desc}</div>
           <div class="course-meta">
-            <span class="course-duration">🕒 ${c.duration}</span>
+            <span class="course-duration">${c.duration}</span>
             <span class="course-price">${c.price.toLocaleString()} ₽</span>
           </div>
           <button class="add-to-cart-btn" data-id="${c.id}" data-name="${c.name}" data-price="${c.price}">В КОРЗИНУ</button>
@@ -109,7 +109,6 @@
     });
   }
 
-  // Обработчики
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
   document.getElementById('closeCartBtn').onclick = closeCart;
