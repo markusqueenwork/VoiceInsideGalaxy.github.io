@@ -10,6 +10,8 @@
       --bg-dark: #202020;
       --text: #ffffff;
       --accent: #ffcc00;
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -23,101 +25,188 @@
       color: var(--text);
       font-family: "Segoe UI", "Roboto", sans-serif;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
     a {
       color: var(--accent);
       text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #ffffff;
     }
 
     .container {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
     header {
-      padding: 60px 0 40px;
+      padding: 80px 0 60px;
       text-align: center;
+      position: relative;
+    }
+
+    header:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent);
+      opacity: 0.3;
     }
 
     header h1 {
-      font-size: 2.8rem;
-      margin-bottom: 12px;
+      font-size: 3.2rem;
+      margin-bottom: 16px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: var(--accent);
+      background: radial-gradient(50% 50% at 51% 50%, #ffcc00 0%, #ffcc00 50%, #000 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header h1 span {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 400;
+      opacity: 0.7;
+      margin-top: 4px;
+      letter-spacing: 0.05em;
     }
 
     header p {
       opacity: 0.8;
-      max-width: 700px;
-      margin: 0 auto 30px;
+      max-width: 720px;
+      margin: 0 auto 36px;
       font-size: 1.1rem;
     }
 
     .btn {
       display: inline-block;
-      padding: 12px 28px;
+      padding: 14px 32px;
       margin: 5px;
       border: 2px solid var(--accent);
-      background-color: var(--bg-dark);
+      background-color: rgba(32, 32, 32, 0.6);
       color: var(--accent);
       font-weight: 600;
       font-size: 1rem;
-      border-radius: 4px;
-      transition: background-color 0.2s, color 0.2s;
+      border-radius: 32px;
+      transition: var(--transition);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      box-shadow: 0 4px 12px rgba(255, 204, 0, 0.15);
     }
 
     .btn:hover {
       background-color: var(--accent);
       color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.25);
     }
 
     section {
-      padding: 60px 0;
+      padding: 70px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .section-title {
       text-align: center;
       margin-bottom: 40px;
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title span {
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.6;
+      display: block;
+      margin-top: 4px;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
     }
 
     .card {
       background-color: var(--bg-dark);
-      border-radius: 8px;
-      padding: 24px;
-      border: 1px solid rgba(255, 204, 0, 0.2);
+      border-radius: var(--border-radius);
+      padding: 28px;
+      border: 1px solid rgba(255, 204, 0, 0.15);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent);
+    }
+
+    .card:hover::before {
+      opacity: 1;
     }
 
     .card h3 {
-      margin-bottom: 10px;
-      font-size: 1.3rem;
+      margin-bottom: 12px;
+      font-size: 1.35rem;
       color: var(--accent);
+      font-weight: 600;
     }
 
     .card p {
       opacity: 0.8;
       margin-bottom: 16px;
       font-size: 0.95rem;
+      line-height: 1.54;
     }
 
     .card-price {
       font-weight: 600;
       margin-bottom: 12px;
       font-size: 1.1rem;
+      color: var(--accent);
     }
 
     .card-footer {
       text-align: right;
+    }
+
+    .card-footer a {
+      font-size: 0.95rem;
     }
 
     .steps {
@@ -131,49 +220,111 @@
     .step {
       flex: 1 1 280px;
       max-width: 320px;
-      padding: 20px 16px;
+      padding: 24px;
+      border-radius: var(--border-radius);
+      background-color: var(--bg-dark);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .step h3 {
       color: var(--accent);
       margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .step p {
+      opacity: 0.8;
+      font-size: 0.95rem;
     }
 
     .faq {
       background-color: var(--bg-dark);
-      border-radius: 8px;
-      padding: 20px;
+      border-radius: var(--border-radius);
+      padding: 24px;
       margin-top: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .faq-item {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .faq-item h4 {
       margin-bottom: 6px;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .faq-item p {
+      opacity: 0.8;
+      font-size: 0.95rem;
     }
 
     .voice-trainer {
-      background-color: var(--bg-dark);
-      border-radius: 8px;
-      padding: 32px;
+      background: linear-gradient(135deg, #0d0d0d 0%, #202020 50%, #1a1a1a 100%);
+      border-radius: var(--border-radius);
+      padding: 36px;
       text-align: center;
-      border: 1px solid rgba(255, 204, 0, 0.3);
+      border: 1px solid rgba(255, 204, 0, 0.25);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
 
     .voice-trainer h3 {
       color: var(--accent);
       margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    .voice-trainer p {
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-size: 0.95rem;
     }
 
     footer {
       text-align: center;
-      padding: 40px 0 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 60px;
+      padding: 50px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 70px;
       font-size: 0.95rem;
       opacity: 0.7;
+    }
+
+    footer p {
+      margin-bottom: 4px;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    /* отдельные анимации */
+    .card {
+      animation: fadeInUpSmall 0.5s forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0s; }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+    .card:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUpSmall {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -181,7 +332,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>Voice Inside Galaxy</h1>
+      <h1>Voice Inside Galaxy<span>Data‑driven vocal design in electronic music</span></h1>
       <p>
         Образовательная студия вокала и голоса в электронной музыке: записи, обработки, сведения и продюсинга для продюсеров и вокалистов.
       </p>
@@ -191,12 +342,15 @@
     </header>
 
     <section id="courses">
-      <h2 class="section-title">Популярные курсы</h2>
+      <h2 class="section-title">
+        Популярные курсы
+        <span>Выбери стиль, который ближе: Synthwave, Liquid, Dubstep, UK‑sound</span>
+      </h2>
       <div class="cards">
         <div class="card">
           <h3>Vocal Inside Synthwave</h3>
           <p>
-            Научишься обрабатывать вокал под Synthwave и Retrowave: автотюн, реверберации, модуляции и текстуры.
+            Научишься обрабатывать вокал под Synthwave и Retrowave: автотюн, модуляции, реверберации и сложные вокальные текстуры без перегруза в миксе.
           </p>
           <div class="card-price">3990 ₽</div>
           <div class="card-footer">
@@ -207,7 +361,7 @@
         <div class="card">
           <h3>Liquid & D&B Vocal Processing</h3>
           <p>
-            Работа с вокалом в liquid, dubstep и других тяжёлых электронных стилях: сабтракторы, side‑chain, речь и эффекты.
+            Работа с вокалом в liquid, dubstep и других тяжёлых электронных стилях: сабтракторы, side‑chain, речь как инструмент и сложные многоголосые аранжировки.
           </p>
           <div class="card-price">4500 ₽</div>
           <div class="card-footer">
@@ -218,18 +372,18 @@
         <div class="card">
           <h3>Мастер‑класс по автотюну и гармонии</h3>
           <p>
-            Глубокий разбор автотюна, гармонии вокальных линий и использования гармонизаторов в электронной музыке.
+            Глубокий разбор автотюна, гармонии вокальных линий и использования гармонизаторов в электронной музыке. Практика на реальных треках.
           </p>
-          <div class="card-price">Бесплатно</div>
+          <div class="card-price">3200 ₽</div>
           <div class="card-footer">
-            <a href="#" class="btn">Смотреть</a>
+            <a href="#" class="btn">Подробнее</a>
           </div>
         </div>
 
         <div class="card">
           <h3>Как записать вокал в домашней студии</h3>
           <p>
-            Практика записи вокала без студии: выбор микрофона, обработка комнаты, подготовка певца и сведение.
+            Практика записи вокала без студии: выбор микрофона, обработка комнаты, подготовка певца и подготовка к сведению.
           </p>
           <div class="card-price">3490 ₽</div>
           <div class="card-footer">
@@ -240,30 +394,36 @@
     </section>
 
     <section id="free">
-      <h2 class="section-title">Бесплатные уроки</h2>
+      <h2 class="section-title">
+        Бесплатные уроки
+        <span>Стартуй без вложений и пойми, как ты будешь работать с вокалом</span>
+      </h2>
       <div class="cards">
         <div class="card">
           <h3>Как слышать вокал в миксе</h3>
-          <p>Учимся выделять вокал в плотном миксе и понимать, какие частоты «забивают» голос.</p>
+          <p>Учимся выделять вокал в плотном миксе и понимать, какие частоты «забивают» голос. Практические примеры из реальных треков.</p>
           <a href="#" class="btn">Открыть</a>
         </div>
 
         <div class="card">
           <h3>Базовый автотюн для начинающих</h3>
-          <p>Простые шаги настройки автотюна и типичные ошибки при работе с вокалом.</p>
+          <p>Простые шаги настройки автотюна и типичные ошибки при работе с вокалом. Покажем, как избежать звкулки.</p>
           <a href="#" class="btn">Открыть</a>
         </div>
 
         <div class="card">
           <h3>Шаблон вокала в Ableton</h3>
-          <p>Готовый шаблон проекта для работы с вокалами в Ableton Live.</p>
+          <p>Готовый шаблон проекта для работы с вокалами в Ableton Live: цепочка синтов, эффекторов и макросов под твой стиль.</p>
           <a href="#" class="btn">Скачать</a>
         </div>
       </div>
     </section>
 
     <section>
-      <h2 class="section-title">Как проходит обучение</h2>
+      <h2 class="section-title">
+        Как проходит обучение
+        <span>Структура курсов, домашние задания и поддержка</span>
+      </h2>
       <div class="steps">
         <div class="step">
           <h3>1. Выбираешь курс</h3>
@@ -301,34 +461,4 @@
         </div>
 
         <div class="faq-item">
-          <h4>Какой доступ к материалам?</h4>
-          <p>После оплаты тебе выдаётся постоянный доступ к материалам курса и обновлениям.</p>
-        </div>
-
-        <div class="faq-item">
-          <h4>Как связаться с поддержкой?</h4>
-          <p>Напиши на почту или в Telegram — ответим в течение суток.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="trainer">
-      <h2 class="section-title">Voice Inside Training</h2>
-      <div class="voice-trainer">
-        <h3>Веб‑тренажёр вокала</h3>
-        <p>Бесплатный сервис для тренировки слуха и работы с вокалом: учишься слышать частоты, очищать вокал и понимать, где он «утонул» в миксе.</p>
-        <a href="#" class="btn">Попробовать бесплатно</a>
-      </div>
-    </section>
-
-    <footer>
-      <p>© 2026 Voice Inside Galaxy</p>
-      <p>
-        <a href="#">Политика конфиденциальности</a> ·
-        <a href="#">Договор оферта</a> ·
-        <a href="#">Контакты</a>
-      </p>
-    </footer>
-  </div>
-</body>
-</html>
+          <h4>Какой доступ к материалам?</h
