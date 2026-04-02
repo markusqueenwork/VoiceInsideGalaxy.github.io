@@ -1,31 +1,50 @@
+
 // Бургер меню
 function toggleSideMenu() {
-  document.getElementById('sideMenu').classList.toggle('open');
+  const menu = document.getElementById('sideMenu');
+  menu.classList.toggle('open');
+  if (menu.classList.contains('open')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 }
 
 function closeSideMenu() {
-  document.getElementById('sideMenu').classList.remove('open');
+  const menu = document.getElementById('sideMenu');
+  menu.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // Корзина
 function toggleCart() {
-  document.getElementById('cartPanel').classList.toggle('show');
+  const panel = document.getElementById('cartPanel');
+  panel.classList.toggle('show');
+  if (panel.classList.contains('show')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 }
 
 function closeCart() {
-  document.getElementById('cartPanel').classList.remove('show');
+  const panel = document.getElementById('cartPanel');
+  panel.classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // Регистрация
 function openRegModal() {
   document.getElementById('regModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeRegModal() {
   document.getElementById('regModal').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
-// Закрытие модалок при клике вне
+// Закрытие при клике вне
 document.addEventListener('click', function(e) {
   const sideMenu = document.getElementById('sideMenu');
   const burgerBtn = document.getElementById('burgerBtn');
@@ -76,6 +95,7 @@ function showToast(msg) {
   toast.style.fontWeight = '600';
   toast.style.zIndex = '9999';
   toast.style.textAlign = 'center';
+  toast.style.fontSize = '0.9rem';
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 2000);
 }
