@@ -6,6 +6,16 @@
   <title>Все курсы — Voice Inside Galaxy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Уровень "ОПЫТНЫЙ" без переноса */
+    .level-badge {
+      white-space: nowrap;
+    }
+    .level-pro {
+      background: var(--accent);
+      color: #000;
+    }
+  </style>
 </head>
 <body>
 
@@ -44,6 +54,35 @@
     <input type="email" id="regEmail" placeholder="Email">
     <input type="password" id="regPassword" placeholder="Пароль">
     <button class="modal-btn" id="doRegisterBtn">СОЗДАТЬ АККАУНТ</button>
+    <p style="margin-top: 12px; font-size: 0.7rem; color: #666;">Уже есть аккаунт? <a href="#" id="showLoginBtn" style="color: var(--accent);">Войти</a></p>
+  </div>
+</div>
+
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeLoginModalBtn">&times;</span>
+    <h3>ВХОД</h3>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Пароль">
+    <button class="modal-btn" id="doLoginBtn">ВОЙТИ</button>
+    <p style="margin-top: 12px; font-size: 0.7rem; color: #666;">Нет аккаунта? <a href="#" id="showRegFromLoginBtn" style="color: var(--accent);">Зарегистрироваться</a></p>
+  </div>
+</div>
+
+<div class="modal" id="profileModal">
+  <div class="modal-content profile-modal">
+    <span class="close-modal" id="closeProfileModalBtn">&times;</span>
+    <h3>ЛИЧНЫЙ КАБИНЕТ</h3>
+    <div class="profile-stats">
+      <p><strong>Имя:</strong> <span id="profileModalName"></span></p>
+      <p><strong>Email:</strong> <span id="profileModalEmail"></span></p>
+      <p><strong>Куплено курсов:</strong> <span id="profileCoursesCount">0</span></p>
+      <p><strong>Прогресс обучения:</strong> <span id="profileProgress">0</span>%</p>
+    </div>
+    <div class="profile-courses" id="profileCoursesList">
+      <p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>
+    </div>
+    <button class="logout-btn" id="logoutBtn">ВЫЙТИ</button>
   </div>
 </div>
 
@@ -56,8 +95,8 @@
   <div class="cards-grid" id="allCoursesContainer"></div>
 </div>
 <footer>
-  <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
-  <p style="margin-top: 6px;">hello@voicegalaxy.ru</p>
+  <p><a href="oferta.docx" class="footer-offer" target="_blank" rel="noopener noreferrer">Публичная оферта</a></p>
+  <p style="margin-top: 6px; font-size: 0.7rem;">© 2026 Voice Inside Galaxy</p>
 </footer>
 </main>
 
@@ -70,11 +109,82 @@
     {id:3,name:"DnB с нуля",level:"beginner",levelName:"НОВИЧОК",price:8000,desc:"Создание drum & bass треков с нуля",cover:"dnb.png",duration:"12 часов"},
     {id:4,name:"Hip-hop с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Создание trap, rap и hip-hop битов",cover:"hh.png",duration:"9 часов"},
     {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн, Melodyne, коррекция и обработка вокала",cover:"at.png",duration:"5 часов"},
-    {id:6,name:"Продвинутое сведение",level:"pro",levelName:"ПРОДВИНУТЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",duration:"15 часов"}
+    {id:6,name:"Продвинутое сведение",level:"pro",levelName:"ОПЫТНЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",duration:"15 часов"}
   ];
 
+  let currentUser = null;
+
+  function loadUsers() {
+    const users = localStorage.getItem('voiceGalaxyUsers');
+    return users ? JSON.parse(users) : [];
+  }
+
+  function saveUsers(users) {
+    localStorage.setItem('voiceGalaxyUsers', JSON.stringify(users));
+  }
+
+  function saveCurrentUser(user) {
+    localStorage.setItem('voiceGalaxyCurrentUser', JSON.stringify(user));
+    currentUser = user;
+  }
+
+  function loadCurrentUser() {
+    const user = localStorage.getItem('voiceGalaxyCurrentUser');
+    if (user) {
+      currentUser = JSON.parse(user);
+      updateProfileUI();
+    }
+  }
+
+  function updateProfileUI() {
+    if (currentUser) {
+      document.getElementById('profileBadge').classList.add('show');
+      document.getElementById('profileName').innerText = currentUser.name;
+      document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
+      document.getElementById('regBtn').style.display = 'none';
+    } else {
+      document.getElementById('profileBadge').classList.remove('show');
+      document.getElementById('regBtn').style.display = 'block';
+    }
+  }
+
+  function updateProfileModal() {
+    if (!currentUser) return;
+    document.getElementById('profileModalName').innerText = currentUser.name;
+    document.getElementById('profileModalEmail').innerText = currentUser.email;
+    
+    const purchasedCourses = currentUser.purchasedCourses || [];
+    document.getElementById('profileCoursesCount').innerText = purchasedCourses.length;
+    
+    let totalProgress = 0;
+    if (purchasedCourses.length > 0) {
+      totalProgress = Math.floor((currentUser.completedLessons || 0) / (purchasedCourses.length * 10) * 100);
+      if (totalProgress > 100) totalProgress = 100;
+    }
+    document.getElementById('profileProgress').innerText = totalProgress;
+    
+    const coursesListDiv = document.getElementById('profileCoursesList');
+    if (purchasedCourses.length === 0) {
+      coursesListDiv.innerHTML = '<p style="color:#666; text-align:center;">Купленные курсы появятся здесь</p>';
+    } else {
+      let html = '';
+      purchasedCourses.forEach(courseId => {
+        const course = courses.find(c => c.id === courseId);
+        if (course) {
+          html += `
+            <div class="profile-course-item">
+              <span class="profile-course-name">${course.name}</span>
+              <span class="profile-course-status">✅ Куплен</span>
+            </div>
+          `;
+        }
+      });
+      coursesListDiv.innerHTML = html;
+    }
+  }
+
   function renderCard(c) {
-    const lvlClass = c.level === 'beginner' ? 'level-beginner' : (c.level === 'intermediate' ? 'level-intermediate' : 'level-pro');
+    const lvlClass = c.level === 'beginner' ? 'level-beginner' : 'level-pro';
     const coverStyle = c.cover ? `background-image: url('${c.cover}')` : 'background-color:#1a1a1a';
     return `
       <a href="course-detail.html?id=${c.id}" class="course-card">
@@ -109,22 +219,77 @@
     });
   }
 
+  // Функции модалок
+  const regModal = document.getElementById('regModal');
+  const loginModal = document.getElementById('loginModal');
+  const profileModal = document.getElementById('profileModal');
+
+  function openRegModal() { regModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeRegModal() { regModal.classList.remove('active'); document.body.style.overflow = ''; }
+  function openLoginModal() { loginModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLoginModal() { loginModal.classList.remove('active'); document.body.style.overflow = ''; }
+  function openProfileModal() { updateProfileModal(); profileModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeProfileModal() { profileModal.classList.remove('active'); document.body.style.overflow = ''; }
+
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
   document.getElementById('closeCartBtn').onclick = closeCart;
   document.getElementById('regBtn').onclick = openRegModal;
   document.getElementById('closeModalBtn').onclick = closeRegModal;
   document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  document.getElementById('profileBadge').onclick = openProfileModal;
+  document.getElementById('closeProfileModalBtn').onclick = closeProfileModal;
+  document.getElementById('logoutBtn').onclick = () => {
+    localStorage.removeItem('voiceGalaxyCurrentUser');
+    currentUser = null;
+    updateProfileUI();
+    closeProfileModal();
+    alert('Вы вышли из аккаунта');
+  };
+
   document.getElementById('doRegisterBtn').onclick = () => {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
     if (!name || !email || !password) alert('Заполните все поля');
     else if (password.length < 4) alert('Пароль минимум 4 символа');
-    else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
+    else {
+      const users = loadUsers();
+      if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
+      else {
+        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
+        users.push(newUser);
+        saveUsers(users);
+        saveCurrentUser(newUser);
+        alert(`Добро пожаловать, ${name}!`);
+        closeRegModal();
+        updateProfileUI();
+      }
+    }
+  };
+
+  document.getElementById('doLoginBtn').onclick = () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const users = loadUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) { saveCurrentUser(user); alert(`С возвращением, ${user.name}!`); closeLoginModal(); updateProfileUI(); }
+    else alert('Неверный email или пароль');
+  };
+
+  document.getElementById('showLoginBtn').onclick = (e) => { e.preventDefault(); closeRegModal(); openLoginModal(); };
+  document.getElementById('showRegFromLoginBtn').onclick = (e) => { e.preventDefault(); closeLoginModal(); openRegModal(); };
+  document.getElementById('closeLoginModalBtn').onclick = closeLoginModal;
+
+  window.onclick = (e) => {
+    if (e.target === regModal) closeRegModal();
+    if (e.target === loginModal) closeLoginModal();
+    if (e.target === profileModal) closeProfileModal();
   };
 
   renderAllCourses();
+  loadCurrentUser();
+  updateCartUI();
 </script>
 </body>
 </html>
