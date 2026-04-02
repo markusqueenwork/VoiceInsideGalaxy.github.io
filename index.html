@@ -1,680 +1,334 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Voice Inside Galaxy — Онлайн‑школа музыкального продакшна</title>
-    <style>
-        :root {
-            --color-bg: #000000;
-            --color-text: #ffffff;
-            --color-panel: #202020;
-            --color-accent: #FFCC00;
-            --color-gray: #666666;
-            --shadow: 0 8px 24px rgba(0,0,0,0.5);
-            --transition: all 0.3s ease;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-        body {
-            background: var(--color-bg);
-            color: var(--color-text);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 32px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 32px;
-            background: #202020;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .logo img {
-            width: 48px;
-        }
-        .cart-badge {
-            position: relative;
-            display: inline-block;
-            font-size: 20px;
-        }
-        .cart-badge::after {
-            content: attr(data-count);
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 22px;
-            height: 22px;
-            background: var(--color-accent);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .cart-icon {
-            cursor: pointer;
-        }
-        main {
-            padding: 60px 0;
-        }
-        .section-title {
-            font-size: 32px;
-            margin-bottom: 36px;
-            color: var(--color-accent);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s 0.2s both;
-        }
-        .hero {
-            text-align: center;
-            max-width: 1000px;
-            margin: 0 auto 72px;
-        }
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 24px;
-            color: var(--color-accent);
-            line-height: 1.2;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.7s 0.1s both;
-        }
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 48px;
-            margin-bottom: 48px;
-            font-size: 16px;
-            color: var(--color-gray);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.7s 0.3s both;
-        }
-        .stat span {
-            display: block;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--color-accent);
-        }
-        .course-section {
-            margin-bottom: 72px;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 0.7s 0.4s both;
-        }
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-            gap: 40px;
-        }
-        .course-card {
-            background: #202020;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
-            padding: 32px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--color-accent), #ff9900);
-        }
-        .course-card:hover {
-            transform: translateY(-12px);
-            box-shadow: var(--shadow);
-            background: #282828;
-            border-color: rgba(255,204,0,0.3);
-        }
-        .course-image {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 20px;
-        }
-        .course-title {
-            font-size: 24px;
-            margin-bottom: 12px;
-            color: var(--color-accent);
-            font-weight: 600;
-        }
-        .course-level {
-            display: flex;
-            gap: 8px;
-            font-size: 14px;
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-        .level-circle {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .level-beginner {
-            background: #2ecc71;
-        }
-        .level-intermediate {
-            background: #f39c12;
-        }
-        .level-advanced {
-            background: #e74c3c;
-        }
-        .course-price {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--color-accent);
-        }
-        .btn-primary {
-            width: 100%;
-            padding: 16px 0;
-            background: linear-gradient(135deg, var(--color-accent), #ff9900);
-            border: none;
-            color: #000000;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            border-radius: 12px;
-            transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(255,204,0,0.3);
-        }
-        .btn-primary:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(255, 204, 0, 0.4);
-            background: linear-gradient(135deg, #f5e600, #ffcc00);
-        }
-        .kinescope-block {
-            margin-top: 20px;
-            background: rgba(255,204,0,0.1);
-            border: 1px solid rgba(255,204,0,0.2);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            font-size: 14px;
-            color: var(--color-accent);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-        .kinescope-block:hover {
-            background: rgba(255,204,0,0.15);
-            transform: scale(1.02);
-        }
-        .kinescope-block a {
-            color: var(--color-accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .kinescope-block a:hover {
-            text-decoration: underline;
-        }
-        .social {
-            text-align: center;
-            margin-bottom: 48px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s 0.6s both;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-        }
-        .social-link {
-            color: var(--color-accent);
-            text-decoration: underline;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-        .social-link:hover {
-            background: rgba(255,204,0,0.1);
-            text-decoration: none;
-        }
-        .docs {
-            margin-bottom: 48px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s 0.7s both;
-        }
-        .docs h2 {
-            font-size: 24px;
-            margin-bottom: 16px;
-            color: var(--color-accent);
-        }
-        .docs-list {
-            list-style: none;
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .docs-list a {
-            color: var(--color-accent);
-            text-decoration: underline;
-            font-size: 16px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,204,0,0.2);
-            transition: var(--transition);
-        }
-        .docs-list a:hover {
-            background: rgba(255,204,0,0.1);
-            text-decoration: none;
-        }
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.98);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        .cart-modal.active {
-            display: flex;
-            opacity: 1;
-            pointer-events: all;
-        }
-        .cart-content {
-            background: #202020;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
-            padding: 32px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            transform: translateY(40px);
-            transition: var(--transition);
-        }
-        .cart-modal.active .cart-content {
-            transform: translateY(0);
-        }
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            font-size: 24px;
-            color: var(--color-accent);
-            font-weight: 600;
-        }
-        .cart-close {
-            font-size: 28px;
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-        .cart-close:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        .cart-items {
-            margin-bottom: 24px;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: var(--transition);
-        }
-        .cart-item:hover {
-            background: rgba(255,255,255,0.05);
-        }
-        .cart-item-name {
-            font-size: 16px;
-            flex: 1;
-        }
-        .cart-item-price {
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .cart-total {
-            margin-bottom: 24px;
-            font-size: 24px;
-            font-weight: 700;
-            text-align: right;
-            color: var(--color-accent);
-        }
-        .cart-btns {
-            display: flex;
-            gap: 16px;
-        }
-        .btn-secondary {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 16px;
-            border: 1px solid rgba(255,255,255,0.3);
-            background: transparent;
-            color: var(--color-text);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        .btn-success {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 16px;
-            border: none;
-            background: linear-gradient(135deg, var(--color-accent), #ff9900);
-            color: #000000;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 700;
-        }
-        .btn-success:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @media (max-width: 768px) {
-            .container {
-                padding: 16px;
-            }
-            .course-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            .hero h1 {
-                font-size: 36px;
-            }
-            .hero-stats {
-                flex-direction: column;
-                gap: 24px;
-                align-items: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Voice Inside Galaxy — Обучение вокалу в электронной музыке</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-dark: #202020;
+      --text: #ffffff;
+      --accent: #ffcc00;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", "Roboto", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+
+    header p {
+      opacity: 0.8;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      margin: 5px;
+      border: 2px solid var(--accent);
+      background-color: var(--bg-dark);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 4px;
+      transition: background-color 0.2s, color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn:hover {
+      background-color: var(--accent);
+      color: #000;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background-color: var(--bg-dark);
+      border-radius: 8px;
+      padding: 24px;
+      border: 1px solid rgba(255, 204, 0, 0.2);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+
+    .card p {
+      opacity: 0.8;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .card-price {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .card-footer {
+      text-align: right;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 30px;
+    }
+
+    .step {
+      flex: 1 1 280px;
+      max-width: 320px;
+      padding: 20px 16px;
+    }
+
+    .step h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .faq {
+      background-color: var(--bg-dark);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    .faq-item {
+      margin-bottom: 16px;
+    }
+
+    .faq-item h4 {
+      margin-bottom: 6px;
+    }
+
+    .voice-trainer {
+      background-color: var(--bg-dark);
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      border: 1px solid rgba(255, 204, 0, 0.3);
+    }
+
+    .voice-trainer h3 {
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 60px;
+      font-size: 0.95rem;
+      opacity: 0.7;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
     <header>
-        <div class="logo">
-            <img src="https://drive.google.com/uc?export=view&id=1n60cg5HV9HD4MaKUGozhw8P5KnCu9ezN" alt="Voice Inside Galaxy Logo" />
-            <span>Voice Inside Galaxy</span>
-        </div>
-        <div class="cart-badge" id="cart-badge" data-count="0">
-            <div class="cart-icon" onclick="toggleCart()">🛒</div>
-        </div>
+      <h1>Voice Inside Galaxy</h1>
+      <p>
+        Образовательная студия вокала и голоса в электронной музыке: записи, обработки, сведения и продюсинга для продюсеров и вокалистов.
+      </p>
+      <a href="#courses" class="btn">Посмотреть курсы</a>
+      <a href="#free" class="btn">Бесплатные уроки</a>
+      <a href="#consult" class="btn">Консультация</a>
     </header>
 
-    <div class="container">
-        <main>
-            <!-- Блок "Герой" -->
-            <section class="hero">
-                <h1>Онлайн‑школа музыкального продакшна</h1>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span>500+</span>
-                        студентов
-                    </div>
-                    <div class="stat">
-                        <span>25</span>
-                        курсов
-                    </div>
-                    <div class="stat">
-                        <span>4.9</span>
-                        рейтинг
-                    </div>
-                </div>
-            </section>
-
-            <!-- Блок курсов -->
-            <section class="course-section">
-                <h2 class="section-title">Курсы</h2>
-                <div class="course-grid">
-                    <!-- Курс Ableton Live с нуля -->
-                    <div class="course-card" data-id="1" data-name="Ableton Live с нуля" data-price="6990">
-                        <img
-                            src="https://drive.google.com/uc?export=view&id=16ytJZBJZcx0CpbfdzMcp4JRxfK1N1Bco"
-                            alt="Курс Ableton Live с нуля"
-                            class="course-image"
-                        />
-                        <div class="course-title">Ableton Live с нуля</div>
-                        <div class="course-level">
-                            <span class="level-circle level-beginner"></span>
-                            <span>Базовый</span>
-                        </div>
-                        <div class="course-price">6 990 ₽</div>
-                        <button class="btn-primary" onclick="addToCart(this)">
-                            🛒 В корзину
-                        </button>
-                        <div class="kinescope-block">
-                            🎥 Видео‑превью доступно на <a href="https://kinescope.io" target="_blank">Kinescope</a>
-                        </div>
-                    </div>
-
-                    <!-- Курс Продвинутый продакшн и миксинг -->
-                    <div class="course-card" data-id="2" data-name="Продвинутый продакшн и миксинг" data-price="9990">
-                        <img
-                            src="https://drive.google.com/uc?export=view&id=16ytJZBJZcx0CpbfdzMcp4JRxfK1N1Bco"
-                            alt="Курс Продвинутый продакшн и миксинг"
-                            class="course-image"
-                        />
-                        <div class="course-title">Продвинутый продакшн и миксинг</div>
-                        <div class="course-level">
-                            <span class="level-circle level-intermediate"></span>
-                            <span>Продвинутый</span>
-                        </div>
-                        <div class="course-price">9 990 ₽</div>
-                        <button class="btn-primary" onclick="addToCart(this)">
-                            🛒 В корзину
-                        </button>
-                        <div class="kinescope-block">
-                            🎥 Видео‑превью доступно на <a href="https://kinescope.io" target="_blank">Kinescope</a>
-                        </div>
-                    </div>
-
-                    <!-- Курс Мастер‑курс продюсирования -->
-                    <div class="course-card" data-id="3" data-name="Мастер‑курс продюсирования" data-price="14990">
-                        <img
-                            src="https://drive.google.com/uc?export=view&id=16ytJZBJZcx0CpbfdzMcp4JRxfK1N1Bco"
-                            alt="Курс Мастер‑курс продюсирования"
-                            class="course-image"
-                        />
-                        <div class="course-title">Мастер‑курс продюсирования</div>
-                        <div class="course-level">
-                            <span class="level-circle level-advanced"></span>
-                            <span>Мастер</span>
-                        </div>
-                        <div class="course-price">14 990 ₽</div>
-                        <button class="btn-primary" onclick="addToCart(this)">
-                            🛒 В корзину
-                        </button>
-                        <div class="kinescope-block">
-                            🎥 Видео‑превью доступно на <a href="https://kinescope.io" target="_blank">Kinescope</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Блок соцсетей -->
-            <section class="social">
-                <h2 class="section-title">Подписывайся в соцсетях</h2>
-                <div class="social-links">
-                    <a href="https://t.me/..." class="social-link" target="_blank">Telegram</a>
-                    <a href="https://vk.com/..." class="social-link" target="_blank">VK</a>
-                    <a href="https://instagram.com/..." class="social-link" target="_blank">Instagram</a>
-                </div>
-            </section>
-
-            <!-- Документы -->
-            <section class="docs">
-                <h2 class="section-title">Документы</h2>
-                <ul class="docs-list">
-                    <li><a href="https://docs.google.com/..." target="_blank">Оферта</a></li>
-                    <li><a href="https://docs.google.com/..." target="_blank">Политика обработки данных</a></li>
-                </ul>
-            </section>
-        </main>
-    </div>
-
-    <!-- Модальное окно корзины -->
-    <div class="cart-modal" id="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <div>Корзина</div>
-                <div class="cart-close" onclick="toggleCart()">✕</div>
-            </div>
-            <div class="cart-items" id="cart-items"></div>
-            <div class="cart-total" id="cart-total">0 ₽</div>
-            <div class="cart-btns">
-                <button class="btn-secondary" onclick="clearCart()">Очистить</button>
-                <button class="btn-success" onclick="checkout()">Оформить заказ</button>
-            </div>
+    <section id="courses">
+      <h2 class="section-title">Популярные курсы</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Vocal Inside Synthwave</h3>
+          <p>
+            Научишься обрабатывать вокал под Synthwave и Retrowave: автотюн, реверберации, модуляции и текстуры.
+          </p>
+          <div class="card-price">3990 ₽</div>
+          <div class="card-footer">
+            <a href="#" class="btn">Подробнее</a>
+          </div>
         </div>
-    </div>
 
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        <div class="card">
+          <h3>Liquid & D&B Vocal Processing</h3>
+          <p>
+            Работа с вокалом в liquid, dubstep и других тяжёлых электронных стилях: сабтракторы, side‑chain, речь и эффекты.
+          </p>
+          <div class="card-price">4500 ₽</div>
+          <div class="card-footer">
+            <a href="#" class="btn">Подробнее</a>
+          </div>
+        </div>
 
-        function updateCartBadge() {
-            const badge = document.getElementById('cart-badge');
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            badge.setAttribute('data-count', count || 0);
-        }
+        <div class="card">
+          <h3>Мастер‑класс по автотюну и гармонии</h3>
+          <p>
+            Глубокий разбор автотюна, гармонии вокальных линий и использования гармонизаторов в электронной музыке.
+          </p>
+          <div class="card-price">Бесплатно</div>
+          <div class="card-footer">
+            <a href="#" class="btn">Смотреть</a>
+          </div>
+        </div>
 
-        function addToCart(button) {
-            const card = button.closest('.course-card');
-            const id = card.dataset.id;
-            const name = card.dataset.name;
-            const price = parseInt(card.dataset.price);
+        <div class="card">
+          <h3>Как записать вокал в домашней студии</h3>
+          <p>
+            Практика записи вокала без студии: выбор микрофона, обработка комнаты, подготовка певца и сведение.
+          </p>
+          <div class="card-price">3490 ₽</div>
+          <div class="card-footer">
+            <a href="#" class="btn">Подробнее</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            const existingItem = cart.find(item => item.id == id);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ id, name, price, quantity: 1 });
-            }
+    <section id="free">
+      <h2 class="section-title">Бесплатные уроки</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Как слышать вокал в миксе</h3>
+          <p>Учимся выделять вокал в плотном миксе и понимать, какие частоты «забивают» голос.</p>
+          <a href="#" class="btn">Открыть</a>
+        </div>
 
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            
-            // Анимация добавления
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = '';
-            }, 150);
-        }
+        <div class="card">
+          <h3>Базовый автотюн для начинающих</h3>
+          <p>Простые шаги настройки автотюна и типичные ошибки при работе с вокалом.</p>
+          <a href="#" class="btn">Открыть</a>
+        </div>
 
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            modal.classList.toggle('active');
-            if (modal.classList.contains('active')) {
-                renderCart();
-            }
-        }
+        <div class="card">
+          <h3>Шаблон вокала в Ableton</h3>
+          <p>Готовый шаблон проекта для работы с вокалами в Ableton Live.</p>
+          <a href="#" class="btn">Скачать</a>
+        </div>
+      </div>
+    </section>
 
-        function renderCart() {
-            const itemsEl = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-            
-            if (cart.length === 0) {
-                itemsEl.innerHTML = '<div style="text-align: center; color: var(--color-gray); padding: 40px 20px;">Корзина пуста</div>';
-                totalEl.textContent = '0 ₽';
-                return;
-            }
+    <section>
+      <h2 class="section-title">Как проходит обучение</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Выбираешь курс</h3>
+          <p>Подбираешь подходящий курс по уровню и жанру: synthwave, liquid, dubstep, UK‑sound, Lo‑Fi и другие стили.</p>
+        </div>
 
-            itemsEl.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <span class="cart-item-name">${item.name}</span>
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span class="cart-item-price">${item.price} ₽ × ${item.quantity}</span>
-                        <button onclick="removeFromCart(${item.id})" style="background: #e74c3c; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px;">×</button>
-                    </div>
-                </div>
-            `).join('');
+        <div class="step">
+          <h3>2. Покупаешь и заходишь в кабинет</h3>
+          <p>Оплачиваешь и получаешь доступ к видеоурокам, проектам DAW, пресетам и чек‑листам прямо в личном кабинете.</p>
+        </div>
 
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            totalEl.textContent = new Intl.NumberFormat('ru-RU').format(total) + ' ₽';
-        }
+        <div class="step">
+          <h3>3. Следуешь по шагам и выполняешь задания</h3>
+          <p>Проходишь курс по модулям, делаешь домашние задания и отправляешь свои треки на обратную связь.</p>
+        </div>
+      </div>
+    </section>
 
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id != id);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            renderCart();
-        }
+    <section>
+      <h2 class="section-title">Частые вопросы</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <h4>Есть ли рассрочка за обучение?</h4>
+          <p>Да, доступна оплата по частям для некоторых курсов через партнёрские сервисы.</p>
+        </div>
 
-        function clearCart() {
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            renderCart();
-        }
+        <div class="faq-item">
+          <h4>Я не вокалист, подойдёт ли мне курс?</h4>
+          <p>Да. Курсы ориентированы на продюсеров и саунд‑дизайнеров, которые работают с вокалом, даже если сами не поют.</p>
+        </div>
 
-        function checkout() {
-            if (cart.length === 0) return;
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            alert(`Спасибо за заказ! Итого: ${new Intl.NumberFormat('ru-RU').format(total)} ₽
+        <div class="faq-item">
+          <h4>Нужна ли DAW и какая именно?</h4>
+          <p>Для большинства курсов подойдут Ableton Live, FL Studio или любой другой DAW. Часть материалов делается в Ableton.</p>
+        </div>
 
-Скоро с вами свяжутся для оплаты и доступа к курсу!`);
-            clearCart();
-            toggleCart();
-        }
+        <div class="faq-item">
+          <h4>Какой доступ к материалам?</h4>
+          <p>После оплаты тебе выдаётся постоянный доступ к материалам курса и обновлениям.</p>
+        </div>
 
-        // Инициализация
-        updateCartBadge();
-        document.addEventListener('click', (e) => {
-            if (e.target === document.getElementById('cart-modal')) {
-                toggleCart();
-            }
-        });
-    </script>
+        <div class="faq-item">
+          <h4>Как связаться с поддержкой?</h4>
+          <p>Напиши на почту или в Telegram — ответим в течение суток.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="trainer">
+      <h2 class="section-title">Voice Inside Training</h2>
+      <div class="voice-trainer">
+        <h3>Веб‑тренажёр вокала</h3>
+        <p>Бесплатный сервис для тренировки слуха и работы с вокалом: учишься слышать частоты, очищать вокал и понимать, где он «утонул» в миксе.</p>
+        <a href="#" class="btn">Попробовать бесплатно</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Voice Inside Galaxy</p>
+      <p>
+        <a href="#">Политика конфиденциальности</a> ·
+        <a href="#">Договор оферта</a> ·
+        <a href="#">Контакты</a>
+      </p>
+    </footer>
+  </div>
 </body>
 </html>
