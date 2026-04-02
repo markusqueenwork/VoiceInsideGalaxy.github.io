@@ -23,8 +23,8 @@
   <ul class="menu-list">
     <li><a href="index.html">ГЛАВНАЯ</a></li>
     <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
-    <li><a href="#" id="menuSocialsLink">СОЦ СЕТИ</a></li>
-    <li><a href="#" id="menuDocsLink">ДОКУМЕНТЫ</a></li>
+    <li><a href="socials.html">СОЦ СЕТИ</a></li>
+    <li><a href="docs.html">ДОКУМЕНТЫ</a></li>
   </ul>
   <div style="margin-top: 40px; font-size: 11px; color: #444;">© 2025</div>
 </div>
@@ -58,18 +58,6 @@
   <div class="section-title">Популярные курсы</div>
   <div class="cards-grid" id="popularContainer"></div>
 </div>
-
-<div class="social-links" id="socialsSection" style="display: none; max-width: 1280px; margin: 0 auto; padding: 0 16px;">
-  <a href="#">TELEGRAM</a>
-  <a href="#">YOUTUBE</a>
-</div>
-
-<div class="docs-block" id="docsSection" style="display: none; max-width: 1280px; margin: 40px auto 0; padding: 20px;">
-  <p>Лицензия на образовательную деятельность № Л035-01298-77/00765432</p>
-  <p>Политика обработки персональных данных</p>
-  <p>Договор оферты на оказание услуг</p>
-</div>
-
 <footer>
   <p>VOICE INSIDE GALAXY — онлайн школа музыкального продакшна</p>
   <p style="margin-top: 6px;">hello@voicegalaxy.ru</p>
@@ -140,20 +128,6 @@
     if (!name || !email || !password) alert('Заполните все поля');
     else if (password.length < 4) alert('Пароль минимум 4 символа');
     else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
-  };
-
-  // Показать секции
-  document.getElementById('menuSocialsLink').onclick = (e) => {
-    e.preventDefault();
-    document.getElementById('socialsSection').style.display = 'flex';
-    document.getElementById('socialsSection').scrollIntoView({ behavior: 'smooth' });
-    closeSideMenu();
-  };
-  document.getElementById('menuDocsLink').onclick = (e) => {
-    e.preventDefault();
-    document.getElementById('docsSection').style.display = 'block';
-    document.getElementById('docsSection').scrollIntoView({ behavior: 'smooth' });
-    closeSideMenu();
   };
 
   renderPopular();
