@@ -23,7 +23,6 @@
   <ul class="menu-list">
     <li><a href="index.html">ГЛАВНАЯ</a></li>
     <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
-    <li><a href="#" id="menuInfoLink">ИНФОРМАЦИЯ</a></li>
     <li><a href="#" id="menuSocialsLink">СОЦ СЕТИ</a></li>
     <li><a href="#" id="menuDocsLink">ДОКУМЕНТЫ</a></li>
   </ul>
@@ -56,12 +55,6 @@
     <button class="btn-primary" id="heroCoursesBtn">СМОТРЕТЬ КУРСЫ</button>
   </div>
 
-  <div class="section-title">О школе</div>
-  <div class="info-block">
-    <p>Voice Inside Galaxy — онлайн школа музыкального продакшна. Обучаем работе в Ableton Live, FL Studio, Logic Pro, вокалу, звукорежиссуре и сведению.</p>
-    <p style="margin-top: 12px">Доступ к материалам — 6 месяцев. Поддержка в Telegram. Рассрочка до 6 месяцев без переплат.</p>
-  </div>
-
   <div class="section-title">Популярные курсы</div>
   <div class="cards-grid" id="popularContainer"></div>
 </div>
@@ -92,7 +85,7 @@
     {id:3,name:"Продакшн Techno",level:"intermediate",levelName:"ОПЫТНЫЙ",price:5900,desc:"Создание техно-треков",cover:null,popular:false,duration:"10 часов"},
     {id:4,name:"Вокал в электронике",level:"beginner",levelName:"НОВИЧОК",price:4500,desc:"Техники вокала для электронной музыки",cover:null,popular:false,duration:"6 часов"},
     {id:5,name:"Звуковой дизайн",level:"pro",levelName:"ПРОФИ",price:8900,desc:"Создание уникальных звуков",cover:null,popular:false,duration:"14 часов"},
-    {id:6,name:"FL Studio с нуля",level:"beginner",levelName:"НОВИЧОК",price:4900,desc:"Полный курс по FL Studio",cover:null,popular:false,duration:"7 часов"}
+    {id:6,name:"FL Studio с нуля",level:"beginner",levelName:"НОВИЧОК",price:4900,desc:"Полное руководство по FL Studio",cover:null,popular:false,duration:"7 часов"}
   ];
 
   function renderCard(c) {
@@ -132,15 +125,6 @@
     });
   }
 
-  // Навигация по секциям на главной
-  function scrollToSection(sectionId) {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    closeSideMenu();
-  }
-
   // Обработчики
   document.getElementById('burgerBtn').onclick = toggleSideMenu;
   document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
@@ -158,12 +142,7 @@
     else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
   };
 
-  // Показать/скрыть секции
-  document.getElementById('menuInfoLink').onclick = (e) => {
-    e.preventDefault();
-    document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
-    closeSideMenu();
-  };
+  // Показать секции
   document.getElementById('menuSocialsLink').onclick = (e) => {
     e.preventDefault();
     document.getElementById('socialsSection').style.display = 'flex';
