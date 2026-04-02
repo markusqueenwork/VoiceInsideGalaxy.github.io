@@ -7,70 +7,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    .docs-page {
-      min-height: 70vh;
-      padding: 60px 20px;
-    }
-    .docs-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-    .docs-title span {
-      color: var(--accent);
-    }
-    .docs-subtitle {
-      color: #a0a0a0;
-      text-align: center;
-      margin-bottom: 48px;
-      font-size: 1rem;
-    }
-    .docs-list {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #111;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
+    .docs-page { min-height: 70vh; padding: 60px 20px; }
+    .docs-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; text-align: center; }
+    @media (min-width: 768px) { .docs-title { font-size: 2.5rem; } }
+    .docs-title span { color: var(--accent); }
+    .docs-list { max-width: 800px; margin: 0 auto; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
     .doc-item {
-      padding: 20px 28px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+      padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center;
+      gap: 12px; transition: 0.2s; cursor: pointer; text-decoration: none; color: inherit;
     }
-    .doc-item:last-child {
-      border-bottom: none;
+    @media (min-width: 768px) { .doc-item { padding: 20px 28px; gap: 16px; } }
+    .doc-item:last-child { border-bottom: none; }
+    .doc-item:hover { background: #1a1a1a; }
+    .doc-icon { font-size: 1.4rem; }
+    @media (min-width: 768px) { .doc-icon { font-size: 1.8rem; } }
+    .doc-name { font-weight: 600; margin-bottom: 4px; color: #fff; }
+    .doc-desc { font-size: 0.7rem; color: var(--text-secondary); }
+    @media (min-width: 768px) { .doc-desc { font-size: 0.8rem; } }
+    .profile-badge {
+      display: none; align-items: center; gap: 8px; background: rgba(255,255,255,0.1);
+      padding: 4px 12px 4px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer;
     }
-    .doc-item:hover {
-      background: #1a1a1a;
-    }
-    .doc-icon {
-      font-size: 1.8rem;
-    }
-    .doc-info {
-      flex: 1;
-    }
-    .doc-name {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #fff;
-    }
-    .doc-desc {
-      font-size: 0.8rem;
-      color: #a0a0a0;
-    }
-    @media (max-width: 768px) {
-      .docs-title { font-size: 1.8rem; }
-      .doc-item { padding: 16px 20px; }
-      .doc-icon { font-size: 1.4rem; }
-    }
+    .profile-badge.show { display: flex; }
+    .profile-name { font-size: 0.8rem; font-weight: 500; color: var(--accent); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .profile-avatar { width: 28px; height: 28px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; font-size: 0.75rem; }
+    .footer-offer { color: #6a6a6a; text-decoration: none; }
+    .footer-offer:hover { color: var(--accent); text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -78,9 +40,29 @@
 <div class="site-header">
   <div class="logo"><a href="index.html">VOICE INSIDE <span>GALAXY</span></a></div>
   <div class="right-group">
-    <button class="header-btn" id="regBtn">РЕГИСТРАЦИЯ</button>
-    <button class="header-btn" id="cartIconBtn">КОРЗИНА <span id="cartCountBadge" class="cart-badge">0</span></button>
-    <div class="burger-btn" id="burgerBtn"><span></span><span></span><span></span></div>
+    <div class="profile-badge" id="profileBadge">
+      <span class="profile-name" id="profileName"></span>
+      <div class="profile-avatar" id="profileAvatar"></div>
+    </div>
+    <button class="icon-btn" id="regBtn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    </button>
+    <div class="cart-icon-wrapper">
+      <button class="icon-btn" id="cartIconBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+      </button>
+      <span class="cart-badge-overlay" id="cartCountBadge">0</span>
+    </div>
+    <div class="burger-btn" id="burgerBtn">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </div>
 
@@ -117,8 +99,6 @@
 <div class="container">
   <div class="docs-page">
     <h1 class="docs-title">Документы <span>и лицензии</span></h1>
-    <p class="docs-subtitle">Официальные документы школы Voice Inside Galaxy</p>
-    
     <div class="docs-list">
       <a href="oferta.docx" class="doc-item" target="_blank" rel="noopener noreferrer">
         <div class="doc-icon">📄</div>
@@ -146,20 +126,52 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  document.getElementById('burgerBtn').onclick = toggleSideMenu;
-  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); toggleCart(); };
-  document.getElementById('closeCartBtn').onclick = closeCart;
-  document.getElementById('regBtn').onclick = openRegModal;
-  document.getElementById('closeModalBtn').onclick = closeRegModal;
-  document.getElementById('checkoutBtn').onclick = () => { if(cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
+  let currentUser = null;
+  function loadUsers() { const users = localStorage.getItem('voiceGalaxyUsers'); return users ? JSON.parse(users) : []; }
+  function saveUsers(users) { localStorage.setItem('voiceGalaxyUsers', JSON.stringify(users)); }
+  function saveCurrentUser(user) { localStorage.setItem('voiceGalaxyCurrentUser', JSON.stringify(user)); currentUser = user; }
+  function loadCurrentUser() { const user = localStorage.getItem('voiceGalaxyCurrentUser'); if (user) { currentUser = JSON.parse(user); updateProfileUI(); } }
+  function updateProfileUI() {
+    const badge = document.getElementById('profileBadge'); const regBtn = document.getElementById('regBtn');
+    if (currentUser) {
+      if (badge) badge.classList.add('show');
+      const nameSpan = document.getElementById('profileName'); const avatarDiv = document.getElementById('profileAvatar');
+      if (nameSpan) nameSpan.innerText = currentUser.name;
+      if (avatarDiv) avatarDiv.innerText = currentUser.name.charAt(0).toUpperCase();
+      if (regBtn) regBtn.style.display = 'none';
+    } else {
+      if (badge) badge.classList.remove('show');
+      if (regBtn) regBtn.style.display = 'flex';
+    }
+  }
+  document.getElementById('burgerBtn').onclick = () => { if (typeof toggleSideMenu === 'function') toggleSideMenu(); };
+  document.getElementById('cartIconBtn').onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
+  document.getElementById('closeCartBtn').onclick = () => { if (typeof closeCart === 'function') closeCart(); };
+  document.getElementById('regBtn').onclick = () => { document.getElementById('regModal').classList.add('active'); };
+  document.getElementById('closeModalBtn').onclick = () => { document.getElementById('regModal').classList.remove('active'); };
+  document.getElementById('checkoutBtn').onclick = () => { if (cart.length === 0) alert('Корзина пуста'); else alert('Спасибо за заказ! Менеджер свяжется с вами.'); };
   document.getElementById('doRegisterBtn').onclick = () => {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
     if (!name || !email || !password) alert('Заполните все поля');
     else if (password.length < 4) alert('Пароль минимум 4 символа');
-    else { alert(`Добро пожаловать, ${name}!`); closeRegModal(); }
+    else {
+      const users = loadUsers();
+      if (users.find(u => u.email === email)) alert('Пользователь с таким email уже существует');
+      else {
+        const newUser = { id: Date.now(), name, email, password, purchasedCourses: [], completedLessons: 0 };
+        users.push(newUser);
+        saveUsers(users);
+        saveCurrentUser(newUser);
+        alert(`Добро пожаловать, ${name}!`);
+        document.getElementById('regModal').classList.remove('active');
+        updateProfileUI();
+      }
+    }
   };
+  loadCurrentUser();
+  if (typeof updateCartUI === 'function') updateCartUI();
 </script>
 </body>
 </html>
