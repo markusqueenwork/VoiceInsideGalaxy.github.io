@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Все курсы — Voice Inside Galaxy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -49,7 +49,7 @@
 
 <main>
 <div class="container">
-  <div class="hero" style="margin-bottom: 40px;">
+  <div class="hero" style="margin-bottom: 20px; padding-top: 70px;">
     <h1>Все <span>курсы</span></h1>
     <p>Выбери направление и уровень подготовки</p>
   </div>
@@ -65,12 +65,12 @@
 <script src="cart.js"></script>
 <script>
   const courses = [
-    {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Полный курс по Ableton Live: интерфейс, запись, аранжировка",cover:"AL2.png",detailCover:"AL.png",duration:"8 часов"},
-    {id:2,name:"Сведение и мастеринг",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Основы сведения и мастеринга для начинающих",cover:"s.png",detailCover:"s2.png",duration:"10 часов"},
-    {id:3,name:"DnB с нуля",level:"beginner",levelName:"НОВИЧОК",price:8000,desc:"Создание drum & bass треков с нуля",cover:"dnb.png",detailCover:"dnb2.png",duration:"12 часов"},
-    {id:4,name:"Hip-hop с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Создание trap, rap и hip-hop битов",cover:"hh.png",detailCover:"hh2.png",duration:"9 часов"},
-    {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн, Melodyne, коррекция и обработка вокала",cover:"at.png",detailCover:"at2.png",duration:"5 часов"},
-    {id:6,name:"Продвинутое сведение и мастеринг",level:"pro",levelName:"ПРОДВИНУТЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",detailCover:"sm2.png",duration:"15 часов"}
+    {id:1,name:"Ableton Live с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Полный курс по Ableton Live: интерфейс, запись, аранжировка",cover:"AL2.png",duration:"8 часов"},
+    {id:2,name:"Сведение и мастеринг",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Основы сведения и мастеринга для начинающих",cover:"s.png",duration:"10 часов"},
+    {id:3,name:"DnB с нуля",level:"beginner",levelName:"НОВИЧОК",price:8000,desc:"Создание drum & bass треков с нуля",cover:"dnb.png",duration:"12 часов"},
+    {id:4,name:"Hip-hop с нуля",level:"beginner",levelName:"НОВИЧОК",price:5000,desc:"Создание trap, rap и hip-hop битов",cover:"hh.png",duration:"9 часов"},
+    {id:5,name:"Коррекция нот вокала",level:"beginner",levelName:"НОВИЧОК",price:3000,desc:"Автотюн, Melodyne, коррекция и обработка вокала",cover:"at.png",duration:"5 часов"},
+    {id:6,name:"Продвинутое сведение и мастеринг",level:"pro",levelName:"ПРОДВИНУТЫЙ",price:10000,desc:"Профессиональные техники сведения и мастеринга",cover:"sm.png",duration:"15 часов"}
   ];
 
   function renderCard(c) {
