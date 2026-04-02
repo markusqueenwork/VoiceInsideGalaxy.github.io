@@ -143,20 +143,21 @@
       margin-top: 4px;
     }
 
-    .cards {
+    .cards, .free-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 28px;
     }
 
     .card {
+      display: flex;
+      flex-direction: column;
       background-color: var(--bg-dark);
       border-radius: var(--border-radius);
-      padding: 28px;
-      border: 1px solid rgba(255, 204, 0, 0.15);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       transition: var(--transition);
       position: relative;
-      overflow: hidden;
     }
 
     .card::before {
@@ -180,6 +181,21 @@
       opacity: 1;
     }
 
+    .card-cover {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      filter: brightness(0.95);
+      border-bottom: 1px solid rgba(255, 204, 0, 0.25);
+    }
+
+    .card-body {
+      padding: 24px;
+      flex: 1;
+    }
+
     .card h3 {
       margin-bottom: 12px;
       font-size: 1.35rem;
@@ -188,7 +204,7 @@
     }
 
     .card p {
-      opacity: 0.8;
+      opacity: 0.85;
       margin-bottom: 16px;
       font-size: 0.95rem;
       line-height: 1.54;
@@ -263,7 +279,7 @@
     }
 
     .faq-item p {
-      opacity: 0.8;
+      opacity: 0.85;
       font-size: 0.95rem;
     }
 
@@ -306,9 +322,9 @@
       color: var(--accent);
     }
 
-    /* отдельные анимации */
+    /* анимации */
     .card {
-      animation: fadeInUpSmall 0.5s forwards;
+      animation: fadeInUpSmall 0.6s forwards;
     }
 
     .card:nth-child(1) { animation-delay: 0s; }
@@ -344,50 +360,72 @@
     <section id="courses">
       <h2 class="section-title">
         Популярные курсы
-        <span>Выбери стиль, который ближе: Synthwave, Liquid, Dubstep, UK‑sound</span>
+        <span>Каждый курс — с фирменной обложкой и готовым визуальным стилем</span>
       </h2>
       <div class="cards">
         <div class="card">
-          <h3>Vocal Inside Synthwave</h3>
-          <p>
-            Научишься обрабатывать вокал под Synthwave и Retrowave: автотюн, модуляции, реверберации и сложные вокальные текстуры без перегруза в миксе.
-          </p>
-          <div class="card-price">3990 ₽</div>
-          <div class="card-footer">
-            <a href="#" class="btn">Подробнее</a>
+          <div class="card-cover" style="
+            background: linear-gradient(45deg, #ffcc00 10%, #202020 60%);
+          "></div>
+          <div class="card-body">
+            <h3>Vocal Inside Synthwave</h3>
+            <p>
+              Научишься обрабатывать вокал под Synthwave и Retrowave: автотюн, модуляции, реверберации и сложные вокальные текстуры без перегруза в миксе.
+            </p>
+            <div class="card-price">3990 ₽</div>
+            <div class="card-footer">
+              <a href="#" class="btn">Подробнее</a>
+            </div>
           </div>
         </div>
 
         <div class="card">
-          <h3>Liquid & D&B Vocal Processing</h3>
-          <p>
-            Работа с вокалом в liquid, dubstep и других тяжёлых электронных стилях: сабтракторы, side‑chain, речь как инструмент и сложные многоголосые аранжировки.
-          </p>
-          <div class="card-price">4500 ₽</div>
-          <div class="card-footer">
-            <a href="#" class="btn">Подробнее</a>
+          <div class="card-cover" style="
+            background: linear-gradient(135deg, #1a1a1a, #202020), url('https://via.placeholder.com/400x300/202020/ffcc00?text=Liquid+Vocals') no-repeat center top;
+            background-size: cover;
+          "></div>
+          <div class="card-body">
+            <h3>Liquid & D&B Vocal Processing</h3>
+            <p>
+              Работа с вокалом в liquid, dubstep и других тяжёлых электронных стилях: сабтракторы, side‑chain, речь как инструмент и сложные многоголосые аранжировки.
+            </p>
+            <div class="card-price">4500 ₽</div>
+            <div class="card-footer">
+              <a href="#" class="btn">Подробнее</a>
+            </div>
           </div>
         </div>
 
         <div class="card">
-          <h3>Мастер‑класс по автотюну и гармонии</h3>
-          <p>
-            Глубокий разбор автотюна, гармонии вокальных линий и использования гармонизаторов в электронной музыке. Практика на реальных треках.
-          </p>
-          <div class="card-price">3200 ₽</div>
-          <div class="card-footer">
-            <a href="#" class="btn">Подробнее</a>
+          <div class="card-cover" style="
+            background: radial-gradient(circle at 50% 40%, #ffcc00 0%, #ffcc00 20%, #202020 100%);
+          "></div>
+          <div class="card-body">
+            <h3>Мастер‑класс по автотюну и гармонии</h3>
+            <p>
+              Глубокий разбор автотюна, гармонии вокальных линий и использования гармонизаторов в электронной музыке. Практика на реальных треках.
+            </p>
+            <div class="card-price">3200 ₽</div>
+            <div class="card-footer">
+              <a href="#" class="btn">Подробнее</a>
+            </div>
           </div>
         </div>
 
         <div class="card">
-          <h3>Как записать вокал в домашней студии</h3>
-          <p>
-            Практика записи вокала без студии: выбор микрофона, обработка комнаты, подготовка певца и подготовка к сведению.
-          </p>
-          <div class="card-price">3490 ₽</div>
-          <div class="card-footer">
-            <a href="#" class="btn">Подробнее</a>
+          <div class="card-cover" style="
+            background: linear-gradient(90deg, #1a1a1a, #202020) url('https://via.placeholder.com/400x300/202020/ffcc00?text=Home+Studio+Vocals') no-repeat center top;
+            background-size: cover;
+          "></div>
+          <div class="card-body">
+            <h3>Как записать вокал в домашней студии</h3>
+            <p>
+              Практика записи вокала без студии: выбор микрофона, обработка комнаты, подготовка певца и подготовка к сведению.
+            </p>
+            <div class="card-price">3490 ₽</div>
+            <div class="card-footer">
+              <a href="#" class="btn">Подробнее</a>
+            </div>
           </div>
         </div>
       </div>
@@ -396,69 +434,27 @@
     <section id="free">
       <h2 class="section-title">
         Бесплатные уроки
-        <span>Стартуй без вложений и пойми, как ты будешь работать с вокалом</span>
+        <span>Мини‑курсы с обложками‑превью для старта</span>
       </h2>
-      <div class="cards">
+      <div class="free-cards">
         <div class="card">
-          <h3>Как слышать вокал в миксе</h3>
-          <p>Учимся выделять вокал в плотном миксе и понимать, какие частоты «забивают» голос. Практические примеры из реальных треков.</p>
-          <a href="#" class="btn">Открыть</a>
+          <div class="card-cover" style="
+            background: linear-gradient(45deg, #1a1a1a, #202020), url('https://via.placeholder.com/400x300/202020/ffcc00?text=Hear+Vocals') no-repeat center top;
+            background-size: cover;
+          "></div>
+          <div class="card-body">
+            <h3>Как слышать вокал в миксе</h3>
+            <p>Учимся выделять вокал в плотном миксе и понимать, какие частоты «забивают» голос. Практические примеры из реальных треков.</p>
+            <a href="#" class="btn">Открыть</a>
+          </div>
         </div>
 
         <div class="card">
-          <h3>Базовый автотюн для начинающих</h3>
-          <p>Простые шаги настройки автотюна и типичные ошибки при работе с вокалом. Покажем, как избежать звкулки.</p>
-          <a href="#" class="btn">Открыть</a>
-        </div>
-
-        <div class="card">
-          <h3>Шаблон вокала в Ableton</h3>
-          <p>Готовый шаблон проекта для работы с вокалами в Ableton Live: цепочка синтов, эффекторов и макросов под твой стиль.</p>
-          <a href="#" class="btn">Скачать</a>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">
-        Как проходит обучение
-        <span>Структура курсов, домашние задания и поддержка</span>
-      </h2>
-      <div class="steps">
-        <div class="step">
-          <h3>1. Выбираешь курс</h3>
-          <p>Подбираешь подходящий курс по уровню и жанру: synthwave, liquid, dubstep, UK‑sound, Lo‑Fi и другие стили.</p>
-        </div>
-
-        <div class="step">
-          <h3>2. Покупаешь и заходишь в кабинет</h3>
-          <p>Оплачиваешь и получаешь доступ к видеоурокам, проектам DAW, пресетам и чек‑листам прямо в личном кабинете.</p>
-        </div>
-
-        <div class="step">
-          <h3>3. Следуешь по шагам и выполняешь задания</h3>
-          <p>Проходишь курс по модулям, делаешь домашние задания и отправляешь свои треки на обратную связь.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Частые вопросы</h2>
-      <div class="faq">
-        <div class="faq-item">
-          <h4>Есть ли рассрочка за обучение?</h4>
-          <p>Да, доступна оплата по частям для некоторых курсов через партнёрские сервисы.</p>
-        </div>
-
-        <div class="faq-item">
-          <h4>Я не вокалист, подойдёт ли мне курс?</h4>
-          <p>Да. Курсы ориентированы на продюсеров и саунд‑дизайнеров, которые работают с вокалом, даже если сами не поют.</p>
-        </div>
-
-        <div class="faq-item">
-          <h4>Нужна ли DAW и какая именно?</h4>
-          <p>Для большинства курсов подойдут Ableton Live, FL Studio или любой другой DAW. Часть материалов делается в Ableton.</p>
-        </div>
-
-        <div class="faq-item">
-          <h4>Какой доступ к материалам?</h
+          <div class="card-cover" style="
+            background: linear-gradient(45deg, #202020, #1a1a1a), url('https://via.placeholder.com/400x300/202020/ffcc00?text=Basic+AutoTune') no-repeat center top;
+            background-size: cover;
+          "></div>
+          <div class="card-body">
+            <h3>Базовый автотюн для начинающих</h3>
+            <p>Простые шаги настройки автотюна и типичные ошибки при работе с вокалом. Покажем, как избежать звкулки.</p>
+            <
