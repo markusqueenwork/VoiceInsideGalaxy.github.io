@@ -137,9 +137,8 @@
   <ul class="menu-list">
     <li><a href="index.html">ГЛАВНАЯ</a></li>
     <li><a href="courses.html">ВСЕ КУРСЫ</a></li>
-    <li><a href="index.html#info">ИНФОРМАЦИЯ</a></li>
-    <li><a href="index.html#socials">СОЦ СЕТИ</a></li>
-    <li><a href="index.html#docs">ДОКУМЕНТЫ</a></li>
+    <li><a href="socials.html">СОЦ СЕТИ</a></li>
+    <li><a href="docs.html">ДОКУМЕНТЫ</a></li>
   </ul>
   <div style="margin-top: 40px; font-size: 11px; color: #444;">© 2025</div>
 </div>
@@ -177,10 +176,10 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  // ДАННЫЕ КУРСОВ С МОДУЛЯМИ (полная копия)
+  // ДАННЫЕ КУРСОВ С МОДУЛЯМИ (используем detailCover для детальной страницы)
   const coursesData = [
     {
-      id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900,
+      id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 5000,
       desc: "Полный курс по Ableton Live: интерфейс, запись, аранжировка, эффекты",
       cover: "AL.png", duration: "8 часов",
       modules: [
@@ -190,9 +189,9 @@
       ]
     },
     {
-      id: 2, name: "Сведение и мастеринг", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 6900,
-      desc: "Профессиональное сведение треков, работа с динамикой и частотным балансом",
-      cover: null, duration: "12 часов",
+      id: 2, name: "Сведение и мастеринг", level: "beginner", levelName: "НОВИЧОК", price: 5000,
+      desc: "Основы сведения и мастеринга для начинающих",
+      cover: "s2.png", duration: "10 часов",
       modules: [
         { name: "Модуль 1: Баланс и панорама", lessons: ["Громкостной баланс", "Панорамирование", "Проверка моно-совместимости"] },
         { name: "Модуль 2: Частотная обработка", lessons: ["Эквалайзинг", "Убираем резонансы", "Создание пространства"] },
@@ -200,55 +199,53 @@
       ]
     },
     {
-      id: 3, name: "Продакшн Techno", level: "intermediate", levelName: "ОПЫТНЫЙ", price: 5900,
-      desc: "Создание драйвовых техно-треков, работа с драм-машинами и синтезаторами",
-      cover: null, duration: "10 часов",
+      id: 3, name: "DnB с нуля", level: "beginner", levelName: "НОВИЧОК", price: 8000,
+      desc: "Создание drum & bass треков с нуля",
+      cover: "dnb2.png", duration: "12 часов",
       modules: [
-        { name: "Модуль 1: Барабаны и ритм", lessons: ["Создание kick и bass", "Паттерны для техно", "Работа с драм-машинами"] },
-        { name: "Модуль 2: Синтез и текстуры", lessons: ["Создание bassline", "Эволюция синтезатора", "Шумы и атмосфера"] },
-        { name: "Модуль 3: Аранжировка", lessons: ["Структура трека", "Автоматизации", "Финальная полировка"] }
+        { name: "Модуль 1: Барабаны и ритм", lessons: ["Создание breakbeat", "Паттерны для DnB", "Работа с сэмплами"] },
+        { name: "Модуль 2: Бас и синтез", lessons: ["Создание reese bass", "Модуляция", "Эволюция баса"] },
+        { name: "Модуль 3: Аранжировка", lessons: ["Структура DnB трека", "Автоматизации", "Эффекты и переходы"] }
       ]
     },
     {
-      id: 4, name: "Вокал в электронике", level: "beginner", levelName: "НОВИЧОК", price: 4500,
-      desc: "Техники вокала для house, techno, synthwave",
-      cover: null, duration: "6 часов",
+      id: 4, name: "Hip-hop с нуля", level: "beginner", levelName: "НОВИЧОК", price: 5000,
+      desc: "Создание trap, rap и hip-hop битов",
+      cover: "hh2.png", duration: "9 часов",
       modules: [
-        { name: "Модуль 1: Подготовка голоса", lessons: ["Распевки и дыхание", "Микрофонная техника", "Защита голоса"] },
-        { name: "Модуль 2: Обработка вокала", lessons: ["Pitch-коррекция", "Эффекты для электронного вокала", "Вокальные chops"] },
-        { name: "Модуль 3: Работа в треке", lessons: ["Запись для клубного трека", "Вокальные сэмплы"] }
+        { name: "Модуль 1: Барабаны", lessons: ["Trap драм-паттерны", "Бум-бэп ритмы", "Работа с 808"] },
+        { name: "Модуль 2: Мелодии и семплы", lessons: ["Создание мелодий", "Работа с семплами", "Атмосфера"] },
+        { name: "Модуль 3: Аранжировка", lessons: ["Структура бита", "Вокальные вставки", "Финальный микс"] }
       ]
     },
     {
-      id: 5, name: "Звуковой дизайн", level: "pro", levelName: "ПРОФИ", price: 8900,
-      desc: "Создание уникальных звуков с нуля, синтез, сэмплирование",
-      cover: null, duration: "14 часов",
+      id: 5, name: "Коррекция нот вокала", level: "beginner", levelName: "НОВИЧОК", price: 3000,
+      desc: "Автотюн, Melodyne, коррекция и обработка вокала",
+      cover: "at2.png", duration: "5 часов",
       modules: [
-        { name: "Модуль 1: Основы синтеза", lessons: ["Субтрактивный синтез", "FM-синтез", "Wavetable и гранулярный синтез"] },
-        { name: "Модуль 2: Создание патчей", lessons: ["Басы", "Лиды", "Пэды"] },
-        { name: "Модуль 3: Эффекты", lessons: ["Ревёрс и глитч", "Создание переходов", "Уникальные эффекты"] }
+        { name: "Модуль 1: Auto-Tune", lessons: ["Настройка Auto-Tune", "Коррекция нот", "Эффект T-Pain"] },
+        { name: "Модуль 2: Melodyne", lessons: ["Импорт аудио", "Ручная коррекция", "Создание гармоний"] },
+        { name: "Модуль 3: Обработка", lessons: ["Вокальные эффекты", "Сведение вокала", "Экспорт"] }
       ]
     },
     {
-      id: 6, name: "FL Studio с нуля", level: "beginner", levelName: "НОВИЧОК", price: 4900,
-      desc: "Полное руководство по FL Studio для начинающих продюсеров",
-      cover: null, duration: "7 часов",
+      id: 6, name: "Продвинутое сведение и мастеринг", level: "pro", levelName: "ПРОДВИНУТЫЙ", price: 10000,
+      desc: "Профессиональные техники сведения и мастеринга",
+      cover: "sm2.png", duration: "15 часов",
       modules: [
-        { name: "Модуль 1: Интерфейс", lessons: ["Step Sequencer и Piano Roll", "Playlist и микшер", "Браузер"] },
-        { name: "Модуль 2: Создание бита", lessons: ["Драм-паттерны", "Мелодии", "Аранжировка"] },
-        { name: "Модуль 3: Микширование", lessons: ["Эффекты и автоматизация", "Отправка на эффекты", "Экспорт"] }
+        { name: "Модуль 1: Продвинутый баланс", lessons: ["Многодорожечная компрессия", "Параллельная обработка", "Mid/Side техники"] },
+        { name: "Модуль 2: Частотный анализ", lessons: ["Спектроанализ", "Маскировка частот", "Продвинутый EQ"] },
+        { name: "Модуль 3: Мастеринг", lessons: ["Мастеринг-цепочка", "Лимитинг", "Финальная проверка"] }
       ]
     }
   ];
 
-  // Получение ID из URL
   function getCourseId() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     return id ? parseInt(id) : null;
   }
 
-  // Отрисовка детальной страницы
   function renderCourseDetail() {
     const courseId = getCourseId();
     const container = document.getElementById('courseDetail');
@@ -269,8 +266,7 @@
     
     let coverHtml = '';
     if (course.cover) {
-      coverHtml = `<img class="course-detail-cover" src="${course.cover}" alt="${course.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">`;
-      coverHtml += `<div style="display:none; background:#1a1a1a; height:300px; align-items:center; justify-content:center; border-radius:var(--radius); margin-bottom:24px;">🎧 ${course.name}</div>`;
+      coverHtml = `<img class="course-detail-cover" src="${course.cover}" alt="${course.name}" onerror="this.style.display='none'">`;
     } else {
       coverHtml = '<div style="background:#1a1a1a; height:300px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius); margin-bottom:24px;">🎧 Курс</div>';
     }
@@ -319,15 +315,10 @@
     }
   }
 
-  // Обработчики для хедера
   document.addEventListener('DOMContentLoaded', () => {
-    // Инициализация корзины
     if (typeof updateCartUI === 'function') updateCartUI();
-    
-    // Рендер курса
     renderCourseDetail();
     
-    // Обработчики кнопок
     const burgerBtn = document.getElementById('burgerBtn');
     const cartIconBtn = document.getElementById('cartIconBtn');
     const closeCartBtn = document.getElementById('closeCartBtn');
@@ -339,7 +330,7 @@
     if (burgerBtn) burgerBtn.onclick = toggleSideMenu;
     if (cartIconBtn) cartIconBtn.onclick = (e) => { e.stopPropagation(); if (typeof toggleCart === 'function') toggleCart(); };
     if (closeCartBtn) closeCartBtn.onclick = () => { if (typeof closeCart === 'function') closeCart(); };
-    if (regBtn) regBtn.onclick = () => { if (typeof openRegModal === 'function') openRegModal(); };
+        if (regBtn) regBtn.onclick = () => { if (typeof openRegModal === 'function') openRegModal(); };
     if (closeModalBtn) closeModalBtn.onclick = () => { if (typeof closeRegModal === 'function') closeRegModal(); };
     if (checkoutBtn) {
       checkoutBtn.onclick = () => { 
