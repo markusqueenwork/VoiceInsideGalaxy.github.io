@@ -68,7 +68,7 @@
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--accent);
-      background: radial-gradient(50% 50% at 51% 50%, #ffcc00 0%, #ffcc00 50%, #000 100%);
+      background: radial-gradient(50% 50% at 51% 50%, #ffcc0elda 30%, #000 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -480,6 +480,61 @@
       }
     }
 
+    /* корзина */
+    .mini-cart {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      background-color: var(--bg-dark);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .mini-cart.open {
+      display: block;
+    }
+
+    .mini-cart-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .mini-cart-close {
+      background: none;
+      border: none;
+      color: #ccc;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .mini-cart-course {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.95rem;
+    }
+
+    .mini-cart-course-price {
+      margin-top: 4px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .mini-cart-total {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      font-weight: 600;
+      text-align: right;
+    }
+
     /* модальное окно регистрации / входа */
     .modal-overlay {
       position: fixed;
@@ -502,50 +557,4 @@
       background-color: var(--bg-dark);
       border-radius: 16px;
       padding: 32px 28px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-      max-width: 420px;
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .modal-title {
-      margin-bottom: 16px;
-      color: var(--accent);
-      font-size: 1.3rem;
-    }
-
-    .modal-tabs {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .tab {
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .tab.active {
-      background: var(--accent);
-      color: #000;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.95rem;
-      opacity: 0.8;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-     
+      box-shadow: 0 16px 4
