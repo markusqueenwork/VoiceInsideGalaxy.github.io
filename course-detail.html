@@ -177,7 +177,6 @@
 <script src="script.js"></script>
 <script src="cart.js"></script>
 <script>
-  // ДАННЫЕ КУРСОВ С МОДУЛЯМИ (используем detailCover для детальной страницы)
   const coursesData = [
     {
       id: 1, name: "Ableton Live с нуля", level: "beginner", levelName: "НОВИЧОК", price: 5000,
@@ -230,7 +229,7 @@
       ]
     },
     {
-      id: 6, name: "Продвинутое сведение и мастеринг", level: "pro", levelName: "ПРОДВИНУТЫЙ", price: 10000,
+      id: 6, name: "Продвинутое сведение", level: "pro", levelName: "ПРОДВИНУТЫЙ", price: 10000,
       desc: "Профессиональные техники сведения и мастеринга",
       cover: "sm2.png", duration: "15 часов",
       modules: [
@@ -316,7 +315,6 @@
     }
   }
 
-  // Обработчики
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof updateCartUI === 'function') updateCartUI();
     renderCourseDetail();
